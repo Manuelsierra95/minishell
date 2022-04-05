@@ -1,6 +1,16 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+
+typedef struct s_tree
+{
+	char			*string; // todo el string de info
+	struct s_tree	*left; // aqui ira la info del comando
+	struct s_tree	*right; // aqui iran los pipes y se ira ramificando en funcion del numOfPipes
+} t_tree;
 
 typedef struct s_cmd
 {
@@ -31,6 +41,7 @@ typedef struct s_dataInfo
 	char	*errFile;
 	char	**env; // Si nos la borran la guardamos en la data
 	char	**path;
+	char	**env;
 
 
 } t_dataInfo;
