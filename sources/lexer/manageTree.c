@@ -1,6 +1,3 @@
-// https://parzibyte.me/blog/2021/01/13/c-arbol-binario-cadenas/
-
-
 #include "../../includes/minishell.h"
 
 
@@ -11,8 +8,8 @@ t_tree	*newNode(char *string) // Para cada ejecucion de una linea de comandos
     node = (t_tree *) malloc(sizeof(t_tree));
 	if (!node)
 		return (NULL);
-    strcpy(node->string, string);
-	node->left = cmd; // Hay que ir metiendo los cmds
+	node->cmd = string;
+	node->left = NULL; // Hay que ir metiendo los cmds
     node->right = NULL;
     return node;
 }
@@ -37,24 +34,25 @@ void	addCmd(t_tree *node, t_dataInfo data, char *string)
 	}
 }
 
-void	loopCmd(t_tree *node, t_dataInfo data, char *string) // O metemos un loop o lo hacemos todo en el arbol
+void	loopCmd(char *argv, t_tree *node, t_dataInfo *data)
 {
-	int		i;
-	int		j;
-	char	tok;
+	int	i;
+	int	flag;
 
 	i = 0;
-	j = 0;
-	while (string[i])
+	flag = 0;
+	if (!argv)
+		errormsg(-1);
+	while (argv[i])
 	{
-		if (string[i] == '|')
+		if (argv[i] >= 'a' && argv[i] <= 'z')
 		{
-			tok = ft_substr(string, j, i);
-			// Podemos tratar el string para separar los cmds y enviarlos como nodo, o 
-			// tratarlos en la funcion del nodo y separarlo ahi
-			addCmd(node, data, tok);
-			j = i + 1;
+			flag = 1;
+			break ;
 		}
 		i++;
 	}
+	if (flag == 0)
+		errormsg(-1);
+	addCmd(node, data, ft_split(argv, ' '));
 }

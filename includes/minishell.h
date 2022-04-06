@@ -7,14 +7,14 @@
 
 typedef struct s_tree
 {
-	char			*string; // todo el string de info
+	char			*cmd;
 	struct s_tree	*left; // aqui ira la info del comando
 	struct s_tree	*right; // aqui iran los pipes y se ira ramificando en funcion del numOfPipes
 } t_tree;
 
 typedef struct s_cmd
 {
-	char			*cmd[2]; // Si solo hay 1 cmd el 2 es NULL (hay que rellenarlo);
+	char			**cmd;
 	struct s_cmd	*next;
 	
 
@@ -39,12 +39,21 @@ typedef struct s_dataInfo
 	char	*outFile;
 	char	*inFile; // Implementar el GNL (Ver errores que pueda haber en los infiles)
 	char	*errFile;
-	char	**env; // Si nos la borran la guardamos en la data
-	char	**path;
-	char	**env;
-
-
 } t_dataInfo;
+
+typedef struct s_exec
+{
+	struct	s_dataInfo	*dataInfo;
+} t_exec;
+
+typedef struct s_minishell
+{
+	char	**env;
+	char	**path;
+	// historial
+	// dataInfo
+	// exeInfo
+} t_minishell;
 
 
 
