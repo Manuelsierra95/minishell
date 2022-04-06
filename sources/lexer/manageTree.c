@@ -19,7 +19,7 @@ t_tree	*newNode(char *string) // Para cada ejecucion de una linea de comandos
 
 void	addCmd(t_tree *node, t_dataInfo data, char *string)
 {
-    if (data->numOfPipes > 0)
+    if (data->numOfPipes) // Si existen pipes, ramificamos la derecha y metemos los cmd en la izquierda
     {
         if (node->right == NULL)
         {
@@ -29,10 +29,15 @@ void	addCmd(t_tree *node, t_dataInfo data, char *string)
         {
             addCmd(node->right, string); // Recursividad si esta ocupado el lugar para que pase al siguiente nodo
         }
+		data->numOfPipes--;
     }
+	else
+	{
+		// Si no existen pipes, directamente se ejecuta
+	}
 }
 
-void	loopCmd(t_tree *node, t_dataInfo data, char *string)
+void	loopCmd(t_tree *node, t_dataInfo data, char *string) // O metemos un loop o lo hacemos todo en el arbol
 {
 	int		i;
 	int		j;
@@ -45,6 +50,8 @@ void	loopCmd(t_tree *node, t_dataInfo data, char *string)
 		if (string[i] == '|')
 		{
 			tok = ft_substr(string, j, i);
+			// Podemos tratar el string para separar los cmds y enviarlos como nodo, o 
+			// tratarlos en la funcion del nodo y separarlo ahi
 			addCmd(node, data, tok);
 			j = i + 1;
 		}
