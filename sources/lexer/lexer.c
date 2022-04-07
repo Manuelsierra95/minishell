@@ -37,7 +37,6 @@ t_token	new_token(char *input)
 	// printf("input: %s\tsize: %zu\n", input, ft_strlen(input));
 	while (input[++i])
 	{
-		printf("input: %c\n\n", input[i]);
 		if (input[i] == ' ')
 			i++;
 		else if (ft_isalpha(input[i]) || input[i] == '"')
@@ -57,7 +56,6 @@ t_token	new_token(char *input)
 		}
 		// printf("Data: %s\n", token[index].data);
 	}
-	printf("new: %s\n", new.data);
 	return (new);
 }
 
@@ -67,14 +65,12 @@ t_token	*lexer(int argc, char **argv)
 	int		index;
 	t_token	*token;
 
+	token = malloc(sizeof(t_token));
 	i = 1;
 	index = 0;
 	while (i < argc)
 	{
-		printf("Uno\n");
 		token[index] = new_token(argv[i]);
-		write(1, "Dos\n", 4);
-		printf("token: %s\n", token[index].data);
 		index++;
 		i++;
 	}
