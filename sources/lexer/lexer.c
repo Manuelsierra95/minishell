@@ -4,7 +4,7 @@ t_token	token_word(char *input)
 {
 	t_token	new;
 
-	if (check_cmd(input) == 1)
+	if (check_cmd(input) == 0)
 	{
 		new.type = T_CMD;
 		new.data = input;
@@ -65,7 +65,7 @@ t_token	*lexer(int argc, char **argv)
 	int		index;
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
+	token = malloc(sizeof(t_token) + 1);
 	i = 1;
 	index = 0;
 	while (i < argc)

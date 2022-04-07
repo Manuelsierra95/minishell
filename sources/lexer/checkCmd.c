@@ -5,10 +5,7 @@ int	check_cmd(char *input)
 	int i;
 
 	i = access(input, X_OK);
-	if (i == 0)
-		return (1);
-	else
-		return (-1);
+	return (i);
 }
 
 // char	*checkAccess(t_dataInfo *data)
