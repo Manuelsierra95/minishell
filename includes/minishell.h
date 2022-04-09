@@ -5,6 +5,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 
 
 typedef struct s_tree
@@ -34,21 +36,17 @@ typedef struct s_dataCmd
 } t_dataCmd;
 
 // Cojemos todos los cmds sacados de la anterior struct y los contabilizamos en esta struct
-typedef struct s_dataInfo
+typedef struct s_shell
 {
-	int		numOfCmd;
-	int		numOfPipes;
-	char	*outFile;
-	char	*inFile; // Implementar el GNL (Ver errores que pueda haber en los infiles)
-	char	*errFile;
 	char	**env; // Si nos la borran la guardamos en la data
-	char	**path;
-	//char	**env;
-}	t_dataInfo;
+	int		exit;
+	int		ret;
+}	t_shell;
 
 /* UTILS */
 
 void	ft_putendl_fd(char *s, int fd);
+void	ft_putstr_fd(char *s, int fd);
 
 /* BUILTINS */
 
