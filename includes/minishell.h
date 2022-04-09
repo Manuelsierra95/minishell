@@ -4,6 +4,8 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <limits.h>
+
 
 typedef struct s_tree
 {
@@ -41,16 +43,15 @@ typedef struct s_dataInfo
 	char	*errFile;
 	char	**env; // Si nos la borran la guardamos en la data
 	char	**path;
-	char	**env;
+	//char	**env;
+}	t_dataInfo;
 
+/* UTILS */
 
-} t_dataInfo;
+void	ft_putendl_fd(char *s, int fd);
 
+/* BUILTINS */
 
-
-
-
-
-
+int		ft_pwd(void);
 
 #endif
