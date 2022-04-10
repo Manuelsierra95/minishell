@@ -40,8 +40,22 @@ int	ft_atoi(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		nbr = nbr * 10;
-		nbr = nbr + (str[→] - '0');
+		nbr = nbr + (str[i] - '0');
 		i++;
 	}
 	return (ft_ismax(sign, nbr));
+}
+
+int	ft_isnum(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] > '9' || s[i] < '0')
+			return (0);
+		i++;
+	}
+	return (1);
 }

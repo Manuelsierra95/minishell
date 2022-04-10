@@ -5,9 +5,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-
+# include "/usr/include/readline/history.h"
+# include "/usr/include/readline/readline.h"
 
 typedef struct s_tree
 {
@@ -16,13 +15,11 @@ typedef struct s_tree
 	struct s_tree	*right; // aqui iran los pipes y se ira ramificando en funcion del numOfPipes
 } t_tree;
 
-typedef struct s_cmd
+typedef struct s_env   /* Estructura del entorno */
 {
-	char			*cmd[2]; // Si solo hay 1 cmd el 2 es NULL (hay que rellenarlo);
-	struct s_cmd	*next;
-	
-
-} t_cmd;
+	char			*content;
+	struct s_env	*next;
+}	t_env;
 
 
 // Sacamos todos los argumentos y los separamos en comandos simples
@@ -35,21 +32,28 @@ typedef struct s_dataCmd
 	// Control de argumentos separados
 } t_dataCmd;
 
-// Cojemos todos los cmds sacados de la anterior struct y los contabilizamos en esta struct
 typedef struct s_shell
 {
-	char	**env; // Si nos la borran la guardamos en la data
-	int		exit;
-	int		ret;
+	struct s_env	*env;
+	int				exit;
+	int				ret;
 }	t_shell;
 
 /* UTILS */
 
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putstr_fd(char *s, int fd);
+int		ft_atoi(const char *s);
+int		ft_isnum(const char *s);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strdup(const char *s);
+char	**ft_split(const char *s, char c);
 
 /* BUILTINS */
 
 int		ft_pwd(void);
+void	ft_exit(char **argv, t_shell *shell);
+t_env	*get_env(char **arg); /* Pasa entorno de char ** a t_env */
+int		ft_env(t_env *env);
 
 #endif

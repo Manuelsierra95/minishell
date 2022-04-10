@@ -12,7 +12,13 @@
 
 NAME		= 	minishell
 
-SRCS		=	./	\
+BUILTINS	=	pwd exit env
+
+UTILS		=	fd_tools ft_atoi str_tools ft_split
+
+SRCS		=	$(addsuffix .c, $(addprefix sources/builtins/, $(BUILTINS)))  \
+					$(addsuffix .c, $(addprefix sources/utils/, $(UTILS)))	\
+					main.c
 
 PINK = \033[1;35m
 GREEN = \033[1;32m
@@ -27,12 +33,12 @@ RM		= rm -rf
 
 AR		= ar rcs
 
-CFLAGS 	= -Wall -Werror -Wextra
+CFLAGS 	= -Wall -Werror -Wextra -I includes/
 
 all	:		$(NAME)
 
 $(NAME)	:	start $(OBJS)
-			@$(CC) $(OBJS) -o $(NAME)
+			@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lreadline
 			@echo "$(RESET)Done"
 			@echo "$(GREEN)==========WELLDONE==========$(RESET)"
 			@echo "Success creating $(NAME) file"
