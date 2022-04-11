@@ -1,24 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
+/*   Updated: 2022/04/11 18:37:53 by msierra-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "./lexer.h"
+# include "./parser.h"
+# include "./builtins.h"
+
+
 # include <stdio.h>
-# include <unistd.h>
+# include <errno.h>
 # include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
+# include <readline/readline.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <unistd.h>
+# include <readline/history.h>
+# include <limits.h>
 
-typedef struct s_tree
+typedef struct s_env   /* Estructura del entorno */
 {
-	char			*cmd;
-	struct s_tree	*left; // aqui ira la info del comando
-	struct s_tree	*right; // aqui iran los pipes y se ira ramificando en funcion del numOfPipes
-} t_tree;
-
-typedef struct s_cmd
-{
-	char			**cmd;
-	struct s_cmd	*next;
-	
-
-} t_cmd;
+	char			*content;
+	struct s_env	*next;
+}	t_env;
 
 
 // Sacamos todos los argumentos y los separamos en comandos simples
@@ -31,35 +50,27 @@ typedef struct s_dataCmd
 	// Control de argumentos separados
 } t_dataCmd;
 
-// Cojemos todos los cmds sacados de la anterior struct y los contabilizamos en esta struct
-typedef struct s_dataInfo
+typedef struct s_shell
 {
-	int		numOfCmd;
-	int		numOfPipes;
-	char	*outFile;
-	char	*inFile; // Implementar el GNL (Ver errores que pueda haber en los infiles)
-	char	*errFile;
-} t_dataInfo;
+	int				numOfCmd;
+	int				numOfPipes;
+	char			*outFile;
+	char			*inFile; // Implementar el GNL (Ver errores que pueda haber en los infiles)
+	char			*errFile;
+	struct s_env	*env;
+	int				exit;
+	int				ret;
+}	t_shell;
 
-typedef struct s_exec
-{
-	struct	s_dataInfo	*dataInfo;
-} t_exec;
+/* UTILS */
 
-typedef struct s_minishell
-{
-	char	**env;
-	char	**path;
-	// historial
-	// dataInfo
-	// exeInfo
-} t_minishell;
-
-
-
-
-
-
+void	ft_putendl_fd(char *s, int fd);
+void	ft_putstr_fd(char *s, int fd);
+int		ft_atoi(const char *s);
+int		ft_isnum(const char *s);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strdup(const char *s);
+char	**ft_split(const char *s, char c);
 
 
 #endif
