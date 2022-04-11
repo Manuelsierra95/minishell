@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
+/*   Updated: 2022/04/11 18:11:48 by mbarylak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -5,8 +17,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
-# include "/usr/include/readline/history.h"
-# include "/usr/include/readline/readline.h"
+# include "readline/history.h"
+# include "readline/readline.h"
 
 typedef struct s_tree
 {
@@ -53,7 +65,7 @@ char	**ft_split(const char *s, char c);
 
 int		ft_pwd(void);
 void	ft_exit(char **argv, t_shell *shell);
-t_env	*get_env(char **arg); /* Pasa entorno de char ** a t_env */
+t_env	*env_to_lst(char **arg); /* Pasa entorno de char ** a t_env */
 int		ft_env(t_env *env);
 
 #endif
