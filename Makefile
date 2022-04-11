@@ -6,15 +6,17 @@
 #    By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 14:59:23 by msierra-          #+#    #+#              #
-#    Updated: 2022/02/24 15:21:21 by msierra-         ###   ########.fr        #
+#    Updated: 2022/04/11 18:14:05 by mbarylak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= 	minishell
 
-BUILTINS	=	pwd exit env
+BUILTINS	=	pwd exit env echo
 
-UTILS		=	fd_tools ft_atoi str_tools ft_split
+UTILS		=	fd_tools atoi str_tools split
+
+##LEXER##
 
 SRCS		=	$(addsuffix .c, $(addprefix sources/builtins/, $(BUILTINS)))  \
 					$(addsuffix .c, $(addprefix sources/utils/, $(UTILS)))	\
