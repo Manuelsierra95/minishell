@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/12 09:57:34 by msierra-          #+#    #+#             */
-/*   Updated: 2021/09/18 16:59:27 by msierra-         ###   ########.fr       */
+/*   Created: 2021/09/13 17:01:19 by mbarylak          #+#    #+#             */
+/*   Updated: 2021/09/23 19:36:39 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_isprint(int c)
 {
-	size_t	n;
-
-	n = 0;
-	while (s[n])
-	{
-		n++;
-	}
-	return (n);
+	return (c >= ' ' && c <= '~');
 }

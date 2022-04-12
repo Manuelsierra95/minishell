@@ -2,36 +2,43 @@
 
 int	check_cmd(char *input)
 {
-	int i;
+	int flag;
 
-	i = access(input, X_OK);
-	return (i);
+	flag = access(input, X_OK);
+	if (flag == 0)
+		return (1);
+	// else
+	// 	// Error
+	return (0);
 }
 
-// char	*checkAccess(t_dataInfo *data)
-// {
-// 	int		flag;
-// 	int		i;
-// 	char	*path;
+int	check_access(t_dataCmd *data, char *input)
+{
+	int		flag;
+	int		i;
+	char	*cmd;
 
-// 	i = 0;
-// 	if (ft_strchr(data->cmd[0], '/'))
-// 	{
-// 		if (checkCmd(data))
-// 		{
-// 			path = data->cmd[0];
-// 			return (path);
-// 		}
-// 	}
-// 	while (data->path[i] && data->env != NULL)
-// 	{
-// 		path = ft_strjoin(data->path[i], data->cmd[0]);
-// 		flag = access(path, X_OK);
-// 		if (flag == 0)
-// 			return (path);
-// 		i++;
-// 	}
-// 	if (flag == -1)
-// 		ft_errormsg(flag);
-// 	return (0);
-// }
+	i = 0;
+	if (ft_strchr(input, '/'))
+	{
+		if (check_cmd(input))
+		{
+			data->cmd = input;
+			return (1);
+		}
+	}
+	while (data->path[i] && data->env != NULL)
+	{
+		cmd = ft_strjoin(data->path[i], input);
+		flag = access(cmd, X_OK);
+		if (flag == 0)
+		{
+			data->cmd = cmd;
+			return (1);
+		}
+		i++;
+	}
+	// if (flag == -1)
+	// 	// Error
+	return (0);
+}

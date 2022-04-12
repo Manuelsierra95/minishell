@@ -4,16 +4,16 @@
 #include "../../includes/minishell.h"
 
 
-t_tree	*newNode(char *str1, char *str2) // Para cada ejecucion de una linea de comandos
+t_tree	*newNode(char *data, int type) // Para cada ejecucion de una linea de comandos
 {
 	t_tree	*node;
 
     node = (t_tree *) malloc(sizeof(t_tree));
 	if (!node)
 		return (NULL);
-	node->cmd;
-	node->right = str1; // Hay que ir metiendo los cmds
-    node->left = str2;
+	node->node;
+	node->right = NULL; // Hay que ir metiendo los cmds
+    node->left = NULL;
     return node;
 }
 
@@ -61,11 +61,11 @@ void	loopCmd(t_tree *node, t_dataInfo data, char *str) // O metemos un loop o lo
 	}
 }
 
-int	main(int argc, char **argv)
+/*int	main(int argc, char **argv)
 {
 	// t_tree		*node;
 	// t_dataInfo	*data;
 
 	// loopCmd(node, data, str);
 
-}
+}*/

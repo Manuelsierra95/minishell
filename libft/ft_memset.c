@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/13 13:42:40 by msierra-          #+#    #+#             */
-/*   Updated: 2021/09/18 17:01:17 by msierra-         ###   ########.fr       */
+/*   Created: 2021/09/13 17:17:43 by mbarylak          #+#    #+#             */
+/*   Updated: 2021/09/23 19:37:03 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-int	ft_isalpha(int c)
+void	*ft_memset(void *str, int c, size_t len)
 {
-	int	a;
+	unsigned int	i;
 
-	a = 0;
-	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
-		a = 1;
-	return (a);
+	i = 0;
+	while (i < len)
+	{
+		((unsigned char *) str)[i] = c;
+		i++;
+	}
+	return (str);
 }

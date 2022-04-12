@@ -3,35 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/16 11:03:17 by msierra-          #+#    #+#             */
-/*   Updated: 2021/09/20 13:22:19 by msierra-         ###   ########.fr       */
+/*   Created: 2021/09/16 16:44:01 by mbarylak          #+#    #+#             */
+/*   Updated: 2021/09/17 12:46:46 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
-	char	*a;
+	char	*substr;
 	size_t	i;
+	size_t	size;
 
 	i = 0;
 	if (!s)
 		return (NULL);
-	if (start >= ft_strlen(s))
-		len = 0;
-	if (len > ft_strlen(s))
-		len = ft_strlen(s);
-	a = (char *)malloc((len + 1) * sizeof(char));
-	if (!a)
+	if (start > ft_strlen(s))
+		return (ft_strdup(""));
+	size = ft_strlen(&s[start]);
+	if (size < len)
+		len = size;
+	substr = (char *) ft_calloc(len + 1, sizeof(char));
+	if (!substr)
 		return (NULL);
-	while (i < len && s[start + i])
+	while (i < len && s[start])
 	{
-		a[i] = s[start + i];
+		substr[i] = s[start];
+		start++;
 		i++;
 	}
-	a[i] = '\0';
-	return (a);
+	return (substr);
 }
