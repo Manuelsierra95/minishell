@@ -14,18 +14,23 @@
 # define MINISHELL_H
 
 # include "./lexer.h"
+# include "./parser.h"
+# include "./builtins.h"
 
 # include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <limits.h>
 # include <errno.h>
+# include <stdlib.h>
+# include <unistd.h>
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
-# include "readline/history.h"
-# include "readline/readline.h"
+# include <readline/readline.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <unistd.h>
+# include <readline/history.h>
+# include <limits.h>
 
 typedef struct s_tree
 {
@@ -53,6 +58,11 @@ typedef struct s_dataCmd
 
 typedef struct s_shell
 {
+	int				numOfCmd;
+	int				numOfPipes;
+	char			*outFile;
+	char			*inFile; // Implementar el GNL (Ver errores que pueda haber en los infiles)
+	char			*errFile;
 	struct s_env	*env;
 	int				exit;
 	int				ret;
