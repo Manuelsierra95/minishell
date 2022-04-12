@@ -12,14 +12,14 @@
 
 #include "minishell.h"
 
-t_shell	*init_shell(char **env)
+t_shell	*init_shell(void)
 {
 	t_shell	*shell;
 
 	shell = malloc(sizeof (t_shell));
 	shell->exit = 1;
 	shell->ret = 0;
-	shell->env = env_to_lst(env);
+	shell->env = NULL;
 	return (shell);
 }
 
@@ -43,7 +43,8 @@ int	main(int argc, char **argv, char **env)
 
 	(void) argc;
 	(void) argv;
-	shell = init_shell(env);
+	shell = init_shell();
+	env_to_shell(env, shell);
 	while (shell->exit == 1)
 	{
 		inpt = readline("minishell> ");
@@ -55,8 +56,13 @@ int	main(int argc, char **argv, char **env)
 			ft_exit(line, shell);
 		else if (ft_strncmp(line[0], "env", 3) == 0)
 			ft_env(shell->env);
+		else if (ft_strncmp(line[0], "echo", 4) == 0)
+			ft_echo(line);
+		else if (ft_strncmp(line[0], "cd", 2) == 0)
+			ft_cd(line, shell->env);
 		else
 			printf("%s\n", inpt);
 	}
+//	system("leaks minishell");
 	return (shell->ret);
 }

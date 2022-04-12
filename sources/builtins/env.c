@@ -12,34 +12,32 @@
 
 #include "minishell.h"
 
-t_env	*env_to_lst(char **arg)
+int	env_to_shell(char **env_arr, t_shell *shell)
 {
 	t_env	*env;
-	t_env	*first;
 	t_env	*new;
 	int		i;
 
 	i = 0;
 	env = malloc(sizeof (t_env));
 	if (!env)
-		return (NULL);
-	env->content = ft_strdup(arg[0]);
+		return (1);
+	env->content = ft_strdup(env_arr[0]);
 	env->next = NULL;
-	first = env;
+	shell->env = env;
 	i = 1;
-	while (arg && arg[0] && arg[i])
+	while (env_arr && env_arr[0] && env_arr[i])
 	{
 		new = malloc(sizeof (t_env));
 		if (!new)
-			return (NULL);
-		new->content = ft_strdup(arg[i]);
+			return (1);
+		new->content = ft_strdup(env_arr[i]);
 		new->next = NULL;
 		env->next = new;
 		env = new;
 		i++;
 	}
-	env = first;
-	return (env);
+	return (0);
 }
 
 int	ft_env(t_env *env)
