@@ -77,12 +77,7 @@ int		ft_isnum(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s);
 char	**ft_split(const char *s, char c);
-
-/* BUILTINS */
-
-int		ft_pwd(void);
-void	ft_exit(char **argv, t_shell *shell);
-t_env	*env_to_lst(char **arg); /* Pasa entorno de char ** a t_env */
-int		ft_env(t_env *env);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t	ft_strlen(const char *s);
 
 #endif
