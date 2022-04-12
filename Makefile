@@ -13,15 +13,16 @@
 NAME		= 	minishell
 LIBFT_NAME  =	libft.a
 
-BUILTINS	=	pwd exit env echo cd
+BUILTINS	=	pwd exit env echo
 
-UTILS	=	isspecial isnum
+UTILS	=	isspecial isnum isalpha_edit
 
-##LEXER##
+LEXER	= checkCmd get_path lexer 
 
-SRCS	=	$(addsuffix .c, $(addprefix sources/builtins/, $(BUILTINS))) \
-			  $(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) \
-			  main.c 
+SRCS	=	$(addsuffix .c, $(addprefix sources/builtins/, $(BUILTINS))) 	\
+			$(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) 			\
+			$(addsuffix .c, $(addprefix sources/lexer/, $(LEXER))) 			\
+			main.c 
 
 PINK = \033[1;35m
 GREEN = \033[1;32m

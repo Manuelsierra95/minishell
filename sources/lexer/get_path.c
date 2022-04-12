@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void	join_path(t_dataInfo *data)
+void	join_path(t_shell *data)
 {
 	int		i;
 
@@ -12,26 +12,26 @@ void	join_path(t_dataInfo *data)
 	}
 }
 
-void	split_path(t_dataInfo *data)
+void	split_path(t_shell *data)
 {
 	int		x;
 
 	x = 0;
-	while (data->env[x])
+	while (data->envv[x])
 	{
-		if (ft_strncmp(data->env[x], "PATH", 4) == 0)
+		if (ft_strncmp(data->envv[x], "PATH", 4) == 0)
 		{
-			data->path = ft_split(ft_strchr(data->env[x], '/'), ':');
+			data->path = ft_split(ft_strchr(data->envv[x], '/'), ':');
 		}
 		x++;
 	}
 }
 
-void	get_path(t_dataInfo *data, char **env)
+void	get_path(t_shell *data, char **env)
 {
 	if (env[0] != NULL)
 	{
-		data->env = env;
+		data->envv = env;
 		split_path(data);
 		join_path(data);
 	}
