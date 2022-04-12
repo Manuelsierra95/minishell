@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-
 t_shell	*init_shell(char **env)
 {
 	t_shell	*shell;
