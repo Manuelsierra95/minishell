@@ -86,7 +86,7 @@ t_token	*lexer(t_dataCmd *dataCmd, int argc, char **argv)
 	dataCmd->numOfArgs = index;
 	return (token);
 }
-
+/*
 int main(int argc, char **argv, char **env)
 {
 	int i = 1;
@@ -120,4 +120,4 @@ int main(int argc, char **argv, char **env)
 	// 	aux = aux->next;
 	// }
 
-}
+}*/

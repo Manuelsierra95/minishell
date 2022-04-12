@@ -61,11 +61,11 @@ void	loopCmd(t_tree *node, t_dataInfo data, char *str) // O metemos un loop o lo
 	}
 }
 
-int	main(int argc, char **argv)
+/*int	main(int argc, char **argv)
 {
 	// t_tree		*node;
 	// t_dataInfo	*data;
 
 	// loopCmd(node, data, str);
 
-}
+}*/

@@ -15,7 +15,8 @@
 
 # include "./lexer.h"
 # include "./parser.h"
-# include "./builtins.h"
+# include "libft.h"
+
 
 # include <stdio.h>
 # include <errno.h>
@@ -32,29 +33,11 @@
 # include <readline/history.h>
 # include <limits.h>
 
-typedef struct s_tree
-{
-	char			*string; // todo el string de info
-	struct s_tree	*left; // aqui ira la info del comando
-	struct s_tree	*right; // aqui iran los pipes y se ira ramificando en funcion del numOfPipes
-} t_tree;
-
 typedef struct s_env   /* Estructura del entorno */
 {
 	char			*content;
 	struct s_env	*next;
 }	t_env;
-
-
-// Sacamos todos los argumentos y los separamos en comandos simples
-typedef struct s_dataCmd
-{
-	int				numOfAvArgs; 
-	int				numOfArgs;
-	char			**args;
-	struct	s_cmd	*cmd;
-	// Control de argumentos separados
-} t_dataCmd;
 
 typedef struct s_shell
 {
@@ -80,4 +63,10 @@ char	**ft_split(const char *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 size_t	ft_strlen(const char *s);
 
+/* BUILTIN  */
+
+int		ft_pwd(void);
+void	ft_exit(char **argv, t_shell *shell);
+t_env	*env_to_lst(char **arg); /* Pasa entorno de char ** a t_env */
+int		ft_env(t_env *env);
 #endif
