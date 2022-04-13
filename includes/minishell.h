@@ -45,6 +45,8 @@ typedef struct s_shell
 	char			**envv;
 	t_token			*tokens;
 	int				numOfArgs;
+	int				l_quote_len;
+	int				r_quote_len;
 
 	int				numOfCmd;
 	int				numOfPipes;
@@ -78,10 +80,10 @@ int		ft_env(t_env *env);
 int		ft_echo(char **arg);
 int		ft_cd(char **arg, t_env *env);
 
-/* PARSER */
+/* LEXER */
 
 void	get_path(t_shell *data, char **env);
-t_token	*lexer(t_shell *dataCmd, int argc, char **argv);
+t_token	*lexer(t_shell *dataCmd, int args, char **input);
 int		check_access(t_shell *data, char *input);
 
 #endif

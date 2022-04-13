@@ -18,7 +18,7 @@ int	ft_isalpha_edit(int c)
 
 	a = 0;
 	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) 
-		|| c == 45 || c == 34)
+		|| c == '-' || c == D_QUOTE || (c >= 48 && c <= 57))
 		a = 1;
 	return (a);
 }

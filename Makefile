@@ -13,11 +13,11 @@
 NAME		= 	minishell
 LIBFT_NAME  =	libft.a
 
-BUILTINS	=	pwd exit env echo
+BUILTINS	=	pwd exit env echo cd
 
 UTILS	=	isspecial isnum isalpha_edit
 
-LEXER	= checkCmd get_path lexer 
+LEXER	= checkCmd get_path lexer quote_analyzer
 
 SRCS	=	$(addsuffix .c, $(addprefix sources/builtins/, $(BUILTINS))) 	\
 			$(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) 			\

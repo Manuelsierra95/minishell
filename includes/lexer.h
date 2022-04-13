@@ -8,6 +8,7 @@ enum char_type
 	PIPE = '|',
 	GREATER = '>',
 	LESSER = '<',
+	SPACE = 32,
 	S_QUOTE = 39, // Comilla simple
 	D_QUOTE = '"', // Comilla doble
 };
@@ -33,5 +34,6 @@ typedef struct s_token
 int		check_cmd(char *input);
 int		ft_isalpha(int c);
 int		ft_isspecial(int c, int d);
+void	quote_analyzer(t_shell *dataCmd, char *input);
 
 #endif
