@@ -6,13 +6,13 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:01:12 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/11 17:03:05 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/04/13 17:03:51 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_echo(char **arg)
+int	ft_echo(int fd, char **arg)
 {
 	int	i;
 	int	flag;
@@ -26,12 +26,12 @@ int	ft_echo(char **arg)
 	}
 	while (arg[i])
 	{
-		ft_putstr_fd(arg[i], 1);
+		ft_putstr_fd(arg[i], fd);
 		if (arg[i + 1] && arg[i] != NULL)
-			write(1, " ", 1);
+			write(fd, " ", 1);
 		i++;
 	}
 	if (flag == 0)
-		write(1, "\n", 1);
+		write(fd, "\n", 1);
 	return (0);
 }

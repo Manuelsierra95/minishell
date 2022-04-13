@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/11 18:11:48 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/04/13 17:04:39 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		ft_pwd(void);
 void	ft_exit(char **argv, t_shell *shell);
 int		env_to_shell(char **arg, t_shell *shell); /* Pasa entorno de char ** a t_env */
 int		ft_env(t_env *env);
-int		ft_echo(char **arg);
+int		ft_echo(int fd, char **arg);
 int		ft_cd(char **arg, t_env *env);
 
 #endif

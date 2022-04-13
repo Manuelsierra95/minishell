@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/11 18:05:05 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/04/13 17:04:54 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(int argc, char **argv, char **env)
 		else if (ft_strncmp(line[0], "env", 3) == 0)
 			ft_env(shell->env);
 		else if (ft_strncmp(line[0], "echo", 4) == 0)
-			ft_echo(line);
+			ft_echo(1, line);
 		else if (ft_strncmp(line[0], "cd", 2) == 0)
 			ft_cd(line, shell->env);
 		else
