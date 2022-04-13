@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/13 17:04:39 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/04/13 18:12:25 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_shell
 	char			*inFile; // Implementar el GNL (Ver errores que pueda haber en los infiles)
 	char			*errFile;
 	struct s_env	*env;
+	char			**envv;
 	int				exit;
 	int				ret;
 }	t_shell;
