@@ -48,17 +48,20 @@ int	args_in_line(char **line)
 	size = 0;
 	while(line[size])
 	{
+		printf("line: %s\n", line[size]);
 		size++;
 	}
 	return (size);
 }
 
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*input;
 	char	**line;
+	// char	*quote;
 	t_shell	*shell;
-	t_token 	*tokens;
+	t_token *tokens;
 
 	(void) argc;
 	(void) argv;
@@ -66,11 +69,29 @@ int	main(int argc, char **argv, char **env)
 	get_path(shell, env);
 	env_to_shell(env, shell);
 
-
 	while (shell->exit == 1)
 	{
 		input = readline("minishell> ");		// add_history(inpt);
-		line = ft_split(input, ' ');
+		if (quote_analyzer(input) % 2 != 0)
+		{
+			printf("Error de comillas\n");
+			// printf("\n> ");
+			// while (shell->diff_quote % 2 != 0)
+			// {
+			// 	quote = readline("> ");
+			// 	while (quote[i])
+			// 	{
+			// 		if (quote[i] == S_QUOTE)
+			// 			shell->diff_quote += 1;
+			// 		i++;
+			// 	}
+			// }
+			
+		}
+		else
+			line = u_split(input, ' ', quote_analyzer(input));
+
+
 		// if (ft_strncmp(line[0], "pwd", 3) == 0)
 		// 	ft_pwd();
 		if (ft_strncmp(line[0], "exit", 4) == 0)
@@ -91,31 +112,3 @@ int	main(int argc, char **argv, char **env)
 		}
 	}
 }
-
-// int main(int argc, char **argv, char **env)
-// {
-// 	t_token 	*tokens;
-// 	t_shell		*dataInfo;
-
-// 	dataInfo = malloc(sizeof(t_shell));
-
-// 	get_path(dataInfo, env);
-
-// 	tokens = lexer(dataInfo, argc, argv);
-// 	dataInfo->tokens = tokens;
-
-// 	int index = 0;
-// 	while (index < dataInfo->numOfArgs)
-// 	{
-// 		printf("Index: %d\tType: %d\tData: %s\n", index, dataInfo->tokens[index].type, dataInfo->tokens[index].data);
-// 		index++;
-// 	}
-	
-
-// 	// while (aux)
-// 	// {
-// 	// 	printf("Type: %d\tData: %s\n", aux->type, aux->data);
-// 	// 	aux = aux->next;
-// 	// }
-
-// }

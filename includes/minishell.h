@@ -45,8 +45,7 @@ typedef struct s_shell
 	char			**envv;
 	t_token			*tokens;
 	int				numOfArgs;
-	int				l_quote_len;
-	int				r_quote_len;
+	int				diff_quote;
 
 	int				numOfCmd;
 	int				numOfPipes;
@@ -70,6 +69,7 @@ char	**ft_split(const char *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 size_t	ft_strlen(const char *s);
 int		ft_isalpha_edit(int c);
+char	**u_split(const char *s, char c, int n_quotes);
 
 /* BUILTIN  */
 
@@ -85,5 +85,6 @@ int		ft_cd(char **arg, t_env *env);
 void	get_path(t_shell *data, char **env);
 t_token	*lexer(t_shell *dataCmd, int args, char **input);
 int		check_access(t_shell *data, char *input);
+int		quote_analyzer(char *input);
 
 #endif

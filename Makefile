@@ -15,9 +15,9 @@ LIBFT_NAME  =	libft.a
 
 BUILTINS	=	pwd exit env echo cd
 
-UTILS	=	isspecial isnum isalpha_edit
+UTILS	=	isspecial isnum isalpha_edit u_split
 
-LEXER	= checkCmd get_path lexer quote_analyzer
+LEXER	= checkCmd get_path lexer quote_manage
 
 SRCS	=	$(addsuffix .c, $(addprefix sources/builtins/, $(BUILTINS))) 	\
 			$(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) 			\

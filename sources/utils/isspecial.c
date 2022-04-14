@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-int	ft_isspecial(int c, int d)
+int	d_isspecial(int c, int d)
 {
 	int	a;
 
@@ -21,6 +21,21 @@ int	ft_isspecial(int c, int d)
 		else
 			return (T_LESSER);
 	}
+	// Manejar error si no es nada de eso
+	return (a);
+}
+
+int	s_isspecial(int c)
+{
+	int	a;
+
+	a = 0;
+	if (c == PIPE)
+		return (T_PIPE);
+	else if (c == GREATER)
+		return (T_GREATER);
+	else if (c == LESSER)
+		return (T_LESSER);
 	// Manejar error si no es nada de eso
 	return (a);
 }

@@ -15,9 +15,9 @@ enum char_type
 
 enum token_type
 {
-	T_PIPE,
-	T_CMD,
+	T_CMD = 1,
 	T_TEXT,
+	T_PIPE,
 	T_GREATER,
 	T_GREATERGREATER,
 	T_LESSER,
@@ -33,7 +33,8 @@ typedef struct s_token
 
 int		check_cmd(char *input);
 int		ft_isalpha(int c);
-int		ft_isspecial(int c, int d);
-void	quote_analyzer(t_shell *dataCmd, char *input);
-
+int		d_isspecial(int c, int d);
+int		s_isspecial(int c);
+char	*take_off_quotes(char *input);
+int		check_quotes(char *input);
 #endif
