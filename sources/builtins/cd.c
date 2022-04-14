@@ -28,7 +28,7 @@ static void	print_error(int n, char *err)
 	}
 }
 
-static int	update_env(char *s, t_env *env)
+static int	update_env(char *s, t_list *env)
 {
 	char	buf[PATH_MAX];
 	char	*path;
@@ -53,40 +53,42 @@ static int	update_env(char *s, t_env *env)
 	return (0);
 }
 
-static int	cd_aux(char *path, t_env *env)
+static int	cd_aux(char *path, char *s, t_list *env)
 {
 	int	ret;
+	int	err;
 
+	err = 0;
+	if (s != NULL && !path)
+	{
+		path = getenv(s);
+		if (!path && !err)
+		{
+			print_error(0, s);
+			err = 1;
+		}
+	}
 	update_env("OLDPWD", env);
 	ret = chdir(path);
-	if (ret == -1)
+	if (ret == -1 && !err)
 		print_error(1, path);
 	update_env("PWD", env);
 	return (ret);
 }
 
-int	ft_cd(char **arg, t_env *env)
+int	ft_cd(char **arg, t_list *env)
 {
 	int		ret;
-	char	*path;
 
 	ret = 1;
 	if (!arg[1])
-	{
-		path = getenv("HOME");
-		if (!path)
-			print_error(0, "HOME");
-		ret = cd_aux(path, env);
-	}
+		ret = cd_aux(NULL, "HOME", env);
 	else if (arg[1] && ft_strncmp(arg[1], "-", 1) == 0)
-	{
-		path = getenv("OLDPWD");
-		if (!path)
-			print_error(0, "OLDPWD");
-		ret = cd_aux(path, env);
+	{	
+		ret = cd_aux(NULL, "OLDPWD", env);
 		ft_pwd();
 	}
 	else
-		ret = cd_aux(arg[1], env);
+		ret = cd_aux(arg[1], NULL, env);
 	return (ret);
 }

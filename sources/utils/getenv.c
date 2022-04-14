@@ -1,15 +1,16 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   getenv.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/13 21:34:10 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/13 22:01:06 by mbarylak         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
+char	*ft_getenv(char *arg, t_list *env)
+{
+	char	*s;
 
+	while (env->next)
+	{
+		if (ft_strncmp(env->content, s, ft_strlen(s)) == 0)
+		{
+			s = ft_strdup(env->content);
+			break ;
+		}
+		env = env->next;
+	}
+}

@@ -33,12 +33,6 @@
 # include <readline/history.h>
 # include <limits.h>
 
-typedef struct s_env   /* Estructura del entorno */
-{
-	char			*content;
-	struct s_env	*next;
-}	t_env;
-
 typedef struct s_shell
 {
 	int				numOfCmd;
@@ -46,7 +40,7 @@ typedef struct s_shell
 	char			*outFile;
 	char			*inFile; // Implementar el GNL (Ver errores que pueda haber en los infiles)
 	char			*errFile;
-	struct s_env	*env;
+	struct s_list	*env;
 	char			**envv;
 	int				exit;
 	int				ret;
@@ -61,8 +55,8 @@ int		ft_isnum(const char *s);
 int		ft_pwd(void);
 void	ft_exit(char **argv, t_shell *shell);
 int		env_to_shell(char **arg, t_shell *shell); /* Pasa entorno de char ** a t_env */
-int		ft_env(t_env *env);
+int		ft_env(t_list *env);
 int		ft_echo(int fd, char **arg);
-int		ft_cd(char **arg, t_env *env);
+int		ft_cd(char **arg, t_list *env);
 
 #endif

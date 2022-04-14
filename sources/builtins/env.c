@@ -14,12 +14,12 @@
 
 int	env_to_shell(char **env_arr, t_shell *shell)
 {
-	t_env	*env;
-	t_env	*new;
+	t_list	*env;
+	t_list	*new;
 	int		i;
 
 	i = 0;
-	env = malloc(sizeof (t_env));
+	env = malloc(sizeof (t_list));
 	if (!env)
 		return (1);
 	env->content = ft_strdup(env_arr[0]);
@@ -28,7 +28,7 @@ int	env_to_shell(char **env_arr, t_shell *shell)
 	i = 1;
 	while (env_arr && env_arr[0] && env_arr[i])
 	{
-		new = malloc(sizeof (t_env));
+		new = malloc(sizeof (t_list));
 		if (!new)
 			return (1);
 		new->content = ft_strdup(env_arr[i]);
@@ -40,7 +40,7 @@ int	env_to_shell(char **env_arr, t_shell *shell)
 	return (0);
 }
 
-int	ft_env(t_env *env)
+int	ft_env(t_list *env)
 {
 	if (!env)
 		return (1);
