@@ -34,7 +34,7 @@ t_token	token_finder(char input1, char input2)
 {
 	t_token	new;
 
-	printf("input1: %c\tinput2: %d\n", input1, input2);
+	// printf("\tinput1: %c\tinput2: %d\n", input1, input2);
 	if (input2 != 0)
 		new = (token_no_word(d_isspecial(input1, input2)));
 	else
@@ -44,55 +44,80 @@ t_token	token_finder(char input1, char input2)
 
 t_token	new_token(t_shell *dataCmd, char *input, char *last_data)
 {
-	int 	i;
 	t_token	new;
 
-	i = -1;
-	while (input[++i])
+	printf("		input:	%s\n", input);
+	if (ft_isalpha_edit(input[0]))
 	{
-		// printf("Input[%d]: %c\n", i, input[i]);
-		if (ft_isalpha_edit(input[i]))
-		{
-			new = (token_word(dataCmd, input, last_data));
-			break ;
-		}
-		else if (s_isspecial(input[i]))
-		{
-			// printf("%c\t%c\n", input[i], input[i + 1]);
-			new = token_finder(input[i], input[i + 1]);
-		}
+		new = (token_word(dataCmd, input, last_data));
 	}
+	else if (s_isspecial(input[0]))
+	{
+		// printf("%c\t%c\n", input[i], input[i + 1]);
+		new = token_finder(input[0], input[1]);
+	}
+	else
+		new.type = -1; // Tirar error aqui si se encuentra luego un -1 en type
 	// printf("Antes /// Type: %d\tData: %s\n", new.type, new.data);
 	return (new);
 }
 
-t_token	*lexer(t_shell *dataCmd, int args, char **input)
+t_token	*loop_tokens(t_shell *dataCmd, char **input)
 {
-	int		i;
-	int		index;
-	char	*aux_input;
 	char	*last_data;
 	t_token	*token;
+	int		i;
 
-	token = malloc(sizeof(t_token));
 	i = 0;
-	index = 0;
-	printf("num of args: %d\n", args);
-	while (i < args)
+	token = malloc(sizeof(t_token));
+	while (input[i])
 	{
-		if (token[index - 1].data && token[index - 1].type == 1)
-			last_data = token[index - 1].data;
+		// printf("\t ///// Input antes ya spliteado: %s\n", input[i]);
+		// input[i] = take_off_quotes(input[i]);
+		if (token[dataCmd->index - 1].data && token[dataCmd->index - 1].type == 1)
+			last_data = token[dataCmd->index - 1].data;
 		else
 			last_data = NULL;
-		if (check_quotes(input[i]) == 1)
-			aux_input = take_off_quotes(input[i]);
-		else
-			aux_input = input[i];
-		printf("input antes: %s\n", aux_input);
-		token[index++] = new_token(dataCmd, aux_input, last_data);
-		// printf("Index: %d\tType: %d\tData: %s\n", index, token[index - 1].type, token[index - 1].data);
+		token[dataCmd->index++] = new_token(dataCmd, input[i], last_data);
+		dataCmd->numOfArgs++;
+		i++;
+		printf("dataCmd->Index: %d\tType: %d\tData: %s\n", dataCmd->index - 1, token[dataCmd->index - 1].type, token[dataCmd->index - 1].data);
+	}
+
+	// printf("input antes: %s\n", input);
+	return (token);
+}
+
+t_token	*lexer(t_shell *dataCmd, char **input) // Falta por arreglar todavia tema de comillas
+{
+	int		i;
+	char	**split_input;
+	t_token	*tokens;
+
+	i = 0;
+	while (input[i])
+	{
+		split_input = edit_split(input[i], SPACE);
+		tokens = loop_tokens(dataCmd, split_input);
+		// write(1, "\n\nhola\n\n", 8);
 		i++;
 	}
-	dataCmd->numOfArgs = index;
-	return (token);
+
+	// printf("token: %s\n", tokens[0].data);
+
+	// int index = 0;
+	// 	while (index < dataCmd->index)
+	// 	{
+	// 		printf("Index: %d\tType: %d\tData: %s\n", index, token[index].type, token[index].data);
+	// 		index++;
+	// 	}
+
+	// dataCmd->tokens = token;
+	// int index = 0;
+	// 	while (index < dataCmd->index)
+	// 	{
+	// 		printf("Index: %d\tType: %d\tData: %s\n", index, dataCmd->tokens[index].type, dataCmd->tokens[index].data);
+	// 		index++;
+	// 	}
+	return (tokens);
 }

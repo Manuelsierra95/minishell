@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/17 12:21:04 by mbarylak          #+#    #+#             */
-/*   Updated: 2021/09/23 13:00:26 by mbarylak         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../includes/minishell.h"
 
 static int	get_word_nbr(const char *s, char c, int n_quotes)
@@ -96,19 +84,22 @@ static char	**fill_split(const char *s, char c, int w_nbr[2], char **split)
 		while (k < w_len)
 			split[i][k++] = s[j++];
 		split[i][k] = '\0';
+		// printf("\t\tinput_split: %s\n", split[i]);
 		i++;
 	}
 	split[i] = NULL;
 	return (split);
 }
 
-char	**u_split(const char *s, char c, int n_quotes)
+char	**edit_split(char *s, char c)
 {
 	int		w_nbr[2];
 	char	**split;
+	int		n_quotes;
 
 	if (!s)
 		return (NULL);
+	n_quotes = count_quotes(s);
 	w_nbr[1] = n_quotes;
 	w_nbr[0] = get_word_nbr(s, c, n_quotes);
 	split = (char **) malloc(sizeof (char *) * (w_nbr[0] + 1));

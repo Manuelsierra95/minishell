@@ -15,7 +15,7 @@
 
 # include "./lexer.h"
 # include "./parser.h"
-# include "libft.h"
+# include "./libft.h"
 
 
 # include <stdio.h>
@@ -46,6 +46,7 @@ typedef struct s_shell
 	t_token			*tokens;
 	int				numOfArgs;
 	int				diff_quote;
+	int				index;
 
 	int				numOfCmd;
 	int				numOfPipes;
@@ -61,15 +62,13 @@ typedef struct s_shell
 
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putstr_fd(char *s, int fd);
-int		ft_atoi(const char *s);
 int		ft_isnum(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s);
 char	**ft_split(const char *s, char c);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-size_t	ft_strlen(const char *s);
 int		ft_isalpha_edit(int c);
-char	**u_split(const char *s, char c, int n_quotes);
+char	**split_input(char *s);
+char	**edit_split(char *s, char c);
 
 /* BUILTIN  */
 
@@ -83,7 +82,7 @@ int		ft_cd(char **arg, t_env *env);
 /* LEXER */
 
 void	get_path(t_shell *data, char **env);
-t_token	*lexer(t_shell *dataCmd, int args, char **input);
+t_token	*lexer(t_shell *dataCmd, char **input);
 int		check_access(t_shell *data, char *input);
 int		quote_analyzer(char *input);
 

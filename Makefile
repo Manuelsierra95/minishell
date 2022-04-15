@@ -15,7 +15,7 @@ LIBFT_NAME  =	libft.a
 
 BUILTINS	=	pwd exit env echo cd
 
-UTILS	=	isspecial isnum isalpha_edit u_split
+UTILS	=	isspecial isnum isalpha_edit split_input edit_split
 
 LEXER	= checkCmd get_path lexer quote_manage
 

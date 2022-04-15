@@ -1,14 +1,45 @@
 #include "../../includes/minishell.h"
 
-void	number_of_quotes(char *input)
+// count_dquotes(char *input, int type)
+// {
+// 	int	i;
+// 	int	count;
+
+// 	i = 0;
+// 	while (input[i] == type)
+// 	{
+// 		count++;
+// 		i++;
+// 	}
+// 	i = 0;
+// 	while (input[i] && count != 0)
+// 	{
+// 		if (input[i] == type)
+// 			count--;
+// 	}
+// }
+
+// count_squotes(char *input, int type)
+// {
+// 	int	i;
+
+// 	i = 0;
+// }
+
+int	count_quotes(char *input)
 {
+	int	count;
 	int	i;
 
 	i = 0;
+	count = 0;
 	while (input[i])
 	{
-
+		if (input[i] == D_QUOTE || input[i] == S_QUOTE)
+			count++;
+		i++;
 	}
+	return (count);
 }
 
 int	check_quotes(char *input)
@@ -36,14 +67,14 @@ char	*take_off_quotes(char *input)
 	no_quotes_input = malloc(sizeof(char *));
 	while (input[i])
 	{
-		printf("input[%d]: %c\n", i, input[i]);
+		// printf("input[%d]: %c\n", i, input[i]);
 		if (input[i] != D_QUOTE)
 			no_quotes_input[j++] = input[i];
 		i++;
 	}
 	if (no_quotes_input)
 		no_quotes_input[j] = '\0';
-	printf("no_quotes_input: %s\n", no_quotes_input);
+	// printf("no_quotes_input: %s\n", no_quotes_input);
 	return (no_quotes_input);
 }
 
