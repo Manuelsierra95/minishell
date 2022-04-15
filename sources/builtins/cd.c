@@ -61,9 +61,10 @@ static int	cd_aux(char *path, char *s, t_list *env)
 	err = 0;
 	if (s != NULL && !path)
 	{
-		path = getenv(s);
+		path = ft_getenv(s, env);
 		if (!path && !err)
 		{
+			ret = 1;
 			print_error(0, s);
 			err = 1;
 		}
@@ -80,15 +81,18 @@ int	ft_cd(char **arg, t_list *env)
 {
 	int		ret;
 
-	ret = 1;
+	ret = 0;
 	if (!arg[1])
 		ret = cd_aux(NULL, "HOME", env);
 	else if (arg[1] && ft_strncmp(arg[1], "-", 1) == 0)
 	{	
 		ret = cd_aux(NULL, "OLDPWD", env);
-		ft_pwd();
+		if (ret == 0)
+			ft_pwd();
 	}
 	else
 		ret = cd_aux(arg[1], NULL, env);
+	if (ret < 0)
+		return (ret * -1);
 	return (ret);
 }

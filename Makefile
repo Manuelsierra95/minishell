@@ -15,7 +15,7 @@ LIBFT_NAME  =	libft.a
 
 BUILTINS	=	pwd exit env echo cd
 
-UTILS	=	isspecial isnum
+UTILS	=	isspecial isnum getenv
 
 ##LEXER##
 

@@ -35,20 +35,20 @@
 
 typedef struct s_shell
 {
-	int				numOfCmd;
-	int				numOfPipes;
-	char			*outFile;
-	char			*inFile; // Implementar el GNL (Ver errores que pueda haber en los infiles)
-	char			*errFile;
-	struct s_list	*env;
-	char			**envv;
-	int				exit;
-	int				ret;
+	t_list	*secret;
+	t_list	*env;
+	char	**envv;
+	int		exit;
+	int		ret;
+	int		exit_stat;
 }	t_shell;
+
+t_shell	*g_shell;
 
 /* UTILS */
 
 int		ft_isnum(const char *s);
+char	*ft_getenv(char *arg, t_list *env);
 
 /* BUILTIN  */
 

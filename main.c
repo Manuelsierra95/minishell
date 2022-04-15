@@ -21,6 +21,8 @@ t_shell	*init_shell(char **env)
 	shell->ret = 0;
 	shell->envv = env;
 	shell->env = NULL;
+	shell->errnbr = 0;
+	shell->secret = NULL;
 	return (shell);
 }
 
@@ -46,6 +48,7 @@ int	main(int argc, char **argv, char **env)
 	(void) argv;
 	shell = init_shell(env);
 	env_to_shell(env, shell);
+	secret_to_shell(env, shell);
 	while (shell->exit == 1)
 	{
 		inpt = readline("minishell> ");

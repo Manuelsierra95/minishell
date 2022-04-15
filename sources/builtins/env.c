@@ -18,7 +18,6 @@ int	env_to_shell(char **env_arr, t_shell *shell)
 	t_list	*new;
 	int		i;
 
-	i = 0;
 	env = malloc(sizeof (t_list));
 	if (!env)
 		return (1);
@@ -40,6 +39,32 @@ int	env_to_shell(char **env_arr, t_shell *shell)
 	return (0);
 }
 
+int	secret_to_shell(char **env_arr, t_shell *shell)
+{
+	t_list	*env;
+	t_list	*new;
+	int		i;
+
+	env = malloc(sizeof (t_list));
+	if (!env)
+		return (1);
+	env->content = ft_strdup(env_arr[0]);
+	env->next = NULL;
+	shell->secret = env;
+	i = 1;
+	while (env_arr && env_arr[0] && env_arr[i])
+	{
+		new = malloc(sizeof (t_list));
+		if (!new)
+			return (1);
+		new->content = ft_strdup(env_arr[i]);
+		new->next = NULL;
+		env->next = new;
+		env = new;
+		i++;
+	}
+	return (0);
+}
 int	ft_env(t_list *env)
 {
 	if (!env)
