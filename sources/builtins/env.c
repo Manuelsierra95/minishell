@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	env_to_shell(char **env_arr, t_shell *shell)
+int	env_to_shell(char **env_arr)
 {
 	t_list	*env;
 	t_list	*new;
@@ -23,7 +23,7 @@ int	env_to_shell(char **env_arr, t_shell *shell)
 		return (1);
 	env->content = ft_strdup(env_arr[0]);
 	env->next = NULL;
-	shell->env = env;
+	g_shell->env = env;
 	i = 1;
 	while (env_arr && env_arr[0] && env_arr[i])
 	{
@@ -39,7 +39,7 @@ int	env_to_shell(char **env_arr, t_shell *shell)
 	return (0);
 }
 
-int	secret_to_shell(char **env_arr, t_shell *shell)
+int	secret_to_shell(char **env_arr)
 {
 	t_list	*env;
 	t_list	*new;
@@ -50,7 +50,7 @@ int	secret_to_shell(char **env_arr, t_shell *shell)
 		return (1);
 	env->content = ft_strdup(env_arr[0]);
 	env->next = NULL;
-	shell->secret = env;
+	g_shell->secret = env;
 	i = 1;
 	while (env_arr && env_arr[0] && env_arr[i])
 	{

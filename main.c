@@ -21,7 +21,7 @@ t_shell	*init_shell(char **env)
 	shell->ret = 0;
 	shell->envv = env;
 	shell->env = NULL;
-	shell->errnbr = 0;
+	shell->exit_stat = 0;
 	shell->secret = NULL;
 	return (shell);
 }
@@ -42,14 +42,13 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*inpt;
 	char	**line;
-	t_shell	*shell;
 
 	(void) argc;
 	(void) argv;
-	shell = init_shell(env);
-	env_to_shell(env, shell);
-	secret_to_shell(env, shell);
-	while (shell->exit == 1)
+	g_shell = init_shell(env);
+	env_to_shell(env);
+	secret_to_shell(env);
+	while (g_shell->exit == 1)
 	{
 		inpt = readline("minishell> ");
 		add_history(inpt);
@@ -58,16 +57,18 @@ int	main(int argc, char **argv, char **env)
 		if (line[0] && ft_strncmp(line[0], "pwd", 3) == 0)
 			ft_pwd();
 		else if (line[0] && ft_strncmp(line[0], "exit", 4) == 0)
-			ft_exit(line, shell);
+			ft_exit(line);
 		else if (line[0] && ft_strncmp(line[0], "env", 3) == 0)
-			ft_env(shell->env);
+			ft_env(g_shell->env);
 		else if (line[0] && ft_strncmp(line[0], "echo", 4) == 0)
 			ft_echo(1, line);
 		else if (line[0] && ft_strncmp(line[0], "cd", 2) == 0)
-			ft_cd(line, shell->env);
+			ft_cd(line, g_shell->env);
+		else if (line[0] && ft_strncmp(line[0], "export", 6) == 0)
+			ft_export(line, g_shell->env, g_shell->secret);
 		else
 			printf("%s", inpt);
 	}
 //	system("leaks minishell");
-	return (shell->ret);
+	return (g_shell->ret);
 }

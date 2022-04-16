@@ -49,14 +49,21 @@ t_shell	*g_shell;
 
 int		ft_isnum(const char *s);
 char	*ft_getenv(char *arg, t_list *env);
+char	*get_name(char *arg);
+int		name_in_env(char *arg, t_list *env);
+int		value_in_env(char *arg, t_list *env);
+int		is_valid(char *arg);
+int		is_in_env(char *arg, int ret);
+int		env_to_shell(char **env_arr);
+int		secret_to_shell(char **env_arr);
 
 /* BUILTIN  */
 
 int		ft_pwd(void);
-void	ft_exit(char **argv, t_shell *shell);
-int		env_to_shell(char **arg, t_shell *shell); /* Pasa entorno de char ** a t_env */
+void	ft_exit(char **argv);
 int		ft_env(t_list *env);
 int		ft_echo(int fd, char **arg);
 int		ft_cd(char **arg, t_list *env);
+int		ft_export(char **arg);
 
 #endif

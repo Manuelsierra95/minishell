@@ -13,7 +13,7 @@
 NAME		= 	minishell
 LIBFT_NAME  =	libft.a
 
-BUILTINS	=	pwd exit env echo cd
+BUILTINS	=	pwd exit env echo cd export
 
 UTILS	=	isspecial isnum getenv
 
