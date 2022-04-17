@@ -31,21 +31,29 @@ int	is_valid(char *arg)
 	return (0);
 }
 
-int	is_in_env(char *arg, int ret)
+int	add_2_env(char *arg, t_list *env)
 {
-	if (ret == 1 && name_in_env(arg, g_shell->env))
+	t_list	*new;
+	t_list	*aux;
+
+	if (env && env->content == NULL)
 	{
-		if (value_in_env(arg, g_shell->env))
-			return (1);
-		else
-			return (0);
+		env->content = ft_strdup(arg);
+		return (0);
 	}
-	else if (ret == 0 && name_in_env(arg, g_shell->secret))
-		return (1);
+	new = malloc(sizeof (t_list));
+	if (!new)
+		return (-1);
+	new->content = ft_strdup(arg);
+	while (env && env->next && env->next->next)
+		env = env->next;
+	aux = env->next;
+	env->next = new;
+	new->next = aux;
 	return (0);
 }
 
-int	ft_export(char **arg)
+int	ft_export(char **arg, t_list *env, t_list *secret)
 {
 	int	i;
 	int	ret;
@@ -53,18 +61,19 @@ int	ft_export(char **arg)
 
 	i = 1;
 	if (!arg[i])
-		return (print_secret(g_shell->secret));
+		//return (print_secret(secret));
+		return (0);
 	while (arg[i])
 	{
 		ret = is_valid(arg[i]);
 		if (ret == -1)
 			return (print_error(arg[i]));
-		n = is_in_env(arg[i], ret)
+		n = is_in_env(arg[i], ret, env, secret);
 		if (n == 0)
 		{
 			if (ret == 1)
-				//env_add(arg[i], g_shell->env);
-			//env_add(arg[i], g_shell->secret);
+				add_2_env(arg[i], env);
+			add_2_env(arg[i], secret);
 		}
 		i++;
 	}
