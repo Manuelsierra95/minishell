@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   isspecial.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/18 16:05:58 by mbarylak          #+#    #+#             */
+/*   Updated: 2022/04/18 16:06:49 by mbarylak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 int	ft_isspecial(int c, int d)
@@ -17,7 +29,7 @@ int	ft_isspecial(int c, int d)
 	else if (c == LESSER)
 	{
 		if (d == LESSER)
-			return  (T_LESSERLESSER);
+			return (T_LESSERLESSER);
 		else
 			return (T_LESSER);
 	}

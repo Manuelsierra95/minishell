@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:13:10 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/13 22:04:02 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/04/18 20:36:46 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	ft_cd(char **arg, t_list *env)
 	{	
 		ret = cd_aux(NULL, "OLDPWD", env);
 		if (ret == 0)
-			ft_pwd();
+			ft_pwd(1);
 	}
 	else
 		ret = cd_aux(arg[1], NULL, env);

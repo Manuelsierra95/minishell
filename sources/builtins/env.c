@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:52:19 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/11 18:07:03 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/04/18 16:04:55 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	secret_to_shell(char **env_arr)
 	}
 	return (0);
 }
+
 int	ft_env(t_list *env)
 {
 	if (!env)

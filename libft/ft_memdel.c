@@ -6,17 +6,18 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:50:45 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/13 18:51:41 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/04/18 17:17:10 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **p)
+void	*ft_memdel(void *p)
 {
 	if (p != NULL)
 	{
-		free(*p);
-		*p = NULL;
+		free(p);
+		p = NULL;
 	}
+	return (NULL);
 }

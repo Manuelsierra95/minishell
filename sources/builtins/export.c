@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/18 15:56:26 by mbarylak          #+#    #+#             */
+/*   Updated: 2022/04/18 20:29:40 by mbarylak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	print_error(char *arg)
@@ -53,28 +65,27 @@ int	add_2_env(char *arg, t_list *env)
 	return (0);
 }
 
-int	ft_export(char **arg, t_list *env, t_list *secret)
+int	ft_export(char **arg, t_list *env, t_list *secret, int fd)
 {
 	int	i;
 	int	ret;
-	int n;
+	int	n;
 
 	i = 1;
 	if (!arg[i])
-		//return (print_secret(secret));
-		return (0);
+		return (print_secret(secret, fd));
 	while (arg[i])
 	{
 		ret = is_valid(arg[i]);
 		if (ret == -1)
 			return (print_error(arg[i]));
-		n = is_in_env(arg[i], ret, env, secret);
-		if (n == 0)
-		{
+		n = is_in_env(arg[i], ret, env);
+		n += is_in_env(arg[i], ret, secret);
+		if (n <= 1)
 			if (ret == 1)
 				add_2_env(arg[i], env);
+		if (n == 0)
 			add_2_env(arg[i], secret);
-		}
 		i++;
 	}
 	return (0);

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   is_in_env.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/18 15:56:37 by mbarylak          #+#    #+#             */
+/*   Updated: 2022/04/18 20:43:22 by mbarylak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int	is_in_env(char *arg, int ret, t_list *env, t_list *secret)
+int	is_in_env(char *arg, int ret, t_list *env)
 {
 	char	*name;
 	t_list	*first;
@@ -10,14 +22,14 @@ int	is_in_env(char *arg, int ret, t_list *env, t_list *secret)
 	if (ret == 1 && name_in_env(name, env))
 	{
 		env = until_name(name, env);
-		free(env->content);
+		ft_memdel(env->content);
 		env->content = ft_strdup(arg);
-		free(name);
 		env = first;
+		free(name);
 		return (1);
 	}
-	else if (ret == 0 && name_in_env(name, secret))
-	{	
+	else if (ret == 0 && name_in_env(name, env))
+	{
 		free(name);
 		return (1);
 	}
@@ -40,6 +52,16 @@ char	*get_name(char *arg)
 	}
 	name[i] = '\0';
 	return (name);
+}
+
+int	arr_len(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+		i++;
+	return (i);
 }
 
 int	name_in_env(char *name, t_list *env)

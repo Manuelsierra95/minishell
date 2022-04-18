@@ -6,7 +6,7 @@
 #    By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/13 16:37:19 by mbarylak          #+#    #+#              #
-#    Updated: 2022/04/13 18:52:21 by mbarylak         ###   ########.fr        #
+#    Updated: 2022/04/18 16:35:59 by mbarylak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 NAME = libft.a
 
-all: $(NAME)
+all: $(NAME) bonus
 
 $(NAME): $(OBJ) $(INCLUDE)
 	ar rcs $(NAME) $(OBJ)
