@@ -34,16 +34,25 @@ char	**u_split(char *input)
 	int		index;
 	int		i;
 	int		j;
+	int		state;
 
 	split_input = malloc(sizeof(char *) * (count_pipes(input) + 1));
 	index = 0;
 	i = 0;
 	j = 0;
+	state = 0;
 	if (count_pipes(input))
 	{
 		while (input[i])
 		{
-			if (input[i] == PIPE)
+			if (input[i] == D_QUOTE || input[i] == S_QUOTE)
+			{
+				if (state == 0)
+					state = 1;
+				else
+					state = 0;
+			}				
+			if (input[i] == PIPE && state == 0)
 			{
 				split_input[index++] = ft_substr(input, j, i - 1);
 				split_input[index++] = ft_strdup("|");
@@ -60,7 +69,7 @@ char	**u_split(char *input)
 	return (split_input);
 }
 
-char **split_input(char *input)
+char **split_input_SIN_USAR(char *input)
 {
 	char	**split_input;
 

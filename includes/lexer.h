@@ -3,7 +3,7 @@
 
 enum char_type
 {
-	CHAR = -1,
+	CHAR = 1,
 	DOLLAR = '$',
 	PIPE = '|',
 	GREATER = '>',

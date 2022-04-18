@@ -58,6 +58,8 @@ typedef struct s_shell
 	int				ret;
 }	t_shell;
 
+t_shell *g_shell;
+
 /* UTILS */
 
 void	ft_putendl_fd(char *s, int fd);
@@ -67,8 +69,6 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s);
 char	**ft_split(const char *s, char c);
 int		ft_isalpha_edit(int c);
-char	**split_input(char *s);
-char	**edit_split(char *s, char c);
 
 /* BUILTIN  */
 
@@ -85,5 +85,6 @@ void	get_path(t_shell *data, char **env);
 t_token	*lexer(t_shell *dataCmd, char **input);
 int		check_access(t_shell *data, char *input);
 int		quote_analyzer(char *input);
+char **split_input(t_shell *shell, char *input);
 
 #endif

@@ -46,7 +46,7 @@ void	print_env(char **env)
 int	main(int argc, char **argv, char **env)
 {
 	char	*input;
-	char	**line;
+	// char	**line;
 	// char	*quote;
 	t_shell	*shell;
 	// t_token *tokens;
@@ -62,43 +62,47 @@ int	main(int argc, char **argv, char **env)
 		input = readline("minishell> ");		// add_history(inpt);
 		shell->index = 0;
 		shell->numOfArgs = 0;
-		if (quote_analyzer(input) % 2 != 0)
-		{
-			printf("Error de comillas\n");
-			// printf("\n> ");
-			// while (shell->diff_quote % 2 != 0)
-			// {
-			// 	quote = readline("> ");
-			// 	while (quote[i])
-			// 	{
-			// 		if (quote[i] == S_QUOTE)
-			// 			shell->diff_quote += 1;
-			// 		i++;
-			// 	}
-			// }
+		// if (quote_analyzer(input) % 2 != 0)
+		// {
+		// 	printf("Error de comillas\n");
+		// 	// printf("\n> ");
+		// 	// while (shell->diff_quote % 2 != 0)
+		// 	// {
+		// 	// 	quote = readline("> ");
+		// 	// 	while (quote[i])
+		// 	// 	{
+		// 	// 		if (quote[i] == S_QUOTE)
+		// 	// 			shell->diff_quote += 1;
+		// 	// 		i++;
+		// 	// 	}
+		// 	// }
 			
-		}
-		else
-			line = split_input(input);
+		// }
+		// else
+		// 	line = split_input(input);
 
-		int i = 0;
-		while(line[i])
-		{
-			printf("line[%d]: %s\n", i, line[i]);
-			i++;
-		}
+		// int i = 0;
+		// while(line[i])
+		// {
+		// 	printf("line[%d]: %s\n", i, line[i]);
+		// 	i++;
+		// }
+
 
 		// if (ft_strncmp(line[0], "pwd", 3) == 0)
 		// 	ft_pwd();
-		if (ft_strncmp(line[0], "exit", 4) == 0)
-			ft_exit(line, shell);
+		// if (ft_strncmp(line[0], "exit", 4) == 0)
+		// 	ft_exit(line, shell);
 		// else if (ft_strncmp(line[0], "env", 3) == 0)
 		// 	ft_env(shell->env);
 		// else if (ft_strncmp(line[0], "echo", 4) == 0)
 		// 	ft_echo(line);
 		// else if (ft_strncmp(line[0], "cd", 2) == 0)
 		// 	ft_cd(line, shell->env);
-		lexer(shell, line);
+
+		split_input(shell, input);
+		// lexer(shell, line);
+
 		// shell->tokens = tokens;
 		// int index = 0;
 		// while (index < shell->index)

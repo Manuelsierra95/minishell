@@ -105,5 +105,6 @@ char	**edit_split(char *s, char c)
 	split = (char **) malloc(sizeof (char *) * (w_nbr[0] + 1));
 	if (!split)
 		return (NULL);
-	return (fill_split(s, c, w_nbr, split));
+	split = fill_split(s, c, w_nbr, split);
+	return (split);
 }
