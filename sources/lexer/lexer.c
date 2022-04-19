@@ -90,8 +90,8 @@ t_token	*lexer(t_shell *dataCmd, char **input) // Falta por arreglar todavia tem
 	tokens = malloc(sizeof(t_token));
 	while (input[++i])
 	{
-		if (tokens[dataCmd->index - 1].data && tokens[dataCmd->index - 1].type == 1)
-			last_data = tokens[dataCmd->index - 1].data;
+		if (tokens[index - 1].data && tokens[index - 1].type == 1)
+			last_data = tokens[index - 1].data;
 		else
 			last_data = NULL;
 		tokens[index++] = new_token(dataCmd, input[i], last_data);

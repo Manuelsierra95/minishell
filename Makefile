@@ -17,11 +17,17 @@ BUILTINS	=	pwd exit env echo cd
 
 UTILS	=	isspecial isnum isalpha_edit split_input edit_split
 
-LEXER	= checkCmd get_path lexer quote_manage lexer_utils
+LEXER	= lexer checkCmd get_path quote_manage lexer_utils
+
+PARSER = parser
+
+EXPANDER = 	expander 
 
 SRCS	=	$(addsuffix .c, $(addprefix sources/builtins/, $(BUILTINS))) 	\
 			$(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) 			\
 			$(addsuffix .c, $(addprefix sources/lexer/, $(LEXER))) 			\
+			$(addsuffix .c, $(addprefix sources/parser/, $(PARSER))) 		\
+			$(addsuffix .c, $(addprefix sources/expander/, $(EXPANDER))) 	\
 			main.c 
 
 PINK = \033[1;35m

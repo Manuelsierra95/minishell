@@ -87,4 +87,9 @@ int		check_access(t_shell *data, char *input);
 int		quote_analyzer(char *input);
 char **split_input(t_shell *shell, char *input);
 
+/* EXPANDER */
+
+t_token	*expander(t_token *tokens);
+char	*ft_getenv(char *arg, char **env);
+
 #endif

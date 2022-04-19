@@ -23,18 +23,6 @@ t_shell	*init_shell(void)
 	return (shell);
 }
 
-void	print_env(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		printf("%s\n", env[i]);
-		i++;
-	}
-}
-
 // 			printf("%s\n", inpt);
 // 	}
 // //	system("leaks minishell");
@@ -62,22 +50,22 @@ int	main(int argc, char **argv, char **env)
 		input = readline("minishell> ");		// add_history(inpt);
 		shell->index = 0;
 		shell->numOfArgs = 0;
-		// if (quote_analyzer(input) % 2 != 0)
-		// {
-		// 	printf("Error de comillas\n");
-		// 	// printf("\n> ");
-		// 	// while (shell->diff_quote % 2 != 0)
-		// 	// {
-		// 	// 	quote = readline("> ");
-		// 	// 	while (quote[i])
-		// 	// 	{
-		// 	// 		if (quote[i] == S_QUOTE)
-		// 	// 			shell->diff_quote += 1;
-		// 	// 		i++;
-		// 	// 	}
-		// 	// }
-			
-		// }
+		if (quote_analyzer(input) % 2 != 0)
+		{
+			printf("Error de comillas\n");
+			// printf("\n> ");
+			// while (shell->diff_quote % 2 != 0)
+			// {
+			// 	quote = readline("> ");
+			// 	while (quote[i])
+			// 	{
+			// 		if (quote[i] == S_QUOTE)
+			// 			shell->diff_quote += 1;
+			// 		i++;
+			// 	}
+			// }
+			exit(-1);
+		}
 		// else
 		// 	line = split_input(input);
 
@@ -102,13 +90,25 @@ int	main(int argc, char **argv, char **env)
 
 		line = split_input(shell, input);
 		tokens = lexer(shell, line);
-
 		shell->tokens = tokens;
+		
+		g_shell = shell;
+
 		int index = 0;
 		while (index < shell->numOfArgs)
 		{
 			printf("Index: %d\tType: %d\tData: %s\n", index, shell->tokens[index].type, shell->tokens[index].data);
 			index++;
 		}
+
+		tokens = expander(tokens);
+
+		index = 0;
+		while (index < shell->numOfArgs)
+		{
+			printf("Index: %d\tType: %d\tData: %s\n", index, shell->tokens[index].type, shell->tokens[index].data);
+			index++;
+		}
+
 	}
 }
