@@ -55,18 +55,22 @@ char *input_line3(char *input, int state, int *i, int start)
 
 	x = *i;
 	split_input = NULL;
-	printf("state: %c\n", state);
+	// printf("state: %c\n", state);
 	if (input[x + 1] == state)
 		x++;
 	else // TODO: Arreglar segv echo """ (con 3 comillas)
 	{
-		printf("Entra\n");
+		// printf("Entra\n");
 		x++;
 		start = x;
 		while (input[x] != state)
 			x++;
-		printf("Sale valiendo: %c\n", input[x]);
-		split_input = ft_substr(input, start, x);
+		if (s_isspecial(ft_substr(input, start, x)[0]))
+			split_input = ft_substr(input, start - 1, x + 1);
+		else
+			split_input = ft_substr(input, start, x);
+		// printf("Sale valiendo: %c\n", input[x]);
+		// printf("lo que splitea: %s\n", ft_substr(input, start, x));
 	}
 	*i = x;
 	return (split_input);
@@ -88,6 +92,7 @@ char *input_line(char *input, int state, int *i, int start)
 		while (ft_isalpha_edit(input[x]))
 			x++;
 		split_input = ft_substr(input, start, x);
+		x--;
 	}
 	if (state != 0 && (state == D_QUOTE || state == S_QUOTE))
 	{
@@ -111,6 +116,7 @@ char **split_loop(t_shell *shell, char *input)
 	split_input = malloc(1024);
 	while (input[++i])
 	{
+		// printf("loo_input[%d]: %c\n", i, input[i]);
 		if (input[i] == SPACE)
 			i++;
 		state = input_state(input[i]);
@@ -131,7 +137,7 @@ int input_len(char **input)
 	size = 0;
 	while (input[++i])
 	{
-		if (input[i] != NULL || input[i][0] != '\0')
+		// if (input[i] != NULL || input[i][0] != '\0')
 			size++;
 	}
 	return (size);

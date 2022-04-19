@@ -46,10 +46,10 @@ void	print_env(char **env)
 int	main(int argc, char **argv, char **env)
 {
 	char	*input;
-	// char	**line;
+	char	**line;
 	// char	*quote;
 	t_shell	*shell;
-	// t_token *tokens;
+	t_token *tokens;
 
 	(void) argc;
 	(void) argv;
@@ -100,15 +100,15 @@ int	main(int argc, char **argv, char **env)
 		// else if (ft_strncmp(line[0], "cd", 2) == 0)
 		// 	ft_cd(line, shell->env);
 
-		split_input(shell, input);
-		// lexer(shell, line);
+		line = split_input(shell, input);
+		tokens = lexer(shell, line);
 
-		// shell->tokens = tokens;
-		// int index = 0;
-		// while (index < shell->index)
-		// {
-		// 	printf("Index: %d\tType: %d\tData: %s\n", index, shell->tokens[index].type, shell->tokens[index].data);
-		// 	index++;
-		// }
+		shell->tokens = tokens;
+		int index = 0;
+		while (index < shell->numOfArgs)
+		{
+			printf("Index: %d\tType: %d\tData: %s\n", index, shell->tokens[index].type, shell->tokens[index].data);
+			index++;
+		}
 	}
 }
