@@ -17,6 +17,8 @@ int	is_in_env(char *arg, int ret, t_list *env)
 	char	*name;
 	t_list	*first;
 
+	if (ret == -1)
+		return (1);
 	name = get_name(arg);
 	first = env;
 	if (ret == 1 && name_in_env(name, env))
@@ -33,6 +35,7 @@ int	is_in_env(char *arg, int ret, t_list *env)
 		free(name);
 		return (1);
 	}
+	free(name);
 	return (0);
 }
 
@@ -52,6 +55,19 @@ char	*get_name(char *arg)
 	}
 	name[i] = '\0';
 	return (name);
+}
+
+char	*get_value(char *arg)
+{
+	int		i;
+
+	i = 0;
+	while (arg[i] && arg[i] != '=')
+		i++;
+	if (arg[i + 1])
+		return (ft_strdup(&arg[i + 1]));
+	else
+		return (ft_strdup(""));
 }
 
 int	arr_len(char **arr)

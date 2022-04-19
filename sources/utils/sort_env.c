@@ -81,11 +81,39 @@ void	sort_env(char **env_arr, int env_len)
 	}
 }
 
+static char	*ft_msg(char *arg)
+{
+	char	*value;
+	char	*msg;
+	int		flag;
+	int		i = 0;
+
+	i = 0;
+	flag = 0;
+	while (arg[i++] && flag == 0)
+		if (arg[i] == '=')
+			flag = 1;
+	if (flag == 1)
+	{
+		value = get_value(arg);
+		value = ft_strjoin("\"", value);
+		value = ft_strjoin(value, "\"");
+		msg = get_name(arg);
+		msg = ft_strjoin(msg, "=");
+		msg = ft_strjoin(msg, value);
+		ft_memdel(value);
+	}
+	else
+		msg = ft_strdup(arg);
+	return (msg);
+}
+
 int	print_secret(t_list *secret, int fd)
 {
 	int		i;
 	char	*env_str;
 	char	**env_arr;
+	char	*msg;
 
 	env_str = env_2_str(secret);
 	if (!env_str)
@@ -97,7 +125,9 @@ int	print_secret(t_list *secret, int fd)
 	while (env_arr[i])
 	{
 		ft_putstr_fd("declare -x ", fd);
-		ft_putendl_fd(env_arr[i], fd);
+		msg = ft_msg(env_arr[i]);
+		ft_putendl_fd(msg, fd);
+		ft_memdel(msg);
 		i++;
 	}
 	free_arr(env_arr);

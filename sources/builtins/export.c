@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static int	print_error(char *arg)
+static void	print_error(char *arg)
 {
 	char	*err_msg;
 
@@ -22,7 +22,6 @@ static int	print_error(char *arg)
 	ft_putstr_fd(err_msg, STDERR_FILENO);
 	ft_putendl_fd(": not a valid identifier", STDERR_FILENO);
 	free(err_msg);
-	return (1);
 }
 
 int	is_valid(char *arg)
@@ -78,7 +77,7 @@ int	ft_export(char **arg, t_list *env, t_list *secret, int fd)
 	{
 		ret = is_valid(arg[i]);
 		if (ret == -1)
-			return (print_error(arg[i]));
+			print_error(arg[i]);
 		n = is_in_env(arg[i], ret, env);
 		n += is_in_env(arg[i], ret, secret);
 		if (n <= 1)

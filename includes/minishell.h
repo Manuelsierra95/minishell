@@ -61,6 +61,7 @@ void	free_env(t_list *env);
 
 t_list	*until_name(char *name, t_list *env);
 char	*get_name(char *arg);
+char	*get_value(char *arg);
 int		name_in_env(char *name, t_list *env);
 int		is_valid(char *arg);
 int		add_2_env(char *arg, t_list *env);
