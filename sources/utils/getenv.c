@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 15:57:05 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/18 17:29:25 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/04/20 19:40:57 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_getenv(char *arg, t_list *env)
 	if (s == NULL)
 		return (NULL);
 	else
-		return (ft_strchr(s, '/'));
+		return (get_value(s));
 }
 
 t_list	*until_name(char *name, t_list *env)

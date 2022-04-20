@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:09 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/18 20:43:17 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/04/20 20:24:57 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static char	*ft_msg(char *arg)
 	char	*value;
 	char	*msg;
 	int		flag;
-	int		i = 0;
+	int		i;
 
 	i = 0;
 	flag = 0;

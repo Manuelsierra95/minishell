@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/18 19:06:07 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/04/20 20:25:51 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	main(int argc, char **argv, char **env)
 			ft_export(line, g_shell->env, g_shell->secret, 1);
 		else if (line[0] && ft_strcmp(line[0], "secret") == 0)
 			printf("%s\n", env_2_str(g_shell->secret));
+		else if (line[0] && ft_strcmp(line[0], "unset") == 0)
+			ft_unset(line);
 		else
 			printf("%s", inpt);
 	}

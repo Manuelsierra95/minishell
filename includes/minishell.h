@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/18 20:36:19 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/04/20 19:14:00 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ int		ft_env(t_list *env);
 int		ft_echo(int fd, char **arg);
 int		ft_cd(char **arg, t_list *env);
 int		ft_export(char **arg, t_list *env, t_list *secret, int fd);
+int		ft_unset(char **arg);
 
 #endif
