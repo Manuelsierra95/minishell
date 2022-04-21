@@ -31,6 +31,11 @@ typedef struct s_token
 } t_token;
 
 
+int		check_access(char *input);
+void	get_path(char **env);
+char 	**split_input(char *input);
+t_token	*lexer(char **input);
+int		quote_analyzer(char *input);
 int		check_cmd(char *input);
 int		ft_isalpha(int c);
 int		d_isspecial(int c, int d);

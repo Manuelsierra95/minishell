@@ -40,21 +40,30 @@ char	*ft_getenv(char *arg, char **env)
 		return (ft_strchr_jump(s, '='));
 }
 
-char	*$_env(char *data, int *i)
+char	*$_env(char *data, int *i, char c_flag)
 {
 	int		x;
 	int		j;
 	char	*aux_data;
 	char	*$_data;
+	int		flag;
 
 	x = 0;
 	j = 0;
-	// printf("data que entra: %s\n", data);
+	flag = 0;
+	printf("data que entra: %s\n", data);
 	// printf("valor de x: %d\n", x);
 	// printf("strlen: %zu\n", ft_strlen(data));
+	if (c_flag == D_QUOTE || c_flag == S_QUOTE)
+		flag = 1;
 	while (data[++x] != '$' && data[x] != SPACE && x <= (int)ft_strlen(data))
 	{
-		// printf("data[%d]: %c\n", x, data[x]);
+		if (flag == 1)
+		{
+			if (data[x] == D_QUOTE || data[x] == S_QUOTE)
+				break ;
+		}
+		printf("data[%d]: %c\n", x, data[x]);
 		// x++;
 		j++;
 	}
@@ -95,24 +104,20 @@ char	*$_env(char *data, int *i)
 // 	return (size + 1);
 // }
 
-char	*$_substitute(char *data)
+char	*$_substitute(char *data, int index)
 {
 	char	*aux_data;
 	char	*exp_data;
 	int		i;
 	int		j;
-	int		index;
 
 	i = -1;
-	index = 0;
-	exp_data = malloc(1024);
+	exp_data = malloc(SET_MEMORY);
 	while (data[++i])
 	{
-		// printf("///INPUT[%d]: %c\n", i, data[i]);
 		if (data[i] == '$')
 		{
-			aux_data = $_env(ft_substr(data, i, ft_strlen(data)), &i);
-			// printf("aux_data: %s\n", aux_data);
+			aux_data = $_env(ft_substr(data, i, ft_strlen(data)), &i, data[i - 1]);
 			if (aux_data)
 			{
 				j = 0;
@@ -120,21 +125,17 @@ char	*$_substitute(char *data)
 					exp_data[index++] = aux_data[j++];
 			}
 			i--;
-			// printf("-----valor de i: %d\n", i);
 		}
 		else
-		{
-			// printf("****INPUT sin $[%d]: %c\n", i, data[i]);
 			exp_data[index++] = data[i];
-		}
 	}
-	// printf("Len of exp: %zu\n", ft_strlen(exp_data));
 	return (exp_data);
 }
 
 t_token	*expander(t_token *tokens)
 {
-	int	index;
+	int		index;
+	char	*aux;
 
 	index = 0;
 	while (index < g_shell->numOfArgs)
@@ -142,7 +143,9 @@ t_token	*expander(t_token *tokens)
 		if (ft_strchr(tokens[index].data, '$'))
 		{
 			// printf("data: %s\n", $_substitute(tokens[index].data));
-			tokens[index].data = $_substitute(tokens[index].data);
+			aux = tokens[index].data;
+			tokens[index].data = $_substitute(tokens[index].data, 0);
+			free(aux);
 		}
 		index++;
 	}

@@ -1,11 +1,11 @@
 #include "../../includes/minishell.h"
 
-t_token	token_word(t_shell *dataCmd, char *input, char *last_data)
+t_token	token_word(char *input, char *last_data)
 {
 	t_token	new;
 	int		flag;
 
-	flag = check_access(dataCmd, input);
+	flag = check_access(input);
 	if (last_data && input[0] == '-')
 		flag = 1;
 	if (flag == 1)
@@ -42,13 +42,13 @@ t_token	token_finder(char input1, char input2)
 	return (new);
 }
 
-t_token	new_token(t_shell *dataCmd, char *input, char *last_data)
+t_token	new_token(char *input, char *last_data)
 {
 	t_token	new;
 
 	if (ft_isalpha_edit(input[0]) || input[0] == D_QUOTE || input[0] == S_QUOTE)
 	{
-		new = (token_word(dataCmd, input, last_data));
+		new = (token_word(input, last_data));
 	}
 	else if (s_isspecial(input[0]))
 	{
@@ -60,7 +60,7 @@ t_token	new_token(t_shell *dataCmd, char *input, char *last_data)
 	return (new);
 }
 
-// t_token	loop_tokens(t_shell *dataCmd, char *input, char *last_data)
+// t_token	loop_tokens(char *input, char *last_data)
 // {
 // 	t_token	token;
 // 	int		i;
@@ -78,7 +78,7 @@ t_token	new_token(t_shell *dataCmd, char *input, char *last_data)
 // 	return (token);
 // }
 
-t_token	*lexer(t_shell *dataCmd, char **input) // Falta por arreglar todavia tema de comillas
+t_token	*lexer(char **input)
 {
 	int		i;
 	int		index;
@@ -94,8 +94,8 @@ t_token	*lexer(t_shell *dataCmd, char **input) // Falta por arreglar todavia tem
 			last_data = tokens[index - 1].data;
 		else
 			last_data = NULL;
-		tokens[index++] = new_token(dataCmd, input[i], last_data);
-		dataCmd->numOfArgs++;
+		tokens[index++] = new_token(input[i], last_data);
+		g_shell->numOfArgs++;
 	}
 	return (tokens);
 }

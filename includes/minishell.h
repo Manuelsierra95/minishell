@@ -33,6 +33,12 @@
 # include <readline/history.h>
 # include <limits.h>
 
+# define SET_MEMORY 1024
+
+# define CYAN	"\033[36m"
+# define RESET	"\033[0m"
+
+
 typedef struct s_env   /* Estructura del entorno */
 {
 	char			*content;
@@ -73,19 +79,11 @@ int		ft_isalpha_edit(int c);
 /* BUILTIN  */
 
 int		ft_pwd(void);
-void	ft_exit(char **argv, t_shell *shell);
+void	ft_exit(char **argv);
 int		env_to_shell(char **arg, t_shell *shell); /* Pasa entorno de char ** a t_env */
 int		ft_env(t_env *env);
 int		ft_echo(char **arg);
 int		ft_cd(char **arg, t_env *env);
-
-/* LEXER */
-
-void	get_path(t_shell *data, char **env);
-t_token	*lexer(t_shell *dataCmd, char **input);
-int		check_access(t_shell *data, char *input);
-int		quote_analyzer(char *input);
-char **split_input(t_shell *shell, char *input);
 
 /* EXPANDER */
 

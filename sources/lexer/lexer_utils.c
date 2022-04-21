@@ -102,7 +102,7 @@ char *input_line(char *input, int state, int *i, int start)
 	return (split_input);
 }
 
-char **split_loop(t_shell *shell, char *input)
+char **split_loop(char *input)
 {
 	int i;
 	int start;
@@ -113,7 +113,7 @@ char **split_loop(t_shell *shell, char *input)
 	i = -1;
 	state = 0;
 	start = 0;
-	split_input = malloc(1024);
+	split_input = malloc(SET_MEMORY);
 	while (input[++i])
 	{
 		// printf("loo_input[%d]: %c\n", i, input[i]);
@@ -122,9 +122,9 @@ char **split_loop(t_shell *shell, char *input)
 		state = input_state(input[i]);
 		aux = input_line(input, state, &i, start);
 		if (aux)
-			split_input[shell->index++] = aux;
+			split_input[g_shell->index++] = aux;
 	}
-	split_input[shell->index++] = NULL;
+	split_input[g_shell->index++] = NULL;
 	return (split_input);
 }
 
@@ -143,17 +143,17 @@ int input_len(char **input)
 	return (size);
 }
 
-char **split_input(t_shell *shell, char *input)
+char **split_input(char *input)
 {
 	char **aux;
 
-	aux = split_loop(shell, input);
-	int l = 0;
-	while (l < shell->index)
-	{
-		printf("split_input[%d]: %s\n", l, aux[l]);
-		l++;
-	}
+	aux = split_loop(input);
+	// int l = 0;
+	// while (l < shell->index)
+	// {
+	// 	printf("split_input[%d]: %s\n", l, aux[l]);
+	// 	l++;
+	// }
 
 	return (aux);
 }
