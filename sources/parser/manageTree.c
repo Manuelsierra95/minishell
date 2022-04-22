@@ -1,71 +1,42 @@
-// https://parzibyte.me/blog/2021/01/13/c-arbol-binario-cadenas/
-// https://github.com/JAS0NHUANG/MiniShell
-
 #include "../../includes/minishell.h"
 
-
-t_tree	*newNode(char *data, int type) // Para cada ejecucion de una linea de comandos
+t_tree	*create_node(t_tree *node, char *data)
 {
-	t_tree	*node;
+	t_tree	*new;
 
-    node = (t_tree *) malloc(sizeof(t_tree));
-	if (!node)
-		return (NULL);
-	node->node;
-	node->right = NULL; // Hay que ir metiendo los cmds
-    node->left = NULL;
-    return node;
+	new = malloc(sizeof(t_tree));
+	new->data = data;
+	new->node = node;
+	return (new);
 }
 
-void	addCmd(t_tree *node, t_dataInfo data, char *str1, char *str2)
+t_tree	add_value(t_tree *tree, t_token token)
 {
-    if (data->numOfPipes) // Si existen pipes, ramificamos la derecha y metemos los cmd en la izquierda
-    {
-        if (node->left == NULL)
-			node->left = newNode(str1, str2);
-        else
-            addCmd(node->left, data, str1, str2); // Recursividad si esta ocupado el lugar para que pase al siguiente nodo
-		data->numOfPipes--;
-    }
+	t_token	*temp;
+	t_token	*pivot;
+
+	if (token.type == PIPE)
+	//ramificamos derecha
+	{
+		
+	}
 	else
+	// ramificamos izquierda
 	{
-		if (node->right == NULL)
-			node->right = newNode(str1, str2);
-		else
-   			 addCmd(node->right, data, str1, str2);
+
 	}
 }
 
-void	loopCmd(t_tree *node, t_dataInfo data, char *str) // O metemos un loop o lo hacemos todo en el arbol
+t_tree	create_tree()
 {
-	int		i;
-	int		j;
+	t_tree	*tree;
+	int		index;
 
-	i = ft_strlen(str);
-	j = ft_strlen(str);
-	while (str[i])
+	index = -1;
+	tree = NULL;
+	while (++index < g_shell->numOfArgs)
 	{
-		if (str[i] == '|')
-		{
-			addCmd(node, data, ft_substr(str, j, i), NULL);
-			j = i;
-		}
-		i--;
+		add_value(tree, g_shell->tokens[index]);
 	}
-	j = i;
-	while (str[i])
-	{
-		if (str[i] == " ")
-			addCmd(node, data, ft_substr(str, j, i), ft_substr(str, 0, i));
-		i--;
-	}
+	
 }
-
-/*int	main(int argc, char **argv)
-{
-	// t_tree		*node;
-	// t_dataInfo	*data;
-
-	// loopCmd(node, data, str);
-
-}*/

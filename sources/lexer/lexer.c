@@ -60,25 +60,7 @@ t_token	new_token(char *input, char *last_data)
 	return (new);
 }
 
-// t_token	loop_tokens(char *input, char *last_data)
-// {
-// 	t_token	token;
-// 	int		i;
-
-// 	i = -1;
-// 	if (ft_isalpha_edit(input[0]) || input[0] == D_QUOTE || input[0] == S_QUOTE)
-// 	{
-// 		token = new_token(dataCmd, input, last_data);
-// 		// printf("***Input al quitar Comillas: %s\n", ft_substr(input, i, ft_strlen(input)));
-// 	}
-// 	else
-// 	{
-// 		token = new_token(dataCmd, input, last_data);
-// 	}
-// 	return (token);
-// }
-
-t_token	*lexer(char **input)
+t_token	*lexer(char **input) // TODO: Añadir '&' a tokens especiales que no esta!!!
 {
 	int		i;
 	int		index;

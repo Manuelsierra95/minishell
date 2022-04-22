@@ -56,7 +56,7 @@ char	*$_env(char *data, int *i, char c_flag)
 	// printf("strlen: %zu\n", ft_strlen(data));
 	if (c_flag == D_QUOTE || c_flag == S_QUOTE)
 		flag = 1;
-	while (data[++x] != '$' && data[x] != SPACE && x <= (int)ft_strlen(data))
+	while (data[++x] != DOLLAR && data[x] != SPACE && x <= (int)ft_strlen(data))
 	{
 		if (flag == 1)
 		{
@@ -71,6 +71,7 @@ char	*$_env(char *data, int *i, char c_flag)
 	aux_data = ft_substr(data, 1, j + 1);
 
 	$_data = ft_getenv(aux_data, g_shell->envv);
+	free (aux_data);
 	// printf("$_data: %s\n", $_data);
 	*i = *i + x;
 	return ($_data);
@@ -115,9 +116,9 @@ char	*$_substitute(char *data, int index)
 	exp_data = malloc(SET_MEMORY);
 	while (data[++i])
 	{
-		if (data[i] == '$')
+		if (data[i] == DOLLAR)
 		{
-			aux_data = $_env(ft_substr(data, i, ft_strlen(data)), &i, data[i - 1]);
+			aux_data = $_env(&data[i], &i, data[i - 1]);
 			if (aux_data)
 			{
 				j = 0;
@@ -140,9 +141,11 @@ t_token	*expander(t_token *tokens)
 	index = 0;
 	while (index < g_shell->numOfArgs)
 	{
-		if (ft_strchr(tokens[index].data, '$'))
+		// printf("token[%d]: %s\n", index, tokens[index].data);
+		if (tokens[index].data != NULL && ft_strchr(tokens[index].data, DOLLAR) 
+			&& tokens[index].type == 2)
 		{
-			// printf("data: %s\n", $_substitute(tokens[index].data));
+			// printf("data: %s\n", $_substitute(tokens[index].data, 0));
 			aux = tokens[index].data;
 			tokens[index].data = $_substitute(tokens[index].data, 0);
 			free(aux);

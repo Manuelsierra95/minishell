@@ -2,7 +2,6 @@
 
 char *r_special(int type)
 {
-	// printf("Type special: %d\n", type);
 	if (type == T_PIPE)
 		return ("|");
 	else if (type == T_GREATER)
@@ -128,32 +127,32 @@ char **split_loop(char *input)
 	return (split_input);
 }
 
-int input_len(char **input)
-{
-	int size;
-	int i;
+// int input_len(char **input)
+// {
+// 	int size;
+// 	int i;
 
-	i = -1;
-	size = 0;
-	while (input[++i])
-	{
-		// if (input[i] != NULL || input[i][0] != '\0')
-			size++;
-	}
-	return (size);
-}
+// 	i = -1;
+// 	size = 0;
+// 	while (input[++i])
+// 	{
+// 		// if (input[i] != NULL || input[i][0] != '\0')
+// 			size++;
+// 	}
+// 	return (size);
+// }
 
 char **split_input(char *input)
 {
 	char **aux;
 
 	aux = split_loop(input);
-	// int l = 0;
-	// while (l < shell->index)
-	// {
-	// 	printf("split_input[%d]: %s\n", l, aux[l]);
-	// 	l++;
-	// }
+	int l = 0;
+	while (l < g_shell->numOfArgs)
+	{
+		printf("split_input[%d]: %s\n", l, aux[l]);
+		l++;
+	}
 
 	return (aux);
 }
