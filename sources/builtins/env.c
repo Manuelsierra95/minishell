@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:52:19 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/20 19:42:18 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/04/22 16:43:00 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,17 @@ int	secret_to_shell(char **env_arr)
 	return (0);
 }
 
-int	ft_env(t_list *env)
+int	ft_env(t_list *env, int fd)
 {
 	if (!env)
 		return (1);
 	while (env && env->next != NULL)
 	{
-		ft_putendl_fd(env->content, STDOUT_FILENO);
+		if (env->content)
+			ft_putendl_fd(env->content, fd);
 		env = env->next;
 	}
-	if (env)
-		ft_putendl_fd(env->content, STDOUT_FILENO);
+	if (env->content)
+		ft_putendl_fd(env->content, fd);
 	return (0);
 }

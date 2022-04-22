@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 18:07:23 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/20 20:22:43 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/04/22 17:14:17 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,53 @@ static int	len(char *content)
 	return (i);
 }
 
-static void	free_node(char *arg, t_list **env)
+static void	free_env_node(char *arg, t_list *env)
 {
 	t_list	*aux;
 
-	if (ft_strncmp(arg, (*env)->content, len((*env)->content)) == 0)
+	if (ft_strncmp(arg, env->content, len(env->content)) == 0)
 	{
-		aux = (*env)->next;
-		ft_memdel((*env)->content);
-		ft_memdel(*env);
-		*env = aux;
+		g_shell->env = g_shell->env->next;
+		ft_memdel(env->content);
+		ft_memdel(env);
+		env = g_shell->env;
 		return ;
 	}
-	while (env && *env && (*env)->next)
+	while (env && env->next)
 	{
-		if (ft_strncmp(arg, (*env)->next->content, len((*env)->next->content)) == 0)
+		if (ft_strncmp(arg, env->next->content, len(env->next->content)) == 0)
 		{
-			aux = (*env)->next->next;
-			ft_memdel((*env)->next->content);
-			ft_memdel((*env)->next);
-			(*env)->next = aux;
+			aux = env->next->next;
+			ft_memdel(env->next->content);
+			ft_memdel(env->next);
+			env->next = aux;
 		}
-		*env = (*env)->next;
+		env = env->next;
+	}
+}
+
+static void	free_secret_node(char *arg, t_list *env)
+{
+	t_list	*aux;
+
+	if (ft_strncmp(arg, env->content, len(env->content)) == 0)
+	{
+		g_shell->secret = g_shell->secret->next;
+		ft_memdel(env->content);
+		ft_memdel(env);
+		env = g_shell->secret;
+		return ;
+	}
+	while (env && env->next)
+	{
+		if (ft_strncmp(arg, env->next->content, len(env->next->content)) == 0)
+		{
+			aux = env->next->next;
+			ft_memdel(env->next->content);
+			ft_memdel(env->next);
+			env->next = aux;
+		}
+		env = env->next;
 	}
 }
 
@@ -79,8 +104,8 @@ int	ft_unset(char **arg)
 			flag = print_error(arg[i]);
 		if (flag == 0)
 		{
-			free_node(arg[i], &env);
-			free_node(arg[i], &secret);
+			free_env_node(arg[i], env);
+			free_secret_node(arg[i], secret);
 		}
 		i++;
 	}
