@@ -27,15 +27,15 @@ int	is_in_env(char *arg, int ret, t_list *env)
 		ft_memdel(env->content);
 		env->content = ft_strdup(arg);
 		env = first;
-		free(name);
+		ft_memdel(name);
 		return (1);
 	}
 	else if (ret == 0 && name_in_env(name, env))
 	{
-		free(name);
+		ft_memdel(name);
 		return (1);
 	}
-	free(name);
+	ft_memdel(name);
 	return (0);
 }
 
@@ -92,11 +92,11 @@ int	name_in_env(char *name, t_list *env)
 		env_name = get_name(aux->content);
 		if (ft_strcmp(name, env_name) == 0)
 		{
-			free(env_name);
+			ft_memdel(env_name);
 			return (1);
 		}
+		ft_memdel(env_name);
 		aux = aux->next;
 	}
-	free(env_name);
 	return (0);
 }

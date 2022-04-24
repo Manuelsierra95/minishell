@@ -40,40 +40,37 @@ static int	update_env(char *s, t_list *env)
 		if (ft_strncmp(env->content, s, ft_strlen(s)) == 0)
 		{
 			if (env->content)
-				free(env->content);
-			path = ft_strjoin(s, "=");
-			path = ft_strjoin(path, buf);
+				ft_memdel(env->content);
+			path = ft_strjoin(s, buf);
 			if (!path)
 				return (1);
-			env->content = path;
+			env->content = ft_strdup(path);
 			break ;
 		}
 		env = env->next;
 	}
+	ft_memdel(path);
 	return (0);
 }
 
-static int	cd_aux(char *path, char *s, t_list *env)
+static int	cd_aux(char *s, t_list *env)
 {
-	int	ret;
-	int	err;
+	int		ret;
+	char	*path;
 
-	err = 0;
-	if (s != NULL && !path)
+	path = ft_getenv(s, env);
+	if (!path)
 	{
-		path = ft_getenv(s, env);
-		if (!path && !err)
-		{
-			ret = 1;
-			print_error(0, s);
-			err = 1;
-		}
+		ret = 1;
+		print_error(0, s);
+		return (ret);
 	}
-	update_env("OLDPWD", env);
+	update_env("OLDPWD=", env);
 	ret = chdir(path);
-	if (ret == -1 && !err)
+	if (ret == -1)
 		print_error(1, path);
-	update_env("PWD", env);
+	update_env("PWD=", env);
+	ft_memdel(path);
 	return (ret);
 }
 
@@ -83,15 +80,21 @@ int	ft_cd(char **arg, t_list *env)
 
 	ret = 0;
 	if (!arg[1])
-		ret = cd_aux(NULL, "HOME", env);
+		ret = cd_aux("HOME", env);
 	else if (arg[1] && ft_strncmp(arg[1], "-", 1) == 0)
 	{	
-		ret = cd_aux(NULL, "OLDPWD", env);
+		ret = cd_aux("OLDPWD", env);
 		if (ret == 0)
 			ft_pwd(1);
 	}
 	else
-		ret = cd_aux(arg[1], NULL, env);
+	{
+		update_env("OLDPWD=", env);
+		ret = chdir(arg[1]);
+		if (ret == -1)
+			print_error(1, arg[1]);
+		update_env("PWD=", env);
+	}
 	if (ret < 0)
 		return (ret * -1);
 	return (ret);

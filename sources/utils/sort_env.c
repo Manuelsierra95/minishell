@@ -12,49 +12,6 @@
 
 #include "minishell.h"
 
-static int	env_len(t_list *env)
-{
-	int	len;
-
-	len = 0;
-	while (env && env->next)
-	{
-		if (env->content)
-		{
-			len += ft_strlen(env->content);
-			len++;
-		}
-		env = env->next;
-	}
-	return (len);
-}
-
-char	*env_2_str(t_list *env)
-{
-	char	*env_str;
-	int		i;
-	int		j;
-
-	env_str = (char *) malloc(env_len(env) + 1);
-	if (!env_str)
-		return (NULL);
-	i = 0;
-	while (env && env->next)
-	{
-		if (env->content != NULL)
-		{
-			j = 0;
-			while (env->content[j])
-				env_str[i++] = env->content[j++];
-		}
-		if (env->next->next != NULL)
-			env_str[i++] = '\n';
-		env = env->next;
-	}
-	env_str[i] = '\0';
-	return (env_str);
-}
-
 void	sort_env(char **env_arr, int env_len)
 {
 	char	*aux;
@@ -81,9 +38,28 @@ void	sort_env(char **env_arr, int env_len)
 	}
 }
 
-static char	*ft_msg(char *arg)
+static char	*ft_msg_aux(char *arg)
 {
 	char	*value;
+	char	*aux;
+	char	*msg;
+
+	value = get_value(arg);
+	aux = ft_strjoin("\"", value);
+	ft_memdel(value);
+	value = ft_strjoin(aux, "\"");
+	ft_memdel(aux);
+	msg = get_name(arg);
+	aux = ft_strjoin(msg, "=");
+	ft_memdel(msg);
+	msg = ft_strjoin(aux, value);
+	ft_memdel(aux);
+	ft_memdel(value);
+	return (msg);
+}
+
+static char	*ft_msg(char *arg)
+{
 	char	*msg;
 	int		flag;
 	int		i;
@@ -94,15 +70,7 @@ static char	*ft_msg(char *arg)
 		if (arg[i] == '=')
 			flag = 1;
 	if (flag == 1)
-	{
-		value = get_value(arg);
-		value = ft_strjoin("\"", value);
-		value = ft_strjoin(value, "\"");
-		msg = get_name(arg);
-		msg = ft_strjoin(msg, "=");
-		msg = ft_strjoin(msg, value);
-		ft_memdel(value);
-	}
+		msg = ft_msg_aux(arg);
 	else
 		msg = ft_strdup(arg);
 	return (msg);

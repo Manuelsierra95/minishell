@@ -24,6 +24,8 @@ static void	print_error(char *arg)
 	free(err_msg);
 }
 
+
+
 int	is_valid(char *arg)
 {
 	int	i;
