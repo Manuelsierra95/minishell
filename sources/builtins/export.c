@@ -15,13 +15,15 @@
 static void	print_error(char *arg)
 {
 	char	*err_msg;
+	char	*aux;
 
-	err_msg = ft_strjoin("`", arg);
-	err_msg = ft_strjoin(err_msg, "'");
+	aux = ft_strjoin("`", arg);
+	err_msg = ft_strjoin(aux, "'");
+	ft_memdel(aux);
 	ft_putstr_fd("minishell: export: ", STDERR_FILENO);
 	ft_putstr_fd(err_msg, STDERR_FILENO);
 	ft_putendl_fd(": not a valid identifier", STDERR_FILENO);
-	free(err_msg);
+	ft_memdel(err_msg);
 }
 
 
