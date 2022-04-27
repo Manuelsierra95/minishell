@@ -12,7 +12,7 @@ int	check_cmd(char *input)
 	return (0);
 }
 
-int	check_access(t_shell *data, char *input)
+int	check_access(char *input)
 {
 	int		flag;
 	int		i;
@@ -26,9 +26,9 @@ int	check_access(t_shell *data, char *input)
 			return (1);
 		}
 	}
-	while (data->path[i] && data->envv != NULL)
+	while (g_shell->path[i] && g_shell->envv != NULL)
 	{
-		cmd = ft_strjoin(data->path[i], input);
+		cmd = ft_strjoin(g_shell->path[i], input);
 		flag = check_cmd(cmd);
 		if (flag == 1)
 		{

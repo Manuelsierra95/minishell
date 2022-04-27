@@ -4,9 +4,11 @@
 
 typedef struct s_tree
 {
-	char			*cmd; // todo el string de info
-	struct s_tree	*left; // aqui ira la info del comando
-	struct s_tree	*right; // aqui iran los pipes y se ira ramificando en funcion del numOfPipes
+	struct s_tree	*node;
+	struct s_tree	*left;
+	struct s_tree	*right;
+	int				type;
+	char			*data;
 } t_tree;
 
 typedef struct s_cmd

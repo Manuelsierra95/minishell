@@ -1,11 +1,11 @@
 #include "../../includes/minishell.h"
 
-t_token	token_word(t_shell *dataCmd, char *input, char *last_data)
+t_token	token_word(char *input, char *last_data)
 {
 	t_token	new;
 	int		flag;
 
-	flag = check_access(dataCmd, input);
+	flag = check_access(input);
 	if (last_data && input[0] == '-')
 		flag = 1;
 	if (flag == 1)
@@ -25,62 +25,57 @@ t_token	token_no_word(int type)
 {
 	t_token	new;
 
-	printf("Type: %d\n", type);
 	new.data = NULL;
 	new.type = type;
 	return (new);
 }
 
-
-t_token	new_token(t_shell *dataCmd, char *input, char *last_data)
+t_token	token_finder(char input1, char input2)
 {
-	int 	i;
-	int 	j;
 	t_token	new;
 
-	i = -1;
-	while (input[++i])
-	{
-		if (input[i] == ' ')
-			i++;
-		else if (ft_isalpha_edit(input[i]))
-		{
-			j = i;
-			while (ft_isalpha_edit(input[i]) || input[i] == ' ')
-				i++;
-			new = (token_word(dataCmd, ft_substr(input, j, i--), last_data));
-		}
-		else if (ft_isspecial(input[i], 0))
-		{
-			if (input[i + 1])
-				new = (token_no_word(ft_isspecial(input[i], input[i + 1])));
-			else
-				new = (token_no_word(ft_isspecial(input[i], 0)));
-		}
-	}
+	if (input2 != 0)
+		new = (token_no_word(d_isspecial(input1, input2)));
+	else
+		new = (token_no_word(s_isspecial(input1)));
 	return (new);
 }
 
-t_token	*lexer(t_shell *dataCmd, int argc, char **argv)
+t_token	new_token(char *input, char *last_data)
+{
+	t_token	new;
+
+	if (ft_isalpha_edit(input[0]) || input[0] == D_QUOTE || input[0] == S_QUOTE)
+	{
+		new = (token_word(input, last_data));
+	}
+	else if (s_isspecial(input[0]))
+	{
+		new = token_finder(input[0], input[1]);
+	}
+	else
+		new.type = -1; // Tirar error aqui si se encuentra luego un -1 en type
+	return (new);
+}
+
+t_token	*lexer(char **input)
 {
 	int		i;
 	int		index;
+	t_token	*tokens;
 	char	*last_data;
-	t_token	*token;
 
-	token = malloc(sizeof(t_token));
-	i = 1;
+	i = -1;
 	index = 0;
-	while (i < argc)
+	tokens = malloc(sizeof(t_token));
+	while (input[++i])
 	{
-		if (token[index - 1].data && token[index - 1].type == 1)
-			last_data = token[index - 1].data;
+		if (tokens[index - 1].data && tokens[index - 1].type == 1)
+			last_data = tokens[index - 1].data;
 		else
 			last_data = NULL;
-		token[index] = new_token(dataCmd, argv[i], last_data);
-		index++;
-		i++;
+		tokens[index++] = new_token(input[i], last_data);
+		g_shell->numOfArgs++;
 	}
-	dataCmd->numOfArgs = index;
-	return (token);
+	return (tokens);
 }

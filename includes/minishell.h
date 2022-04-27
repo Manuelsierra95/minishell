@@ -15,7 +15,7 @@
 
 # include "./lexer.h"
 # include "./parser.h"
-# include "libft.h"
+# include "./libft.h"
 
 # include <stdio.h>
 # include <errno.h>
@@ -32,6 +32,11 @@
 # include <readline/history.h>
 # include <limits.h>
 
+# define SET_MEMORY 1024
+
+# define CYAN	"\033[36m"
+# define RESET	"\033[0m"
+
 typedef struct s_shell
 {
 	t_list	*secret;
@@ -40,20 +45,53 @@ typedef struct s_shell
 	int		exit;
 	int		ret;
 	int		exit_stat;
+
+	char			**path;
+	char			**envv;
+	t_token			*tokens;
+	int				numOfArgs;
+	int				diff_quote;
+	int				index;
 }	t_shell;
 
 t_shell	*g_shell;
+
+
+typedef struct s_env   /* Estructura del entorno */
+{
+	char			*content;
+	struct s_env	*next;
+}	t_env;
+
+// typedef struct s_shell
+// {
+	
+
+// 	int				numOfCmd;
+// 	int				numOfPipes;
+// 	char			*outFile;
+// 	char			*inFile; // Implementar el GNL (Ver errores que pueda haber en los infiles)
+// 	char			*errFile;
+// 	struct s_env	*env;
+// 	int				exit;
+// 	int				ret;
+// }	t_shell;
+
+t_shell *g_shell;
 
 /* UTILS */
 
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putstr_fd(char *s, int fd);
-int		ft_atoi(const char *s);
 int		ft_isnum(const char *s);
 char	*ft_getenv(char *arg, t_list *env);
 int		env_to_shell(char **env_arr);
 int		secret_to_shell(char **env_arr);
 int		arr_len(char **arr);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strdup(const char *s);
+char	**ft_split(const char *s, char c);
+int		ft_isalpha_edit(int c);
 
 /* FREE TOOLS */
 
@@ -82,11 +120,16 @@ int		ft_echo(int fd, char **arg);
 int		ft_cd(char **arg, t_list *env);
 int		ft_export(char **arg, t_list *env, t_list *secret, int fd);
 int		ft_unset(char **arg);
+int		ft_pwd(void);
+void	ft_exit(char **argv);
+int		env_to_shell(char **arg, t_shell *shell); /* Pasa entorno de char ** a t_env */
+int		ft_env(t_env *env);
+int		ft_echo(char **arg);
+int		ft_cd(char **arg, t_env *env);
 
-/* PARSER */
+/* EXPANDER */
 
-void	get_path(t_shell *data, char **env);
-t_token	*lexer(t_shell *dataCmd, int argc, char **argv);
-int		check_access(t_shell *data, char *input);
+t_token	*expander(t_token *tokens);
+char	*ft_getenv(char *arg, char **env);
 
 #endif

@@ -26,16 +26,15 @@ t_shell	*init_shell(char **env)
 	return (shell);
 }
 
-void	print_env(char **env)
+void	free_shell(t_shell *shell)
 {
-	int	i;
+	int	x;
 
-	i = 0;
-	while (env[i])
-	{
-		printf("%s\n", env[i]);
-		i++;
-	}
+	x = 0;
+	while (shell->path[x])
+		free(shell->path[x]);
+	free(shell->tokens);
+	free(shell);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -75,4 +74,63 @@ int	main(int argc, char **argv, char **env)
 	}
 //	system("leaks minishell");
 	return (g_shell->ret);
+
+int	main(int argc, char **argv, char **env)
+{
+	char	*input;
+	char	**line;
+	int		flag;
+	// char	*quote;
+	// t_shell	*shell;
+
+	(void) argc;
+	(void) argv;
+	g_shell = init_shell();
+	get_path(env);
+	// env_to_shell(env, shell);
+	while (g_shell->exit == 1)
+	{
+		input = readline(CYAN "minishell> " RESET);		// add_history(inpt);
+		flag = 0;
+		if (ft_strchr(input, '$'))
+			flag = 1;
+		g_shell->index = 0;
+		g_shell->numOfArgs = 0;
+		if (quote_analyzer(input) % 2 != 0)
+		{
+			printf("Error de comillas\n");
+			exit(-1);
+		}
+		// else
+		// 	line = split_input(input);
+
+		line = split_input(input);
+
+		if (ft_strncmp(line[0], "exit", 4) == 0)
+			ft_exit(line);
+		// else if (ft_strncmp(line[0], "pwd", 3) == 0)
+		// 	ft_pwd();
+		// else if (ft_strncmp(line[0], "env", 3) == 0)
+		// 	ft_env(shell->env);
+		// else if (ft_strncmp(line[0], "echo", 4) == 0)
+		// 	ft_echo(line);
+		// else if (ft_strncmp(line[0], "cd", 2) == 0)
+		// 	ft_cd(line, shell->env);
+
+		g_shell->tokens = lexer(line);
+		free(line);
+		if (flag == 1)
+			g_shell->tokens = expander(g_shell->tokens);
+
+		int index = 0;
+		while (index < g_shell->numOfArgs)
+		{
+			printf("Index: %d\tType: %d\tData: %s\n", index, g_shell->tokens[index].type, g_shell->tokens[index].data);
+			index++;
+		}
+
+		free(g_shell->tokens);
+		
+		// system("leaks minishell");
+	}
 }

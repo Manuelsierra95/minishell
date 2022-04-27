@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/16 16:44:01 by mbarylak          #+#    #+#             */
-/*   Updated: 2021/09/17 12:46:46 by mbarylak         ###   ########.fr       */
+/*   Created: 2021/09/14 16:17:04 by mbarylak          #+#    #+#             */
+/*   Updated: 2021/09/23 19:44:31 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-char	*ft_substr(char const *s, int start, int len)
+#include<stdio.h>
+
+char	*ft_strchr_jump(const char *s, int c)
 {
-	char	*a;
-	int	i;
+	int		i;
+	char	*str;
+	char	ch;
 
 	i = 0;
-	if (!s)
-		return (NULL);
-	if (start >= (int) ft_strlen(s))
-		len = 0;
-	if (len > (int) ft_strlen(s))
-		len = (int) ft_strlen(s);
-	a = (char *)malloc((len + 1) * sizeof(char));
-	if (!a)
-		return (NULL);
-	while (i + start < len)
+	ch = (char) c;
+	str = (char *) s;
+	while (str[i])
 	{
-		a[i] = s[start + i];
+		if (str[i] == ch)
+			return (&str[++i]);
 		i++;
 	}
-	a[i] = '\0';
-	return (a);
+	if (str[i] == ch)
+		return (&str[i]);
+	return (NULL);
 }
