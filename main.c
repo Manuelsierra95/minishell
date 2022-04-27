@@ -23,12 +23,6 @@ t_shell	*init_shell(void)
 	return (shell);
 }
 
-// 			printf("%s\n", inpt);
-// 	}
-// //	system("leaks minishell");
-// 	return (shell->ret);
-// }
-
 void	free_shell(t_shell *shell)
 {
 	int	x;

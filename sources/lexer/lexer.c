@@ -34,7 +34,6 @@ t_token	token_finder(char input1, char input2)
 {
 	t_token	new;
 
-	// printf("\tinput1: %c\tinput2: %d\n", input1, input2);
 	if (input2 != 0)
 		new = (token_no_word(d_isspecial(input1, input2)));
 	else
@@ -56,11 +55,10 @@ t_token	new_token(char *input, char *last_data)
 	}
 	else
 		new.type = -1; // Tirar error aqui si se encuentra luego un -1 en type
-	// printf("Antes /// Type: %d\tData: %s\n", new.type, new.data);
 	return (new);
 }
 
-t_token	*lexer(char **input) // TODO: Añadir '&' a tokens especiales que no esta!!!
+t_token	*lexer(char **input)
 {
 	int		i;
 	int		index;

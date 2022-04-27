@@ -1,23 +1,5 @@
 #include "../../includes/minishell.h"
 
-
-// char	*check_$_in_env(char *aux_data)
-// {
-// 	int		i;
-// 	char	$_data;
-
-// 	i = -1;
-// 	$_data = NULL;
-// 	while (g_shell->env[++i])
-// 	{
-// 		if (ft_strncmp(g_shell->env[i], aux_data, ft_strlen(aux_data)))
-// 		{
-// 			$_data = ft_getenv("=", );
-// 		}
-// 	}
-// 	return ($_data);
-// }
-
 char	*ft_getenv(char *arg, char **env)
 {
 	char	*s;
@@ -25,7 +7,6 @@ char	*ft_getenv(char *arg, char **env)
 
 	s = NULL;
 	i = -1;
-	// printf("data que entra: %s\n", arg);
 	while (env[++i])
 	{
 		if (ft_strncmp(env[i], arg, ft_strlen(arg)) == 0)
@@ -51,9 +32,6 @@ char	*$_env(char *data, int *i, char c_flag)
 	x = 0;
 	j = 0;
 	flag = 0;
-	printf("data que entra: %s\n", data);
-	// printf("valor de x: %d\n", x);
-	// printf("strlen: %zu\n", ft_strlen(data));
 	if (c_flag == D_QUOTE || c_flag == S_QUOTE)
 		flag = 1;
 	while (data[++x] != DOLLAR && data[x] != SPACE && x <= (int)ft_strlen(data))
@@ -63,47 +41,15 @@ char	*$_env(char *data, int *i, char c_flag)
 			if (data[x] == D_QUOTE || data[x] == S_QUOTE)
 				break ;
 		}
-		printf("data[%d]: %c\n", x, data[x]);
-		// x++;
 		j++;
 	}
-	// printf("valor de start: %d\tvalor de j: %d\n", start, j);
 	aux_data = ft_substr(data, 1, j + 1);
 
 	$_data = ft_getenv(aux_data, g_shell->envv);
 	free (aux_data);
-	// printf("$_data: %s\n", $_data);
 	*i = *i + x;
 	return ($_data);
 }
-
-// int	size_of_exp(char *data)
-// {
-// 	int	i;
-// 	int	size;
-// 	int	len;
-
-// 	i = 0;
-// 	size = 0;
-// 	len = (int) ft_strlen(data);
-// 	printf("strlen de input: %d\n", len);
-// 	while (data[i])
-// 	{
-// 		if (data[i++] == '$')
-// 		{
-// 			printf("Data antes del loop: %c\n", data[i]);
-// 			while (data[i] != '$')
-// 			{
-// 				printf("data[%d]: %c\n", i, data[i]);
-// 				i++;
-// 				size++;
-// 			}
-// 			break ;
-// 		}
-// 		i++;
-// 	}
-// 	return (size + 1);
-// }
 
 char	*$_substitute(char *data, int index)
 {
@@ -141,11 +87,9 @@ t_token	*expander(t_token *tokens)
 	index = 0;
 	while (index < g_shell->numOfArgs)
 	{
-		// printf("token[%d]: %s\n", index, tokens[index].data);
 		if (tokens[index].data != NULL && ft_strchr(tokens[index].data, DOLLAR) 
 			&& tokens[index].type == 2)
 		{
-			// printf("data: %s\n", $_substitute(tokens[index].data, 0));
 			aux = tokens[index].data;
 			tokens[index].data = $_substitute(tokens[index].data, 0);
 			free(aux);

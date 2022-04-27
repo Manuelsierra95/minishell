@@ -54,12 +54,10 @@ char *input_line3(char *input, int state, int *i, int start)
 
 	x = *i;
 	split_input = NULL;
-	// printf("state: %c\n", state);
 	if (input[x + 1] == state)
 		x++;
-	else // TODO: Arreglar segv echo """ (con 3 comillas)
+	else
 	{
-		// printf("Entra\n");
 		x++;
 		start = x;
 		while (input[x] != state)
@@ -68,8 +66,6 @@ char *input_line3(char *input, int state, int *i, int start)
 			split_input = ft_substr(input, start - 1, x + 1);
 		else
 			split_input = ft_substr(input, start, x);
-		// printf("Sale valiendo: %c\n", input[x]);
-		// printf("lo que splitea: %s\n", ft_substr(input, start, x));
 	}
 	*i = x;
 	return (split_input);
@@ -115,7 +111,6 @@ char **split_loop(char *input)
 	split_input = malloc(SET_MEMORY);
 	while (input[++i])
 	{
-		// printf("loo_input[%d]: %c\n", i, input[i]);
 		if (input[i] == SPACE)
 			i++;
 		state = input_state(input[i]);
@@ -126,21 +121,6 @@ char **split_loop(char *input)
 	split_input[g_shell->index++] = NULL;
 	return (split_input);
 }
-
-// int input_len(char **input)
-// {
-// 	int size;
-// 	int i;
-
-// 	i = -1;
-// 	size = 0;
-// 	while (input[++i])
-// 	{
-// 		// if (input[i] != NULL || input[i][0] != '\0')
-// 			size++;
-// 	}
-// 	return (size);
-// }
 
 char **split_input(char *input)
 {
@@ -156,36 +136,3 @@ char **split_input(char *input)
 
 	return (aux);
 }
-
-// char	*take_off_spaces(char *input)
-// {
-// 	int		i;
-// 	int		x;
-// 	int		state;
-// 	char	*aux_input;
-
-// 	i = -1;
-// 	x = 0;
-// 	state = 0;
-// 	printf("Input_off_spaces: %s\n", input);
-// 	aux_input = malloc(sizeof(char *));
-// 	while (input[++i])
-// 	{
-// 		printf("Input[%d]: %c\n", i, input[i]);
-// 		if (input[i] == D_QUOTE)
-// 		{
-// 			if (state == 0)
-// 				state = 1;
-// 			else
-// 				state = 0;
-// 		}
-// 		if (state == 1)
-// 			aux_input[x++] = input[i];
-// 		if (state == 0 && i > 0)
-// 			break ;
-// 		printf("Aux_input: %s\n", aux_input);
-// 	}
-// 	aux_input[x++] = '\0';
-// 	printf("Input_off_spaces: %s\n", aux_input);
-// 	return (aux_input);
-// }
