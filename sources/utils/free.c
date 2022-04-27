@@ -1,29 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/14 19:22:14 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/18 15:56:58 by mbarylak         ###   ########.fr       */
+/*   Created: 2022/04/18 17:14:15 by mbarylak          #+#    #+#             */
+/*   Updated: 2022/04/18 17:38:28 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strncmp(const char	*s1, const char *s2, size_t n)
+void	free_arr(char **arr)
 {
-	size_t			i;
+	int	i;
 
 	i = 0;
-	if (n == 0)
-		return (0);
-	while (s1[i] == s2[i])
+	while (arr[i])
 	{
-		if ((s1[i] == '\0' && s2[i] == '\0') || i == n - 1)
-			return (0);
+		if (arr[i])
+			ft_memdel(arr[i]);
 		i++;
 	}
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	if (arr)
+		ft_memdel(arr);
+}
+
+void	free_env(t_list *env)
+{
+	t_list	*aux;
+
+	while (env && env->next)
+	{
+		aux = env;
+		env = env->next;
+		ft_memdel(aux->content);
+		ft_memdel(aux);
+	}
+	ft_memdel(env->content);
+	ft_memdel(env);
 }

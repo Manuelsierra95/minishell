@@ -6,7 +6,7 @@
 #    By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 14:59:23 by msierra-          #+#    #+#              #
-#    Updated: 2022/04/11 18:14:05 by mbarylak         ###   ########.fr        #
+#    Updated: 2022/04/20 19:12:09 by mbarylak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,9 @@ LIBFT_NAME  =	libft.a
 BUILTINS	=	pwd exit env echo
 
 UTILS	=	isspecial isnum isalpha_edit
+BUILTINS	=	pwd exit env echo cd export unset
+
+UTILS	=	isnum getenv is_in_env sort_env free
 
 LEXER	= checkCmd get_path lexer 
 
