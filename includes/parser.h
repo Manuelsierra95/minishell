@@ -1,31 +1,27 @@
 #ifndef PARSER_H
 # define PARSER_H
 
+enum redir_type
+{
+	REDIR_OUT = 0,
+	REDIR_APPEND_OUT,
+	REDIR_IN,
+	REDIR_HEREDOC,
+};
+
+typedef struct s_redir {
+	char			*value;
+	int				redir_type;
+	struct s_redir	*next;
+}				t_redir;
 
 typedef struct s_tree
 {
-	struct s_tree	*node;
+	char			**cmd;
+	char			*n_data;
+	int				n_type;
 	struct s_tree	*left;
 	struct s_tree	*right;
-	int				type;
-	char			*data;
 } t_tree;
-
-typedef struct s_cmd
-{
-	char			*cmd[2]; // Si solo hay 1 cmd el 2 es NULL (hay que rellenarlo);
-	struct s_cmd	*next;
-} t_cmd;
-
-
-// Sacamos todos los argumentos y los separamos en comandos simples
-typedef struct s_dataCmd
-{
-	int				numOfAvArgs; 
-	int				numOfArgs;
-	char			**args;
-	t_cmd			*cmd;
-	// Control de argumentos separados
-} t_dataCmd;
 
 #endif

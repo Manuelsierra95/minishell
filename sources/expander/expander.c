@@ -1,19 +1,18 @@
 #include "../../includes/minishell.h"
 
-char	*ft_getenv(char *arg, char **env)
+char	*exp_getenv(char *arg, t_list *env)
 {
 	char	*s;
-	int		i;
 
 	s = NULL;
-	i = -1;
-	while (env[++i])
+	while (env)
 	{
-		if (ft_strncmp(env[i], arg, ft_strlen(arg)) == 0)
+		if (ft_strncmp(env->content, arg, ft_strlen(arg)) == 0)
 		{
-			s = ft_strdup(env[i]);
+			s = ft_strdup(env->content);
 			break ;
 		}
+		env = env->next;
 	}
 	if (s == NULL)
 		return (NULL);
@@ -45,7 +44,7 @@ char	*$_env(char *data, int *i, char c_flag)
 	}
 	aux_data = ft_substr(data, 1, j + 1);
 
-	$_data = ft_getenv(aux_data, g_shell->envv);
+	$_data = exp_getenv(aux_data, g_shell->env);
 	free (aux_data);
 	*i = *i + x;
 	return ($_data);

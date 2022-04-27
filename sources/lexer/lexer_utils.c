@@ -127,12 +127,6 @@ char **split_input(char *input)
 	char **aux;
 
 	aux = split_loop(input);
-	int l = 0;
-	while (l < g_shell->numOfArgs)
-	{
-		printf("split_input[%d]: %s\n", l, aux[l]);
-		l++;
-	}
 
 	return (aux);
 }

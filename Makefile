@@ -14,7 +14,7 @@ NAME		= 	minishell
 LIBFT_NAME  =	libft.a
 
 BUILTINS	=	pwd exit env echo cd export unset
-UTILS		=	isnum getenv is_in_env sort_env free isspecial isalpha_edit
+UTILS		=	isnum getenv is_in_env sort_env free isspecial isalpha_edit shell_loop
 LEXER		= 	lexer checkCmd get_path quote_manage lexer_utils
 PARSER 		= 	parser
 

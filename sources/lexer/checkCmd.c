@@ -26,7 +26,7 @@ int	check_access(char *input)
 			return (1);
 		}
 	}
-	while (g_shell->path[i] && g_shell->envv != NULL)
+	while (g_shell->path[i] && g_shell->env)
 	{
 		cmd = ft_strjoin(g_shell->path[i], input);
 		flag = check_cmd(cmd);

@@ -41,27 +41,24 @@ typedef struct s_shell
 {
 	t_list	*secret;
 	t_list	*env;
-	char	**envv;
 	int		exit;
 	int		ret;
 	int		exit_stat;
 
 	char			**path;
-	char			**envv;
 	t_token			*tokens;
 	int				numOfArgs;
-	int				diff_quote;
 	int				index;
 }	t_shell;
 
 t_shell	*g_shell;
 
 
-typedef struct s_env   /* Estructura del entorno */
-{
-	char			*content;
-	struct s_env	*next;
-}	t_env;
+// typedef struct s_env   /* Estructura del entorno */
+// {
+// 	char			*content;
+// 	struct s_env	*next;
+// }	t_env;
 
 // typedef struct s_shell
 // {
@@ -92,6 +89,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s);
 char	**ft_split(const char *s, char c);
 int		ft_isalpha_edit(int c);
+void	shell_cmds(char *inpt, char **line);
 
 /* FREE TOOLS */
 
@@ -120,16 +118,10 @@ int		ft_echo(int fd, char **arg);
 int		ft_cd(char **arg, t_list *env);
 int		ft_export(char **arg, t_list *env, t_list *secret, int fd);
 int		ft_unset(char **arg);
-int		ft_pwd(void);
-void	ft_exit(char **argv);
-int		env_to_shell(char **arg, t_shell *shell); /* Pasa entorno de char ** a t_env */
-int		ft_env(t_env *env);
-int		ft_echo(char **arg);
-int		ft_cd(char **arg, t_env *env);
 
 /* EXPANDER */
 
 t_token	*expander(t_token *tokens);
-char	*ft_getenv(char *arg, char **env);
+char	*exp_getenv(char *arg, t_list *env);
 
 #endif

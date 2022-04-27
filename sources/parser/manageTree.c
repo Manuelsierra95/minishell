@@ -1,12 +1,14 @@
 #include "../../includes/minishell.h"
 
-t_tree	*create_node(t_tree *node, char *data)
+t_tree	*create_node(t_tree *node, char *data, int type)
 {
 	t_tree	*new;
 
 	new = malloc(sizeof(t_tree));
-	new->data = data;
-	new->node = node;
+	new->n_data = data;
+	new->right = NULL;
+	new->left = NULL;
+
 	return (new);
 }
 

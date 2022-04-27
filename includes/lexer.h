@@ -9,8 +9,8 @@ enum char_type
 	GREATER = '>',
 	LESSER = '<',
 	SPACE = 32,
-	S_QUOTE = 39, // Comilla simple
-	D_QUOTE = '"', // Comilla doble
+	S_QUOTE = 39,
+	D_QUOTE = '"',
 };
 
 enum token_type
@@ -32,7 +32,7 @@ typedef struct s_token
 
 
 int		check_access(char *input);
-void	get_path(char **env);
+void	get_path(void);
 char 	**split_input(char *input);
 t_token	*lexer(char **input);
 int		quote_analyzer(char *input);

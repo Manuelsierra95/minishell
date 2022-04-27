@@ -33,6 +33,7 @@ static int	update_env(char *s, t_list *env)
 	char	buf[PATH_MAX];
 	char	*path;
 
+	path = NULL;
 	if (!getcwd(buf, PATH_MAX) || !env)
 		return (1);
 	while (env && env->next)
@@ -52,7 +53,6 @@ static int	update_env(char *s, t_list *env)
 	ft_memdel(path);
 	return (0);
 }
-
 static int	cd_aux(char *s, t_list *env)
 {
 	int		ret;
@@ -73,6 +73,7 @@ static int	cd_aux(char *s, t_list *env)
 	ft_memdel(path);
 	return (ret);
 }
+
 
 int	ft_cd(char **arg, t_list *env)
 {

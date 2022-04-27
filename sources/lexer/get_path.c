@@ -14,24 +14,23 @@ void	join_path()
 
 void	split_path()
 {
-	int		x;
+	t_list	*aux;
 
-	x = 0;
-	while (g_shell->envv[x])
+	aux = g_shell->env;
+	while (aux)
 	{
-		if (ft_strncmp(g_shell->envv[x], "PATH", 4) == 0)
+		if (ft_strncmp(aux->content, "PATH", 4) == 0)
 		{
-			g_shell->path = ft_split(ft_strchr(g_shell->envv[x], '/'), ':');
+			g_shell->path = ft_split(ft_strchr(aux->content, '/'), ':');
 		}
-		x++;
+		aux = aux->next;
 	}
 }
 
-void	get_path(char **env) // Cambiar por la ENV de Miguel
+void	get_path(void) // Cambiar por la ENV de Miguel
 {
-	if (env[0] != NULL)
+	if (g_shell->env->content != NULL)
 	{
-		g_shell->envv = env;
 		split_path();
 		join_path();
 	}
