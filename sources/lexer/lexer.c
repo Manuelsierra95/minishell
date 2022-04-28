@@ -27,6 +27,8 @@ t_token	token_no_word(int type)
 
 	new.data = NULL;
 	new.type = type;
+	if (type == T_PIPE)
+		g_shell->numOfPipes++;
 	return (new);
 }
 
@@ -46,13 +48,9 @@ t_token	new_token(char *input, char *last_data)
 	t_token	new;
 
 	if (ft_isalpha_edit(input[0]) || input[0] == D_QUOTE || input[0] == S_QUOTE)
-	{
 		new = (token_word(input, last_data));
-	}
 	else if (s_isspecial(input[0]))
-	{
 		new = token_finder(input[0], input[1]);
-	}
 	else
 		new.type = -1; // Tirar error aqui si se encuentra luego un -1 en type
 	return (new);

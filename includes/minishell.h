@@ -48,7 +48,9 @@ typedef struct s_shell
 	char			**path;
 	t_token			*tokens;
 	int				numOfArgs;
+	int				numOfPipes;
 	int				index;
+	t_tree			*tree;
 }	t_shell;
 
 t_shell	*g_shell;
@@ -90,6 +92,7 @@ char	*ft_strdup(const char *s);
 char	**ft_split(const char *s, char c);
 int		ft_isalpha_edit(int c);
 void	shell_cmds(char *inpt, char **line);
+void	shell_loop();
 
 /* FREE TOOLS */
 

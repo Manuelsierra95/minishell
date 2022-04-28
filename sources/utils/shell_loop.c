@@ -1,9 +1,5 @@
 #include "../../includes/minishell.h"
 
-void	shell_loop()
-{
-	
-}
 
 void	shell_cmds(char *inpt, char **line)
 {
@@ -27,4 +23,21 @@ void	shell_cmds(char *inpt, char **line)
 		ft_unset(line);
 	else
 		printf("%s", inpt);
+}
+
+void inorden(t_tree *tree) {
+    if (tree != NULL) {
+		if (tree->n_type != N_PIPE)
+		{
+			shell_cmds(tree->n_data, tree->cmd);
+    		// printf("cmd[0]: %s\ncmd[1]: %s\ndata: %s\n", tree->cmd[0], tree->cmd[1], tree->n_data);
+		}
+        inorden(tree->left);
+        inorden(tree->right);
+    }
+}
+
+void	shell_loop()
+{
+	inorden(g_shell->tree);
 }

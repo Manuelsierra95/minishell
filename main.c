@@ -36,7 +36,7 @@ void	free_shell(t_shell *shell)
 	free(shell);
 }
 
-int	main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)//TODO: Ajustar tamaños de los malloc
 {
 	char	*inpt;
 	char	**line;
@@ -57,17 +57,23 @@ int	main(int argc, char **argv, char **env)
 			flag = 1;
 		g_shell->index = 0;
 		g_shell->numOfArgs = 0;
+		g_shell->numOfPipes = 0;
 		if (quote_analyzer(inpt) % 2 != 0)
 		{
 			printf("Error de comillas\n");
 			exit(-1);
 		}
 		line = split_input(inpt);
-		shell_cmds(inpt, line);
+		// shell_cmds(inpt, line);
 		g_shell->tokens = lexer(line);
 		free(line);
 		if (flag == 1)
 			g_shell->tokens = expander(g_shell->tokens);
+
+		g_shell->tree = create_tree();
+		// Limpiar los tokens
+		shell_loop();
+
 
 		// int index = 0;
 		// while (index < g_shell->numOfArgs)

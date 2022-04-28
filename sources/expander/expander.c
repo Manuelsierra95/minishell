@@ -43,7 +43,6 @@ char	*$_env(char *data, int *i, char c_flag)
 		j++;
 	}
 	aux_data = ft_substr(data, 1, j + 1);
-
 	$_data = exp_getenv(aux_data, g_shell->env);
 	free (aux_data);
 	*i = *i + x;

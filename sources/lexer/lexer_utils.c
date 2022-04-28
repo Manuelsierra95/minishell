@@ -118,11 +118,11 @@ char **split_loop(char *input)
 		if (aux)
 			split_input[g_shell->index++] = aux;
 	}
-	split_input[g_shell->index++] = NULL;
+	split_input[g_shell->index] = NULL;
 	return (split_input);
 }
 
-char **split_input(char *input)
+char **split_input(char *input) //TODO: free a la matriz
 {
 	char **aux;
 
