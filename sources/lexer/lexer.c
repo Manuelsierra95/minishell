@@ -52,11 +52,14 @@ t_token	new_token(char *input, char *last_data)
 	else if (s_isspecial(input[0]))
 		new = token_finder(input[0], input[1]);
 	else
+	{
 		new.type = -1; // Tirar error aqui si se encuentra luego un -1 en type
+		// new.data = ft_strdup(input);
+	}
 	return (new);
 }
 
-t_token	*lexer(char **input)
+t_token	*lexer(char **input) //Tratar si solo el problema de las flags ocurre con "echo"
 {
 	int		i;
 	int		index;
@@ -68,7 +71,8 @@ t_token	*lexer(char **input)
 	tokens = malloc(sizeof(t_token));
 	while (input[++i])
 	{
-		if (tokens[index - 1].data && tokens[index - 1].type == 1)
+		if (tokens[index - 1].data && tokens[index - 1].type == 1
+			&& !(ft_strnstr(tokens[index - 1].data, "echo", ft_strlen(tokens[index - 1].data ))))
 			last_data = tokens[index - 1].data;
 		else
 			last_data = NULL;

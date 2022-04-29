@@ -25,6 +25,18 @@ t_shell	*init_shell(void)
 	return (shell);
 }
 
+void	free_matrix(char **line)
+{
+	int	y;
+
+	y = -1;
+	while (line[++y])
+	{
+		free(line[y]);
+	}
+}
+
+
 void	free_shell(t_shell *shell)
 {
 	int	x;
@@ -66,22 +78,24 @@ int	main(int argc, char **argv, char **env)//TODO: Ajustar tamaños de los mallo
 		line = split_input(inpt);
 		// shell_cmds(inpt, line);
 		g_shell->tokens = lexer(line);
-		free(line);
-		if (flag == 1)
-			g_shell->tokens = expander(g_shell->tokens);
+		if (!check_for_errors(g_shell->tokens)) // NO detecta exit y demas como comandos y salta error!!
+		{
+			if (flag == 1)
+				g_shell->tokens = expander(g_shell->tokens);
+			g_shell->tree = create_tree();
+			shell_loop();
 
-		g_shell->tree = create_tree();
-		// Limpiar los tokens
-		shell_loop();
 
+			// int index = 0;
+			// while (index < g_shell->numOfArgs)
+			// {
+			// 	printf("Index: %d\tType: %d\tData: %s\n", index, g_shell->tokens[index].type, g_shell->tokens[index].data);
+			// 	index++;
+			// }
 
-		// int index = 0;
-		// while (index < g_shell->numOfArgs)
-		// {
-		// 	printf("Index: %d\tType: %d\tData: %s\n", index, g_shell->tokens[index].type, g_shell->tokens[index].data);
-		// 	index++;
-		// }
+		}
 
+		free_matrix(line);
 		free(g_shell->tokens);
 	}
 //	system("leaks minishell");

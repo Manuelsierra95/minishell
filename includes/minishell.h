@@ -127,4 +127,9 @@ int		ft_unset(char **arg);
 t_token	*expander(t_token *tokens);
 char	*exp_getenv(char *arg, t_list *env);
 
+/* ERRORS */
+
+int	check_for_errors(t_token *tokens);
+
+
 #endif

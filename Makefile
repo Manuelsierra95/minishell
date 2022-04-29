@@ -17,6 +17,7 @@ BUILTINS	=	pwd exit env echo cd export unset
 UTILS		=	isnum getenv is_in_env sort_env free isspecial isalpha_edit shell_loop
 LEXER		= 	lexer checkCmd get_path quote_manage lexer_utils
 PARSER 		= 	parser
+ERRORS		=	errors
 
 EXPANDER = 	expander 
 
@@ -25,6 +26,7 @@ SRCS	=	$(addsuffix .c, $(addprefix sources/builtins/, $(BUILTINS))) 	\
 			$(addsuffix .c, $(addprefix sources/lexer/, $(LEXER))) 			\
 			$(addsuffix .c, $(addprefix sources/parser/, $(PARSER))) 		\
 			$(addsuffix .c, $(addprefix sources/expander/, $(EXPANDER))) 	\
+			$(addsuffix .c, $(addprefix sources/errors/, $(ERRORS))) 	\
 			main.c 
 
 PINK = \033[1;35m
