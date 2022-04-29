@@ -56,27 +56,34 @@ t_token	new_token(char *input, char *last_data)
 		new.type = -1; // Tirar error aqui si se encuentra luego un -1 en type
 		// new.data = ft_strdup(input);
 	}
+	printf("data: %s\ttype: %d\n", new.data, new.type);
 	return (new);
 }
 
 t_token	*lexer(char **input) //Tratar si solo el problema de las flags ocurre con "echo"
 {
 	int		i;
-	int		index;
 	t_token	*tokens;
 	char	*last_data;
 
 	i = -1;
-	index = 0;
 	tokens = malloc(sizeof(t_token));
+	last_data = NULL;
 	while (input[++i])
 	{
-		if (tokens[index - 1].data && tokens[index - 1].type == 1
-			&& !(ft_strnstr(tokens[index - 1].data, "echo", ft_strlen(tokens[index - 1].data ))))
-			last_data = tokens[index - 1].data;
-		else
-			last_data = NULL;
-		tokens[index++] = new_token(input[i], last_data);
+		if ((tokens[i - 1].data && tokens[i - 1].type == 1))
+		{
+			if (!ft_strncmp(tokens[i - 1].data, "echo", ft_strlen(tokens[i - 1].data)))
+			{
+				if (!ft_strncmp(input[i], "-n", ft_strlen(input[i]) + 1))
+					last_data = tokens[i - 1].data;
+				else
+					last_data = NULL;
+			}
+			else
+				last_data = tokens[i - 1].data;
+		}
+		tokens[i] = new_token(input[i], last_data);
 		g_shell->numOfArgs++;
 	}
 	return (tokens);

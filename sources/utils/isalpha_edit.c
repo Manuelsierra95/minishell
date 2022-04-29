@@ -18,7 +18,8 @@ int	ft_isalpha_edit(int c)
 
 	a = 0;
 	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') 
-		|| c == '-' || (c >= '0' && c <= '9') || c == DOLLAR)
+		|| c == '-' || (c >= '0' && c <= '9') || c == DOLLAR
+		|| c == '/')
 		a = 1;
 	return (a);
 }
