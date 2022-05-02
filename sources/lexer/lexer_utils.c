@@ -78,9 +78,7 @@ char *input_line(char *input, int state, int *i, int start)
 
 	x = *i;
 	if (s_isspecial(input[x]))
-	{
 		split_input = input_line2(input, &x);
-	}
 	if (state == CHAR)
 	{
 		start = x;
@@ -90,25 +88,19 @@ char *input_line(char *input, int state, int *i, int start)
 		x--;
 	}
 	if (state != 0 && (state == D_QUOTE || state == S_QUOTE))
-	{
 		split_input = input_line3(input, state, &x, start);
-	}
 	*i = x;
 	return (split_input);
 }
 
-char **split_loop(char *input)
+char **split_loop(char *input, char **split_input, int state)
 {
 	int i;
 	int start;
-	int state;
-	char **split_input;
 	char	*aux;
 
 	i = -1;
-	state = 0;
 	start = 0;
-	split_input = malloc(SET_MEMORY);
 	while (input[++i])
 	{
 		if (input[i] == SPACE)
@@ -122,11 +114,37 @@ char **split_loop(char *input)
 	return (split_input);
 }
 
+int	get_matrix_size(char *input, int state)
+{
+	int		size;
+	int		start;
+	int		i;
+	char	*aux;
+
+	i = 0;
+	start = 0;
+	size = 0;
+	while (input[++i])
+	{
+		if (input[i] == SPACE)
+			i++;
+		state = input_state(input[i]);
+		aux = input_line(input, state, &i, start);
+		if (aux)
+			size++;
+	}
+	free(aux);
+	return (size);
+}
+
 char **split_input(char *input) //TODO: free a la matriz
 {
-	char **aux;
+	char **split_input;
+	int		size;
 
-	aux = split_loop(input);
+	size = get_matrix_size(input, 0);
+	split_input = malloc(sizeof(char *) * (size + 1));
+	split_input = split_loop(input, split_input, 0);
 
-	return (aux);
+	return (split_input);
 }

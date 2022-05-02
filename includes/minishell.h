@@ -33,8 +33,6 @@
 # include <readline/history.h>
 # include <limits.h>
 
-# define SET_MEMORY 1024
-
 # define CYAN	"\033[36m"
 # define RESET	"\033[0m"
 

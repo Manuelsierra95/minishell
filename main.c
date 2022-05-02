@@ -95,8 +95,8 @@ int	main(int argc, char **argv, char **env)//TODO: Ajustar tamaños de los mallo
 
 		}
 
-		free_matrix(line);
-		free(g_shell->tokens);
+		// free_matrix(line);
+		// free(g_shell->tokens);
 	}
 //	system("leaks minishell");
 	return (g_shell->ret);

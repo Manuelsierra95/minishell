@@ -47,7 +47,8 @@ t_token	new_token(char *input, char *last_data)
 {
 	t_token	new;
 
-	if (ft_isalpha_edit(input[0]) || input[0] == D_QUOTE || input[0] == S_QUOTE)
+	if (ft_isalpha_edit(input[0]) || input[0] == D_QUOTE || input[0] == S_QUOTE
+		|| input[0] == SPACE)
 		new = (token_word(input, last_data));
 	else if (s_isspecial(input[0]))
 		new = token_finder(input[0], input[1]);
@@ -56,11 +57,11 @@ t_token	new_token(char *input, char *last_data)
 		new.type = -1; // Tirar error aqui si se encuentra luego un -1 en type
 		// new.data = ft_strdup(input);
 	}
-	printf("data: %s\ttype: %d\n", new.data, new.type);
+	// printf("data: %s\ttype: %d\n", new.data, new.type);
 	return (new);
 }
 
-t_token	*lexer(char **input) //Tratar si solo el problema de las flags ocurre con "echo"
+t_token	*lexer(char **input)
 {
 	int		i;
 	t_token	*tokens;
@@ -68,14 +69,13 @@ t_token	*lexer(char **input) //Tratar si solo el problema de las flags ocurre co
 
 	i = -1;
 	tokens = malloc(sizeof(t_token));
-	last_data = NULL;
 	while (input[++i])
 	{
 		if ((tokens[i - 1].data && tokens[i - 1].type == 1))
 		{
 			if (!ft_strncmp(tokens[i - 1].data, "echo", ft_strlen(tokens[i - 1].data)))
 			{
-				if (!ft_strncmp(input[i], "-n", ft_strlen(input[i]) + 1))
+				if (ft_strncmp(input[i], "-n", ft_strlen(input[i]) + 1) == 0)
 					last_data = tokens[i - 1].data;
 				else
 					last_data = NULL;
@@ -83,6 +83,8 @@ t_token	*lexer(char **input) //Tratar si solo el problema de las flags ocurre co
 			else
 				last_data = tokens[i - 1].data;
 		}
+		else
+			last_data = NULL;
 		tokens[i] = new_token(input[i], last_data);
 		g_shell->numOfArgs++;
 	}

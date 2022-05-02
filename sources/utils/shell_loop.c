@@ -3,6 +3,9 @@
 
 void	shell_cmds(char *inpt, char **line)
 {
+	printf("input: %s\n", inpt);
+	printf("line[0]: %s\n", line[0]);
+	printf("num: %d\n", ft_strcmp(line[0], "echo"));
 	if (inpt != NULL || ft_strcmp(inpt, "\n") == 0)
 			line = ft_split(inpt, ' ');
 	if (line[0] && ft_strcmp(line[0], "pwd") == 0)
@@ -12,7 +15,10 @@ void	shell_cmds(char *inpt, char **line)
 	else if (line[0] && ft_strcmp(line[0], "env") == 0)
 		ft_env(g_shell->env, 1);
 	else if (line[0] && ft_strcmp(line[0], "echo") == 0)
+	{
+		write(1, "entra\n", 6);
 		ft_echo(1, line);
+	}
 	else if (line[0] && ft_strcmp(line[0], "cd") == 0)
 		ft_cd(line, g_shell->env);
 	else if (line[0] && ft_strcmp(line[0], "export") == 0)
@@ -26,7 +32,8 @@ void	shell_cmds(char *inpt, char **line)
 }
 
 void inorden(t_tree *tree) {
-    if (tree != NULL) {
+    if (tree != NULL)
+	{
 		if (tree->n_type != N_PIPE)
 		{
 			shell_cmds(tree->n_data, tree->cmd);

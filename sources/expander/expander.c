@@ -49,6 +49,30 @@ char	*$_env(char *data, int *i, char c_flag)
 	return ($_data);
 }
 
+int	get_expander_size(char *data)
+{
+	int		size;
+	int		i;
+	char	*aux_data;
+
+	i = -1;
+	size = 0;
+	while (data[++i])
+	{
+		if (data[i] == DOLLAR)
+		{
+			aux_data = $_env(&data[i], &i, data[i - 1]);
+			if (aux_data)
+				size = ft_strlen(aux_data) + 1;
+			i--;
+		}
+	}
+	printf("size: %d\n", size);
+	printf("aux_data: %s\n", aux_data);
+	printf("aux_data: %p\n", aux_data);
+	return (size);
+}
+
 char	*$_substitute(char *data, int index)
 {
 	char	*aux_data;
@@ -57,7 +81,7 @@ char	*$_substitute(char *data, int index)
 	int		j;
 
 	i = -1;
-	exp_data = malloc(SET_MEMORY);
+	exp_data = malloc(sizeof(char *) * get_expander_size(data));
 	while (data[++i])
 	{
 		if (data[i] == DOLLAR)
@@ -94,5 +118,7 @@ t_token	*expander(t_token *tokens)
 		}
 		index++;
 	}
+		write(1, "Sale bien\n", 10);
+
 	return (tokens);
 }
