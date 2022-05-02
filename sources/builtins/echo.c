@@ -20,7 +20,6 @@ int	ft_echo(int fd, char **arg)
 	i = 1;
 	flag = 0;
 
-	write(1, "entra\n", 6);
 	int index = -1;
 	while (arg[++index])
 		printf("arg[%d]: %s\n", index, arg[index]);
