@@ -67,9 +67,9 @@ int	get_expander_size(char *data)
 			i--;
 		}
 	}
-	printf("size: %d\n", size);
-	printf("aux_data: %s\n", aux_data);
-	printf("aux_data: %p\n", aux_data);
+	// printf("size: %d\n", size);
+	// printf("aux_data: %s\n", aux_data);
+	// printf("aux_data: %p\n", aux_data);
 	return (size);
 }
 
@@ -118,7 +118,5 @@ t_token	*expander(t_token *tokens)
 		}
 		index++;
 	}
-		write(1, "Sale bien\n", 10);
-
 	return (tokens);
 }

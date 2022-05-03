@@ -22,7 +22,8 @@ int	ft_echo(int fd, char **arg)
 
 	int index = -1;
 	while (arg[++index])
-		printf("arg[%d]: %s\n", index, arg[index]);
+		printf("Echo -> arg[%d]: %s\n", index, arg[index]);
+
 	if (arg[i] && (ft_strncmp(arg[i], "-n", 2) == 0))
 	{
 		flag = 1;

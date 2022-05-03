@@ -48,7 +48,7 @@ void	free_shell(t_shell *shell)
 	free(shell);
 }
 
-int	main(int argc, char **argv, char **env)//TODO: Ajustar tamaños de los malloc
+int	main(int argc, char **argv, char **env)//TODO: Usar buildins para el tokenizado
 {
 	char	*inpt;
 	char	**line;
