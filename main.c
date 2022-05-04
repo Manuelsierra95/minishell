@@ -70,7 +70,7 @@ int	main(int argc, char **argv, char **env)
 		else if (line[0] && ft_strcmp(line[0], "export") == 0)
 			ft_export(line, g_shell->env, g_shell->secret, 1);
 		else if (line[0] && ft_strcmp(line[0], "secret") == 0)
-			printf("%s\n", env_2_str(g_shell->secret));
+			ft_env(g_shell->secret, 1);
 		else if (line[0] && ft_strcmp(line[0], "unset") == 0)
 			ft_unset(line);
 		else

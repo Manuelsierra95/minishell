@@ -58,3 +58,46 @@ t_list	*until_name(char *name, t_list *env)
 	free(env_name);
 	return (NULL);
 }
+
+static int	env_len(t_list *env)
+{
+	int	len;
+
+	len = 0;
+	while (env && env->next)
+	{
+		if (env->content)
+		{
+			len += ft_strlen(env->content);
+			len++;
+		}
+		env = env->next;
+	}
+	return (len);
+}
+
+char	*env_2_str(t_list *env)
+{
+	char	*env_str;
+	int		i;
+	int		j;
+
+	env_str = (char *) malloc(env_len(env) + 1);
+	if (!env_str)
+		return (NULL);
+	i = 0;
+	while (env && env->next)
+	{
+		if (env->content != NULL)
+		{
+			j = 0;
+			while (env->content[j])
+				env_str[i++] = env->content[j++];
+		}
+		if (env->next->next != NULL)
+			env_str[i++] = '\n';
+		env = env->next;
+	}
+	env_str[i] = '\0';
+	return (env_str);
+}
