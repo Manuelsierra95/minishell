@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:09 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/20 20:24:57 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/04/22 20:47:00 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ static char	*ft_msg(char *arg)
 {
 	char	*value;
 	char	*msg;
+	char	*aux;
 	int		flag;
 	int		i;
 
@@ -96,16 +97,20 @@ static char	*ft_msg(char *arg)
 	if (flag == 1)
 	{
 		value = get_value(arg);
-		value = ft_strjoin("\"", value);
-		value = ft_strjoin(value, "\"");
-		msg = get_name(arg);
-		msg = ft_strjoin(msg, "=");
-		msg = ft_strjoin(msg, value);
+		msg = ft_strjoin("\"", value);
 		ft_memdel(value);
+		value = ft_strjoin(msg, "\"");
+		ft_memdel(msg);
+		aux = get_name(arg);
+		msg = ft_strjoin(aux, "=");
+		ft_memdel(aux);
+		aux = ft_strjoin(msg, value);
+		ft_memdel(value);
+		ft_memdel(msg);
 	}
 	else
-		msg = ft_strdup(arg);
-	return (msg);
+		aux = ft_strdup(arg);
+	return (aux);
 }
 
 int	print_secret(t_list *secret, int fd)

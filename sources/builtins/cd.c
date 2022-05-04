@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:13:10 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/20 19:21:12 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/04/22 19:27:36 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static void	print_error(int n, char *err)
 static int	update_env(char *s, t_list *env)
 {
 	char	buf[PATH_MAX];
-	char	*path;
+	char	*path1;
+	char	*path2;
 
 	if (!getcwd(buf, PATH_MAX) || !env)
 		return (1);
@@ -41,11 +42,12 @@ static int	update_env(char *s, t_list *env)
 		{
 			if (env->content)
 				free(env->content);
-			path = ft_strjoin(s, "=");
-			path = ft_strjoin(path, buf);
-			if (!path)
+			path1 = ft_strjoin(s, "=");
+			path2 = ft_strjoin(path1, buf);
+			free(path1);
+			if (!path2)
 				return (1);
-			env->content = path;
+			env->content = path2;
 			break ;
 		}
 		env = env->next;
@@ -55,14 +57,16 @@ static int	update_env(char *s, t_list *env)
 
 static int	cd_aux(char *path, char *s, t_list *env)
 {
-	int	ret;
-	int	err;
+	int		ret;
+	int		err;
+	char	*path1;
 
 	err = 0;
+	path1 = NULL;
 	if (s != NULL && !path)
 	{
-		path = ft_getenv(s, env);
-		if (!path && !err)
+		path1 = ft_getenv(s, env);
+		if (!path1 && !err)
 		{
 			ret = 1;
 			print_error(0, s);
@@ -70,10 +74,13 @@ static int	cd_aux(char *path, char *s, t_list *env)
 		}
 	}
 	update_env("OLDPWD", env);
+	if (path1)
+		path = path1;
 	ret = chdir(path);
 	if (ret == -1 && !err)
 		print_error(1, path);
 	update_env("PWD", env);
+	ft_memdel(path1);
 	return (ret);
 }
 

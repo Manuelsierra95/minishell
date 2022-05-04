@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 15:57:05 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/21 18:29:36 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/04/22 19:17:44 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	*ft_getenv(char *arg, t_list *env)
 {
 	char	*s;
 	t_list	*aux;
+	char	*value;
 
 	aux = env;
 	s = NULL;
@@ -28,10 +29,13 @@ char	*ft_getenv(char *arg, t_list *env)
 		}
 		aux = aux->next;
 	}
-	if (s == NULL)
-		return (NULL);
-	else
-		return (get_value(s));
+	if (s)
+	{	
+		value = get_value(s);
+		ft_memdel(s);
+		return (value);
+	}
+	return (NULL);
 }
 
 t_list	*until_name(char *name, t_list *env)

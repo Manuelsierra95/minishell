@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/22 17:14:15 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/04/22 19:31:12 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ int	main(int argc, char **argv, char **env)
 		inpt = readline("minishell> ");
 		add_history(inpt);
 		if (inpt != NULL || ft_strcmp(inpt, "\n") == 0)
+		{	
 			line = ft_split(inpt, ' ');
+			ft_memdel(inpt);
+		}
 		if (line[0] && ft_strcmp(line[0], "pwd") == 0)
 			ft_pwd(1);
 		else if (line[0] && ft_strcmp(line[0], "exit") == 0)
@@ -72,6 +75,7 @@ int	main(int argc, char **argv, char **env)
 			ft_unset(line);
 		else
 			printf("%s", inpt);
+		free_arr(line);
 	}
 //	system("leaks minishell");
 	return (g_shell->ret);
