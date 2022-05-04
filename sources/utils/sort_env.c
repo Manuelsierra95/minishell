@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:09 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/22 20:47:00 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/04 18:35:44 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ static char	*ft_msg(char *arg)
 	if (flag == 1)
 		msg = ft_msg_aux(arg);
 	else
-		aux = ft_strdup(arg);
-	return (aux);
+		msg = ft_strdup(arg);
+	return (msg);
 }
 
 int	print_secret(t_list *secret, int fd)

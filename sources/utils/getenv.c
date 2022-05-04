@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 15:57:05 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/22 19:17:44 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/04 18:38:54 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,17 @@ t_list	*until_name(char *name, t_list *env)
 	char	*env_name;
 
 	aux = env;
-	env_name = ft_strdup("");
 	while (aux && aux->next)
 	{
 		env_name = get_name(aux->content);
 		if (ft_strcmp(name, env_name) == 0)
 		{
-			free(env_name);
+			ft_memdel(env_name);
 			return (aux);
 		}
+		ft_memdel(env_name);
 		aux = aux->next;
 	}
-	free(env_name);
 	return (NULL);
 }
 

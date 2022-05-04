@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 15:56:37 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/18 20:43:22 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/04 18:57:52 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	name_in_env(char *name, t_list *env)
 	char	*env_name;
 	t_list	*aux;
 
-	env_name = ft_strdup("");
 	aux = env;
 	while (aux && aux->next)
 	{

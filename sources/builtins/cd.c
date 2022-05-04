@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:13:10 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/22 19:27:36 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/04 18:57:50 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static void	print_error(int n, char *err)
 static int	update_env(char *s, t_list *env)
 {
 	char	buf[PATH_MAX];
-	char	*path1;
-	char	*path2;
+	char	*path;
 
+	path = NULL;
 	if (!getcwd(buf, PATH_MAX) || !env)
 		return (1);
 	while (env && env->next)
