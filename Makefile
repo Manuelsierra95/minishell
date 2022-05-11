@@ -6,7 +6,7 @@
 #    By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 14:59:23 by msierra-          #+#    #+#              #
-#    Updated: 2022/05/04 19:06:15 by mbarylak         ###   ########.fr        #
+#    Updated: 2022/05/11 16:58:44 by mbarylak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,14 @@ NAME		= 	minishell
 LIBFT_NAME  =	libft.a
 
 BUILTINS	=	pwd exit env echo cd export unset
-
 UTILS	=	isnum getenv is_in_env sort_env free
+EXEC    =	exe_cmd exe
 
 ##LEXER##
 
 SRCS	=	$(addsuffix .c, $(addprefix sources/builtins/, $(BUILTINS))) \
 			  $(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) \
+			  $(addsuffix .c, $(addprefix sources/executor/, $(EXEC))) \
 			  main.c 
 
 PINK = \033[1;35m

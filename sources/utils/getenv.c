@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 15:57:05 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/04 18:38:54 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/11 16:37:13 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,15 @@ char	*env_2_str(t_list *env)
 	}
 	env_str[i] = '\0';
 	return (env_str);
+}
+
+char	**env_2_arr(t_list *env)
+{
+	char	**env_arr;
+	char	*env_str;
+
+	env_str = env_2_str(env);
+	env_arr = ft_split(env_str, '\n');
+	ft_memdel(env_str);
+	return (env_arr);
 }

@@ -6,30 +6,30 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:45 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/11 17:58:47 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/11 17:26:04 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_exit(char **argv)
+void	ft_exit(char **argv, t_shell *shell)
 {
-	g_shell->exit = 0;
+	shell->exit = 0;
 	ft_putendl_fd("exit", STDERR_FILENO);
 	if (argv[1] && !ft_isnum(argv[1]))
 	{
-		g_shell->ret = 2;
+		shell->ret = 2;
 		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 		ft_putstr_fd(argv[1], STDERR_FILENO);
 		ft_putendl_fd(": numeric argument required", STDERR_FILENO);
 	}
 	else if (argv[1] && argv[2])
 	{
-		g_shell->ret = 1;
+		shell->ret = 1;
 		ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
 	}
 	else if (argv[1])
-		g_shell->ret = ft_atoi(argv[1]) % 256;
+		shell->ret = ft_atoi(argv[1]) % 256;
 	else
-		g_shell->ret = 0;
+		shell->ret = 0;
 }
