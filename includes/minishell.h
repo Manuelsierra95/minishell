@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/11 17:35:09 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/12 19:21:10 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ typedef struct s_shell
 	int		ret;
 	int		exit_stat;
 }	t_shell;
+
+typedef struct	s_builtin
+{
+	char	*builtin;
+	int		(*f)();
+}	t_builtin;
 
 t_shell	*g_shell;
 
