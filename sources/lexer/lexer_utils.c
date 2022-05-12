@@ -94,6 +94,7 @@ char *input_line(char *input, int state, int *i, int start)
 	}	
 	if (state != 0 && (state == D_QUOTE || state == S_QUOTE))
 		split_input = input_line3(input, state, &x, start);
+		//tus mmuertos
 	*i = x;
 	return (split_input);
 }
