@@ -6,7 +6,7 @@
 #    By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 14:59:23 by msierra-          #+#    #+#              #
-#    Updated: 2022/04/20 19:12:09 by mbarylak         ###   ########.fr        #
+#    Updated: 2022/05/11 16:58:44 by mbarylak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ EXPANDER = 	expander
 SRCS	=	$(addsuffix .c, $(addprefix sources/builtins/, $(BUILTINS))) 	\
 			$(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) 			\
 			$(addsuffix .c, $(addprefix sources/lexer/, $(LEXER))) 			\
+			$(addsuffix .c, $(addprefix sources/executor/, $(EXEC)))        \
 			$(addsuffix .c, $(addprefix sources/parser/, $(PARSER))) 		\
 			$(addsuffix .c, $(addprefix sources/expander/, $(EXPANDER))) 	\
 			$(addsuffix .c, $(addprefix sources/errors/, $(ERRORS))) 	\

@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/12 17:55:12 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/04/22 17:14:15 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ int	main(int argc, char **argv, char **env)//TODO: Usar buildins para el tokeniz
 			shell_loop();
 
 
-			// int index = 0;
-			// while (index < g_shell->numOfArgs)
 			// {
 			// 	printf("Index: %d\tType: %d\tData: %s\n", index, g_shell->tokens[index].type, g_shell->tokens[index].data);
 			// 	index++;
@@ -99,7 +97,8 @@ int	main(int argc, char **argv, char **env)//TODO: Usar buildins para el tokeniz
 
 		// free_matrix(line);
 		// free(g_shell->tokens);
+			// while (index < g_shell->numOfArgs)
+			// int index = 0;
 	}
-//	system("leaks minishell");
 	return (g_shell->ret);
 }

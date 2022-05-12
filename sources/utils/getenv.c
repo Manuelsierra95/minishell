@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 15:57:05 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/21 18:29:36 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/11 16:37:13 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	*ft_getenv(char *arg, t_list *env)
 {
 	char	*s;
 	t_list	*aux;
+	char	*value;
 
 	aux = env;
 	s = NULL;
@@ -28,10 +29,13 @@ char	*ft_getenv(char *arg, t_list *env)
 		}
 		aux = aux->next;
 	}
-	if (s == NULL)
-		return (NULL);
-	else
-		return (get_value(s));
+	if (s)
+	{	
+		value = get_value(s);
+		ft_memdel(s);
+		return (value);
+	}
+	return (NULL);
 }
 
 t_list	*until_name(char *name, t_list *env)
@@ -40,18 +44,17 @@ t_list	*until_name(char *name, t_list *env)
 	char	*env_name;
 
 	aux = env;
-	env_name = ft_strdup("");
 	while (aux && aux->next)
 	{
 		env_name = get_name(aux->content);
 		if (ft_strcmp(name, env_name) == 0)
 		{
-			free(env_name);
+			ft_memdel(env_name);
 			return (aux);
 		}
+		ft_memdel(env_name);
 		aux = aux->next;
 	}
-	free(env_name);
 	return (NULL);
 }
 
@@ -96,4 +99,15 @@ char	*env_2_str(t_list *env)
 	}
 	env_str[i] = '\0';
 	return (env_str);
+}
+
+char	**env_2_arr(t_list *env)
+{
+	char	**env_arr;
+	char	*env_str;
+
+	env_str = env_2_str(env);
+	env_arr = ft_split(env_str, '\n');
+	ft_memdel(env_str);
+	return (env_arr);
 }

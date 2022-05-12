@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 15:56:26 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/20 17:57:36 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/04 19:06:49 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ static void	print_error(char *arg)
 	ft_putendl_fd(": not a valid identifier", STDERR_FILENO);
 	ft_memdel(err_msg);
 }
-
-
 
 int	is_valid(char *arg)
 {
