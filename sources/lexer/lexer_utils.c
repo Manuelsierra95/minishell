@@ -87,6 +87,11 @@ char *input_line(char *input, int state, int *i, int start)
 		split_input = ft_substr(input, start, x);
 		x--;
 	}
+	if ((state == D_QUOTE || state == S_QUOTE) && (int)ft_strlen(input) == (x + 1))
+	{
+		*i = x;
+		return(NULL);
+	}	
 	if (state != 0 && (state == D_QUOTE || state == S_QUOTE))
 		split_input = input_line3(input, state, &x, start);
 	*i = x;

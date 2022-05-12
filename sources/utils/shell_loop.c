@@ -31,12 +31,12 @@ void	shell_cmds(char *inpt, char **line)
 }
 
 void inorden(t_tree *tree) {
-    if (tree != NULL)
+	if (tree != NULL)
 	{
 		if (tree->n_type != N_PIPE)
 		{
 			shell_cmds(tree->n_data, tree->cmd);
-    		// printf("cmd[0]: %s\ncmd[1]: %s\ndata: %s\n", tree->cmd[0], tree->cmd[1], tree->n_data);
+    		printf("cmd[0]: %s\ncmd[1]: %s\ndata: %s\n", tree->cmd[0], tree->cmd[1], tree->n_data);
 		}
         inorden(tree->left);
         inorden(tree->right);
@@ -45,5 +45,7 @@ void inorden(t_tree *tree) {
 
 void	shell_loop()
 {
+	// TODO: mejorar el arbol porque solo pilla en el loop una data en caso de que haya mas
+	printf("PIpes: %d\n", g_shell->numOfPipes);
 	inorden(g_shell->tree);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
+/*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:01:12 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/13 17:03:51 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/12 16:15:52 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	ft_echo(int fd, char **arg)
 	i = 1;
 	flag = 0;
 
-	int index = -1;
-	while (arg[++index])
-		printf("Echo -> arg[%d]: %s\n", index, arg[index]);
+	// int index = -1;
+	// while (arg[++index])
+	// 	printf("Echo -> arg[%d]: %s\n", index, arg[index]);
 
 	if (arg[i] && (ft_strncmp(arg[i], "-n", 2) == 0))
 	{

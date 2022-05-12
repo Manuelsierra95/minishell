@@ -73,7 +73,8 @@ t_token	*lexer(char **input)
 	{
 		if ((tokens[i - 1].data && tokens[i - 1].type == 1))
 		{
-			if (!ft_strncmp(tokens[i - 1].data, "echo", ft_strlen(tokens[i - 1].data)))
+			// printf("data: %s\n", (tokens[i - 1].data));
+			if (!ft_strncmp(tokens[i - 1].data, "echo", ft_strlen(tokens[i - 1].data)))//TODO: Falla "echo" con comillas
 			{
 				if (ft_strncmp(input[i], "-n", ft_strlen(input[i]) + 1) == 0)
 					last_data = tokens[i - 1].data;
