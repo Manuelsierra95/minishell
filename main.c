@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/22 17:14:15 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/12 20:28:06 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	free_shell(t_shell *shell)
 	free(shell);
 }
 
-int	main(int argc, char **argv, char **env)//TODO: Usar buildins para el tokenizado || Pasar numero de pipes
+int	main(int argc, char **argv, char **env)//TODO: Usar buildins para el tokenizado || Pasar numero de pipe | Arreglar echo "|" -> tendria q salir | y sale como "|"
 {
 	char	*inpt;
 	char	**line;
@@ -70,12 +70,11 @@ int	main(int argc, char **argv, char **env)//TODO: Usar buildins para el tokeniz
 		g_shell->index = 0;
 		g_shell->numOfArgs = 0;
 		g_shell->numOfPipes = 0;
-		if (quote_analyzer(inpt) % 2 != 0)
+		if (quote_analyzer(inpt) % 2 != 0)//TODO: Esto hay que arreglarlo, porque si pones echo '"' te tira error y no debe
 		{
 			printf("Error de comillas\n");
 			exit(-1);
 		}
-		write(1, "Aqui llega\n", 11);
 		line = split_input(inpt);
 		// shell_cmds(inpt, line);
 		g_shell->tokens = lexer(line);

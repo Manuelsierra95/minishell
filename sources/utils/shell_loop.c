@@ -1,7 +1,7 @@
 #include "../../includes/minishell.h"
 
 
-void	shell_cmds(char *inpt, char **line)
+void	shell_cmds(char *inpt, char **line) // Input = todo en un doble puntero (Data incluida)
 {
 	// printf("input: %s\n", inpt);
 	// printf("line[0]: %s\n", line[0]);
@@ -13,7 +13,7 @@ void	shell_cmds(char *inpt, char **line)
 	if (line[0] && ft_strcmp(line[0], "pwd") == 0)
 		ft_pwd(1);
 	else if (line[0] && ft_strcmp(line[0], "exit") == 0)
-		ft_exit(line);
+		ft_exit(line, g_shell);
 	else if (line[0] && ft_strcmp(line[0], "env") == 0)
 		ft_env(g_shell->env, 1);
 	else if (line[0] && ft_strcmp(line[0], "echo") == 0)
