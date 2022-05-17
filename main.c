@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/12 19:21:16 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/17 21:09:42 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,20 @@ t_shell	*init_shell(char **env)
 	t_shell	*shell;
 
 	shell = malloc(sizeof (t_shell));
+	shell->exe = malloc(sizeof (t_exec));
+	shell->exe->fd_in = 0;
+	shell->exe->fd_out = 1;
+	shell->exe->oldfd_in = 0;
+	shell->exe->oldfd_out = 1;
+	shell->exe->cmds = malloc(sizeof (t_cmd));
+	shell->exe->cmds->arg = NULL;
+	shell->exe->cmds->next = NULL;
+	shell->exe->cmds->prev = NULL;
 	shell->exit = 1;
 	shell->ret = 0;
-	shell->envv = env;
 	shell->env = NULL;
-	shell->exit_stat = 0;
 	shell->secret = NULL;
+	shell->pipes = 0;
 	return (shell);
 }
 
@@ -42,6 +50,8 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*inpt;
 	char	**line;
+	char	**cmd;
+	int		i;
 
 	(void) argc;
 	(void) argv;
@@ -54,27 +64,21 @@ int	main(int argc, char **argv, char **env)
 		add_history(inpt);
 		if (inpt != NULL || ft_strcmp(inpt, "\n") == 0)
 		{	
-			line = ft_split(inpt, ' ');
+			line = ft_split(inpt, '|');
+			pipe_counter(inpt, g_shell);
 			ft_memdel(inpt);
 		}
-		if (line[0] && ft_strcmp(line[0], "pwd") == 0)
-			ft_pwd(1);
-		else if (line[0] && ft_strcmp(line[0], "exit") == 0)
-			ft_exit(line, g_shell);
-		else if (line[0] && ft_strcmp(line[0], "env") == 0)
-			ft_env(g_shell->env, 1);
-		else if (line[0] && ft_strcmp(line[0], "echo") == 0)
-			ft_echo(1, line);
-		else if (line[0] && ft_strcmp(line[0], "cd") == 0)
-			ft_cd(line, g_shell->env);
-		else if (line[0] && ft_strcmp(line[0], "export") == 0)
-			ft_export(line, g_shell->env, g_shell->secret, 1);
-		else if (line[0] && ft_strcmp(line[0], "secret") == 0)
-			ft_env(g_shell->secret, 1);
-		else if (line[0] && ft_strcmp(line[0], "unset") == 0)
-			ft_unset(line);
-		else
-			exe_child(line, g_shell);
+		i = 0;
+		while (line[i])
+		{
+			cmd = ft_split(line[i], ' ');
+			if (cmd[0] && is_builtin(cmd[0]))
+				exec_builtin(cmd, g_shell, 1);
+			else
+				exe_child(cmd, g_shell);
+			free_arr(cmd);
+			i++;
+		}
 		free_arr(line);
 	}
 	return (g_shell->ret);

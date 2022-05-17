@@ -6,15 +6,13 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/12 19:21:10 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/17 21:06:37 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "./lexer.h"
-# include "./parser.h"
 # include "libft.h"
 
 # include <stdio.h>
@@ -28,6 +26,7 @@
 # include <readline/readline.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <sys/errno.h>
 # include <unistd.h>
 # include <readline/history.h>
 # include <limits.h>
@@ -36,17 +35,27 @@ typedef struct s_shell
 {
 	t_list	*secret;
 	t_list	*env;
-	char	**envv;
+	t_exec	*exe;
 	int		exit;
 	int		ret;
-	int		exit_stat;
+	int		pipes;
 }	t_shell;
 
-typedef struct	s_builtin
+typedef struct	s_exec
 {
-	char	*builtin;
-	int		(*f)();
-}	t_builtin;
+	t_cmd	*cmds;
+	int		fd_in;
+	int		fd_out;
+	int		oldfd_in;
+	int		oldfd_out;
+}	t_exec;
+
+typedef struct	s_cmd
+{
+	char	**arg;
+	t_cmd	*next;
+	t_cmd	*prev;
+}	t_cmd;
 
 t_shell	*g_shell;
 
@@ -87,9 +96,16 @@ int		ft_cd(char **arg, t_list *env);
 int		ft_export(char **arg, t_list *env, t_list *secret, int fd);
 int		ft_unset(char **arg);
 
+/* MY LEXER */
+
+void	pipe_counter(char *input, t_shell *shell);
+int		has_pipes(char *input);
+
 /*	EXECUTOR */
 
 int		exe_cmd(char **argv, t_shell *shell);
 int		exe_child(char **cmd, t_shell *shell);
+int		is_builtin(char *cmd);
+int		exec_builtin(char **cmd, t_shell *shell, int fd);
 
 #endif

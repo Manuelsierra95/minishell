@@ -6,7 +6,7 @@
 #    By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 14:59:23 by msierra-          #+#    #+#              #
-#    Updated: 2022/05/11 16:58:44 by mbarylak         ###   ########.fr        #
+#    Updated: 2022/05/17 19:50:20 by mbarylak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ LIBFT_NAME  =	libft.a
 
 BUILTINS	=	pwd exit env echo cd export unset
 UTILS	=	isnum getenv is_in_env sort_env free
-EXEC    =	exe_cmd exe
+EXEC    =	exe_cmd exe builtin lexer
 
 ##LEXER##
 
