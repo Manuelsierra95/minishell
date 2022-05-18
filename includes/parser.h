@@ -24,8 +24,7 @@ typedef struct s_redir {
 typedef struct s_tree
 {
 	char			**cmd;
-	char			*n_data;
-	int				n_type; // 3 -> PIPE // 1 -> OTHER
+	int				n_type; // 1 -> PIPE // 2 -> OTHER
 	t_redir			*l_redir;
 	struct s_tree	*right;
 	struct s_tree	*left;

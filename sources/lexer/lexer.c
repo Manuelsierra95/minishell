@@ -6,8 +6,8 @@ t_token	token_word(char *input, char *last_data)
 	int		flag;
 
 	flag = check_access(input);
-	if (last_data && input[0] == '-')
-		flag = 1;
+	if (last_data && input[0] == '-') // || find_in_map(key_number(input))
+		flag = 1;	// Con esta ultima condicion, meteria los builtins como CMD
 	if (flag == 1)
 	{
 		new.type = T_CMD;
@@ -15,8 +15,11 @@ t_token	token_word(char *input, char *last_data)
 	}
 	else
 	{
+		if (ft_strncmp(input, "\"|\"", 3) == 0)
+			new.data = ft_strdup("|");
+		else
+			new.data = input;
 		new.type = T_TEXT;
-		new.data = input;
 	}
 	return (new);
 }

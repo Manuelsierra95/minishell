@@ -49,7 +49,7 @@ char	*take_off_quotes(char *input)
 	return (no_quotes_input);
 }
 
-int	quote_analyzer_utils(char *input)
+int	quote_analyzer_utils(char *input, int quote)
 {
 	int	i;
 	int	num_quote;
@@ -58,7 +58,7 @@ int	quote_analyzer_utils(char *input)
 	num_quote = 0;
 	while (input[i])
 	{
-		if (input[i] == D_QUOTE)
+		if (input[i] == quote)
 			num_quote++;
 		i++;
 	}
@@ -67,8 +67,13 @@ int	quote_analyzer_utils(char *input)
 
 int	quote_analyzer(char *input)
 {
-	int	diff_quote;
+	int	diff_d_quote;
+	int	diff_s_quote;
 
-	diff_quote = quote_analyzer_utils(input);
-	return (diff_quote);
+	diff_d_quote = quote_analyzer_utils(input, D_QUOTE);
+	diff_s_quote = quote_analyzer_utils(input, S_QUOTE);
+	printf("s_quote: %d\td_quote: %d\n", diff_s_quote, diff_d_quote);
+	if (diff_d_quote % 2 != 0 || diff_s_quote % 2 != 0)
+		return (1);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
+/*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/12 19:21:10 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/18 12:02:09 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "./lexer.h"
 # include "./parser.h"
 # include "./error.h"
+# include "./builtins.h"
 # include "./libft.h"
 
 # include <stdio.h>
@@ -43,6 +44,7 @@ typedef struct s_shell
 	int		exit;
 	int		ret;
 	int		exit_stat;
+	// t_map	*map;
 
 	char			**path;
 	t_token			*tokens;
@@ -120,12 +122,12 @@ int		print_secret(t_list *secret, int fd);
 
 /*  BUILTINS  */
 
-int		ft_pwd(int fd);
-void	ft_exit(char **argv, t_shell *shell);
-int		ft_env(t_list *env, int fd);
-int		ft_echo(int fd, char **arg);
 int		ft_cd(char **arg, t_list *env);
+int		ft_echo(int fd, char **arg);
+int		ft_env(t_list *env, int fd);
+void	ft_exit(char **argv, t_shell *shell);
 int		ft_export(char **arg, t_list *env, t_list *secret, int fd);
+int		ft_pwd(int fd);
 int		ft_unset(char **arg);
 
 /*	EXECUTOR */

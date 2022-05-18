@@ -35,8 +35,13 @@ void inorden(t_tree *tree) {
 	{
 		if (tree->n_type != N_PIPE)
 		{
-			shell_cmds(tree->n_data, tree->cmd);
-    		printf("cmd[0]: %s\ncmd[1]: %s\ndata: %s\n", tree->cmd[0], tree->cmd[1], tree->n_data);
+			// shell_cmds(tree->cmd);
+			int i = 0;
+			while (tree->cmd[i])
+			{
+    			printf("cmd[%d]: %s\n", i, tree->cmd[i]);
+				i++;
+			}
 		}
         inorden(tree->left);
         inorden(tree->right);
