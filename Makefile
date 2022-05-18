@@ -6,28 +6,43 @@
 #    By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 14:59:23 by msierra-          #+#    #+#              #
-#    Updated: 2022/05/11 16:58:44 by mbarylak         ###   ########.fr        #
+#    Updated: 2022/05/18 13:35:55 by msierra-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= 	minishell
 LIBFT_NAME  =	libft.a
 
-BUILTINS	=	pwd exit env echo cd export unset
+INTERFACE	=	utils
+MAP			=	map_create map_utils utils
+CD			=	cd get_cd
+ECHO		=	echo get_echo
+ENV			=	env get_env
+EXIT		=	exit get_exit
+EXPORT		=	export get_export
+PWD			=	pwd get_pwd
+UNSET		=	unset get_unset
 UTILS		=	isnum getenv is_in_env sort_env free isspecial isalpha_edit shell_loop
 LEXER		= 	lexer checkCmd get_path quote_manage lexer_utils
 PARSER 		= 	parser
 ERRORS		=	errors
-
-EXPANDER = 	expander 
-
-SRCS	=	$(addsuffix .c, $(addprefix sources/builtins/, $(BUILTINS))) 	\
-			$(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) 			\
-			$(addsuffix .c, $(addprefix sources/lexer/, $(LEXER))) 			\
-			$(addsuffix .c, $(addprefix sources/executor/, $(EXEC)))        \
-			$(addsuffix .c, $(addprefix sources/parser/, $(PARSER))) 		\
-			$(addsuffix .c, $(addprefix sources/expander/, $(EXPANDER))) 	\
-			$(addsuffix .c, $(addprefix sources/errors/, $(ERRORS))) 	\
+EXPANDER 	= 	expander 
+		
+SRCS	=	$(addsuffix .c, $(addprefix sources/errors/, $(ERRORS))) 							\
+			$(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) 								\
+			$(addsuffix .c, $(addprefix sources/lexer/, $(LEXER))) 								\
+			$(addsuffix .c, $(addprefix sources/executor/, $(EXEC)))        					\
+			$(addsuffix .c, $(addprefix sources/parser/, $(PARSER))) 							\
+			$(addsuffix .c, $(addprefix sources/expander/, $(EXPANDER))) 						\
+			$(addsuffix .c, $(addprefix sources/builtins/, $(INTERFACE))) 						\
+			$(addsuffix .c, $(addprefix sources/builtins/interface/map_builder, $(MAP)))	 	\
+			$(addsuffix .c, $(addprefix sources/builtins/interface/builtins/cd, $(CD))) 		\
+			$(addsuffix .c, $(addprefix sources/builtins/interface/builtins/echo, $(ECHO))) 	\
+			$(addsuffix .c, $(addprefix sources/builtins/interface/builtins/env, $(ENV))) 		\
+			$(addsuffix .c, $(addprefix sources/builtins/interface/builtins/exit, $(EXIT))) 	\
+			$(addsuffix .c, $(addprefix sources/builtins/interface/builtins/export, $(EXPORT))) \
+			$(addsuffix .c, $(addprefix sources/builtins/interface/builtins/pwd, $(PWD))) 		\
+			$(addsuffix .c, $(addprefix sources/builtins/interface/builtins/unset, $(UNSET))) 	\
 			main.c 
 
 PINK = \033[1;35m
@@ -48,7 +63,7 @@ AR		= ar rcs
 
 CFLAGS 	= -Wall -Werror -Wextra -g3 #-fsanitize=address
 
-INCLUDES =	-I ./includes/ -I ./libft/
+INCLUDES =	-I ./includes/ -I ./libft/ -I ./sources/builtins/interface/ -I ./sources/builtins/interface/builtins/cd
 
 LIBFT	=	-L libft/ -lft
 

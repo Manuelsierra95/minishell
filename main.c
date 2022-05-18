@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/15 11:23:16 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/05/18 13:45:12 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_shell	*init_shell(void)
 	shell->env = NULL;
 	shell->exit_stat = 0;
 	shell->secret = NULL;
+	map_create(shell->map);
 	return (shell);
 }
 
@@ -48,7 +49,7 @@ void	free_shell(t_shell *shell)
 	free(shell);
 }
 
-int	main(int argc, char **argv, char **env)//TODO: Usar buildins para el tokenizado
+int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 {
 	char	*inpt;
 	char	**line;
