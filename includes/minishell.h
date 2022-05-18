@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/17 21:06:37 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/18 21:02:31 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,17 @@ typedef struct s_shell
 {
 	t_list	*secret;
 	t_list	*env;
-	t_exec	*exe;
 	int		exit;
 	int		ret;
 	int		pipes;
 }	t_shell;
+
+typedef struct	s_cmd
+{
+	char			**arg;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
+}	t_cmd;
 
 typedef struct	s_exec
 {
@@ -50,13 +56,6 @@ typedef struct	s_exec
 	int		oldfd_out;
 }	t_exec;
 
-typedef struct	s_cmd
-{
-	char	**arg;
-	t_cmd	*next;
-	t_cmd	*prev;
-}	t_cmd;
-
 t_shell	*g_shell;
 
 /* UTILS */
@@ -66,6 +65,7 @@ char	*ft_getenv(char *arg, t_list *env);
 int		env_to_shell(char **env_arr);
 int		secret_to_shell(char **env_arr);
 int		arr_len(char **arr);
+void	print_env(char **env);
 
 /* FREE TOOLS */
 
@@ -99,7 +99,7 @@ int		ft_unset(char **arg);
 /* MY LEXER */
 
 void	pipe_counter(char *input, t_shell *shell);
-int		has_pipes(char *input);
+int		has_pipes(char *input); 
 
 /*	EXECUTOR */
 
@@ -107,5 +107,6 @@ int		exe_cmd(char **argv, t_shell *shell);
 int		exe_child(char **cmd, t_shell *shell);
 int		is_builtin(char *cmd);
 int		exec_builtin(char **cmd, t_shell *shell, int fd);
+t_cmd	*add_cmds(char *arg, t_cmd *cmd, int i);
 
 #endif
