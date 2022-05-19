@@ -1,4 +1,4 @@
-#include "interface.h"
+#include "./sources/builtins/interface/interface.h"
 
 map_create(t_map map[])
 {
