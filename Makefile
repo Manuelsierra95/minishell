@@ -6,7 +6,7 @@
 #    By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 14:59:23 by msierra-          #+#    #+#              #
-#    Updated: 2022/05/18 13:35:55 by msierra-         ###   ########.fr        #
+#    Updated: 2022/05/20 14:28:34 by msierra-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,11 @@ SRCS	=	$(addsuffix .c, $(addprefix sources/errors/, $(ERRORS))) 							\
 			$(addsuffix .c, $(addprefix sources/builtins/interface/builtins/export, $(EXPORT))) \
 			$(addsuffix .c, $(addprefix sources/builtins/interface/builtins/pwd, $(PWD))) 		\
 			$(addsuffix .c, $(addprefix sources/builtins/interface/builtins/unset, $(UNSET))) 	\
-			main.c 
+			main.c
+
+FOLDERS = ./includes/ ./libft/ ./interface/ ./cd/ ./echo/ ./env/ ./exit/ ./export/ ./pwd/ ./unset/
+
+INCLUDE_HEADERS = $(addprefix -I $(FOLDERS))
 
 PINK = \033[1;35m
 GREEN = \033[1;32m
@@ -63,14 +67,14 @@ AR		= ar rcs
 
 CFLAGS 	= -Wall -Werror -Wextra -g3 #-fsanitize=address
 
-INCLUDES =	-I ./includes/ -I ./libft/ -I ./sources/builtins/interface/ -I ./sources/builtins/interface/builtins/cd
+# INCLUDES =	-I ./includes/ -I ./libft/ -I ./sources/builtins/interface/ -I ./sources/builtins/interface/builtins/cd
 
 LIBFT	=	-L libft/ -lft
 
 all	:		$(NAME)
 
 $(NAME)	:	$(LIBFT_DIR)$(LIBFT_NAME) $(OBJS) bender
-			@$(CC) $(INCLUDES) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
+			@$(CC) $(INCLUDE_HEADERS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
 			@echo "$(RESET)Done"
 			@echo "$(GREEN)==========WELLDONE==========$(RESET)"
 			@echo "Success creating $(NAME) file"
@@ -104,7 +108,7 @@ bender:
 
 
 %.o:		%.c
-			$(CC) $(CFLAGS) -c $< $(INCLUDES) -o $@
+			$(CC) $(CFLAGS) -c $< $(INCLUDE_HEADERS) -o $@
 
 $(LIBFT_DIR)$(LIBFT_NAME): $(LIBFT_DIR)
 			make -C $(LIBFT_DIR)

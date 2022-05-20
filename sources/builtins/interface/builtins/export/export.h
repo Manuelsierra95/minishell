@@ -12,7 +12,7 @@ typedef struct s_export
 	int		fd;
 } t_export;
 
-int	ft_export(char **arg, t_list *env, t_list *secret, int fd);
+int	ft_export(void *b_struct);
 void	get_export();
 
 #endif

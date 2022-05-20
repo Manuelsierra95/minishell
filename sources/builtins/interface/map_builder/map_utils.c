@@ -19,7 +19,7 @@ void	put(t_map map[], char *cmd_name, void *(*function)(void *arg), void *get_ar
 	if (map[key].key == key)
 		add_node_value(&map[key], new_value(function, cmd_name, get_arg));
 	else
-		new(map, key, new_value(function, cmd_name, get_arg));
+		m_new(map, key, new_value(function, cmd_name, get_arg));
 }
 
 t_value	*get(t_map map[], char *input)
@@ -47,7 +47,6 @@ void	clean_map(t_map map[])
 
 	i = 0;
 	while (++i < (NUM_OF_ELEMENTS + 1))
-	{
 		if (map[i].key == i)
 		{
 			aux = map[i].value;
@@ -58,5 +57,4 @@ void	clean_map(t_map map[])
 				free(node);
 			}
 		}
-	}
 }

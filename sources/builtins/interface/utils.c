@@ -1,6 +1,6 @@
 #include "./sources/builtins/interface/interface.h"
 
-map_create(t_map map[])
+void	map_create(t_map map[])
 {
 	put(map, "cd", ft_cd, get_cd);
 	put(map, "echo", ft_echo, get_echo);

@@ -19,7 +19,7 @@
 // 	t_list	*secret;
 // } t_interface;
 
-map_create(t_map map[]);
+void	map_create(t_map map[]);
 
 
 #endif

@@ -2,7 +2,7 @@
 # define ECHO_H
 
 # include "./libft.h"
-# include "./minishell.h"
+# include "minishell.h"
 
 typedef struct s_echo
 {
@@ -10,7 +10,7 @@ typedef struct s_echo
 	char	**arg;
 } t_echo;
 
-int	ft_echo(int fd, char **arg);
+int		ft_echo(void *b_struct);
 void	get_echo();
 
 #endif

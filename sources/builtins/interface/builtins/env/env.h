@@ -10,7 +10,7 @@ typedef struct s_env
 	int		fd;
 } t_env;
 
-int	ft_env(t_list *env, int fd);
+int	ft_env(void *b_struct);
 void	get_env();
 
 #endif

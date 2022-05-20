@@ -1,11 +1,11 @@
 #include "map.h"
 
-void	add_node_value(t_map map[], t_value *new)
+void	add_node_value(t_map map[], t_value *v_new)
 {
-	if (map->value && new)
+	if (map->value && v_new)
 	{
-		new->next = map->value;
-		map->value = new;
+		v_new->next = map->value;
+		map->value = v_new;
 	}
 }
 
@@ -23,7 +23,7 @@ t_value	*new_value(void *(*function)(void *arg), char *cmd_name, void *get_arg)
 	return (value);
 }
 
-void	new(t_map map[], int key, t_value *value)
+void	m_new(t_map map[], int key, t_value *value)
 {
 	map[key].key = key;
 	map[key].value = value;

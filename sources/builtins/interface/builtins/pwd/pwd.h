@@ -9,7 +9,7 @@ typedef struct s_pwd
 	int	fd;
 } t_pwd;
 
-int		ft_pwd(int fd);
+int		ft_pwd(void *b_struct);
 void	get_pwd();
 
 #endif

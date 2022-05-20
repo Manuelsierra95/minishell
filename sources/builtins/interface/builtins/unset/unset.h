@@ -10,6 +10,6 @@ typedef struct s_unset
 } t_unset;
 
 void	get_unset();
-int	ft_unset(char **arg);
+int		ft_unset(void *b_struct);
 
 #endif

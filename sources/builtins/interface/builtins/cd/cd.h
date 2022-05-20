@@ -11,7 +11,7 @@ typedef struct s_cd
 } t_cd;
 
 void	*get_cd();
-int	ft_cd(char **arg, t_list *env);
+int		ft_cd(void *b_struct);
 
 
 #endif

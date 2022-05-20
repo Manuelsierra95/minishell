@@ -2,7 +2,7 @@
 # define EXIT_H
 
 # include "./libft.h"
-# include "./minishell.h"
+# include "minishell.h"
 
 typedef struct s_exit
 {
@@ -11,6 +11,6 @@ typedef struct s_exit
 } t_exit;
 
 void	get_exit();
-void	ft_exit(char **argv, t_shell *shell);
+void	ft_exit(void *b_struct);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
+/*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:13:10 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/11 13:19:58 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:40:59 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,12 @@ static int	cd_aux(char *s, t_list *env)
 }
 
 
-int	ft_cd(char **arg, t_list *env)
+int	ft_cd(void *b_struct)
 {
 	int		ret;
+	t_cd	*cd;
 
+	cd = (t_cd*)b_struct;
 	ret = 0;
 	if (!arg[1])
 		ret = cd_aux("HOME", env);
