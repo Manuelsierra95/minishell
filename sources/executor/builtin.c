@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 20:12:54 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/17 15:13:17 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/20 17:04:33 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ int	exec_builtin(char **cmd, t_shell *shell, int fd)
 	else if (ft_strcmp(cmd[0], "env") == 0)
 		ret = ft_env(shell->env, fd);
 	else if (ft_strcmp(cmd[0], "exit") == 0)
-		ft_exit(cmd, shell);
+		ft_exit(cmd, &shell);
 	return (ret);
 }

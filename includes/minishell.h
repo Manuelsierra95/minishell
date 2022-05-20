@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/18 21:02:31 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/20 18:16:17 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	print_env(char **env);
 
 void	free_arr(char **arr);
 void	free_env(t_list *env);
+void	free_cmds(t_cmd *cmd);
 
 /*  BUILTINS TOOLS  */
 
@@ -89,7 +90,7 @@ int		print_secret(t_list *secret, int fd);
 /*  BUILTINS  */
 
 int		ft_pwd(int fd);
-void	ft_exit(char **argv, t_shell *shell);
+void	ft_exit(char **argv, t_shell **shell);
 int		ft_env(t_list *env, int fd);
 int		ft_echo(int fd, char **arg);
 int		ft_cd(char **arg, t_list *env);
@@ -104,7 +105,10 @@ int		has_pipes(char *input);
 /*	EXECUTOR */
 
 int		exe_cmd(char **argv, t_shell *shell);
-int		exe_child(char **cmd, t_shell *shell);
+int		exe_single_child(char **cmd, t_shell *shell, int fd);
+int		exe_child(char **cmd, t_shell *shell, int fd);
+int		exe_pipes(t_exec *exe, t_shell *shell);
+int		exec(t_exec *exe, t_shell *shell);
 int		is_builtin(char *cmd);
 int		exec_builtin(char **cmd, t_shell *shell, int fd);
 t_cmd	*add_cmds(char *arg, t_cmd *cmd, int i);

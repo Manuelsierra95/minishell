@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 18:50:37 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/18 21:02:27 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/20 13:44:08 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,6 @@ t_cmd	*ft_cmdlast(t_cmd *cmd)
 	while (cmd->next)
 		cmd = cmd->next;
 	return (cmd);
-}
-
-t_cmd	*ft_cmdfirst(t_cmd	*cmd)
-{
-	if (!cmd)
-		return (NULL);
-	while (cmd->prev)
-		cmd = cmd->prev;
-	return (cmd);
-}
-
-void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new)
-{
-	if (!cmd)
-		return ;
-	if (*cmd == NULL)
-	{
-		printf("OK1\n");
-		*cmd = new;
-	}
-	else
-		ft_cmdlast(*cmd)->next = new;
 }
 
 t_cmd	*add_cmds(char *arg, t_cmd *cmd, int i)
@@ -56,8 +34,11 @@ t_cmd	*add_cmds(char *arg, t_cmd *cmd, int i)
 	new->next = NULL;
 	new->prev = last;
 	if (i == 0)
+	{	
+		new->prev = NULL;
 		cmd = new;
+	}
 	else
-		last->next = new;
+	last->next = new;
 	return (cmd);
 }
