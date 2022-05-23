@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:52:19 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/22 16:43:00 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/23 20:13:08 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,22 @@ int	secret_to_shell(char **env_arr)
 	return (0);
 }
 
-int	ft_env(t_list *env, int fd)
+int	ft_env(t_shell *shell, int fd)
 {
-	if (!env)
+	t_list	*aux;
+
+	aux = shell->env;
+	if (!aux)
 		return (1);
-	while (env && env->next != NULL)
+	while (aux && aux->next != NULL)
 	{
-		if (env->content)
-			ft_putendl_fd(env->content, fd);
-		env = env->next;
+		if (aux->content)
+			ft_putendl_fd(aux->content, fd);
+		aux = aux->next;
 	}
-	if (env->content)
-		ft_putendl_fd(env->content, fd);
+	if (aux->content)
+		ft_putendl_fd(aux->content, fd);
+	if (shell->pipes != 0)
+		exit(0);
 	return (0);
 }

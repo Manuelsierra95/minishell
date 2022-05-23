@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/20 18:10:09 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/23 17:43:45 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ t_exec	*init_exec(void)
 	exe = malloc(sizeof (t_exec));
 	exe->fd_in = 0;
 	exe->fd_out = 1;
-	//exe->oldfd_in = 0;
-	//exe->oldfd_out = 1;
 	exe->cmds = malloc(sizeof (t_cmd));
 	exe->cmds->arg = NULL;
 	exe->cmds->prev = NULL;

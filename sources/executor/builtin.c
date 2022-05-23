@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 20:12:54 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/20 17:04:33 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/23 21:13:32 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,18 @@ int	exec_builtin(char **cmd, t_shell *shell, int fd)
 
 	ret = 1;
 	if (ft_strcmp(cmd[0], "pwd") == 0)
-		ret = ft_pwd(fd);
+		ret = ft_pwd(fd, shell);
 	else if (ft_strcmp(cmd[0], "echo") == 0)
-		ret = ft_echo(fd, cmd);
+		ret = ft_echo(fd, cmd, shell);
 	else if (ft_strcmp(cmd[0], "export") == 0)
 		ret = ft_export(cmd, shell->env, shell->secret, fd);
 	else if (ft_strcmp(cmd[0], "unset") == 0)
-		ret = ft_unset(cmd);
+		ret = ft_unset(cmd, shell);
 	else if (ft_strcmp(cmd[0], "cd") == 0)
-		ret = ft_cd(cmd, shell->env);
+		ret = ft_cd(cmd, shell);
 	else if (ft_strcmp(cmd[0], "env") == 0)
-		ret = ft_env(shell->env, fd);
+		ret = ft_env(shell, fd);
 	else if (ft_strcmp(cmd[0], "exit") == 0)
-		ft_exit(cmd, &shell);
+		ft_exit(cmd, &shell, fd);
 	return (ret);
 }

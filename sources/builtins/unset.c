@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 18:07:23 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/22 17:14:17 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/23 21:13:12 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,15 @@ static void	free_secret_node(char *arg, t_list *env)
 	}
 }
 
-int	ft_unset(char **arg)
+int	ft_unset(char **arg, t_shell *shell)
 {
 	t_list	*env;
 	t_list	*secret;
 	int		i;
 	int		flag;
 
-	env = g_shell->env;
-	secret = g_shell->secret;
+	env = shell->env;
+	secret = shell->secret;
 	if (!arg[1])
 		return (0);
 	i = 1;
@@ -111,5 +111,7 @@ int	ft_unset(char **arg)
 		}
 		i++;
 	}
+	if (shell->pipes != 0)
+		exit(0);
 	return (0);
 }

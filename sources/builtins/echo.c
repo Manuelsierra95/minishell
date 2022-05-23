@@ -6,13 +6,13 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:01:12 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/17 16:37:03 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/23 20:54:43 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_echo(int fd, char **arg)
+int	ft_echo(int fd, char **arg, t_shell *shell)
 {
 	int	i;
 	int	flag;
@@ -33,5 +33,7 @@ int	ft_echo(int fd, char **arg)
 	}
 	if (flag == 0)
 		write(fd, "\n", 1);
+	if (shell->pipes != 0)
+		exit(0);
 	return (0);
 }

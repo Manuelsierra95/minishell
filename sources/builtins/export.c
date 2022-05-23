@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 15:56:26 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/04 19:06:49 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/23 21:25:24 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	add_2_env(char *arg, t_list *env)
 int	ft_export(char **arg, t_list *env, t_list *secret, int fd)
 {
 	int	i;
-	int	ret;
+	int	has_eq;
 	int	n;
 
 	i = 1;
@@ -77,17 +77,19 @@ int	ft_export(char **arg, t_list *env, t_list *secret, int fd)
 		return (print_secret(secret, fd));
 	while (arg[i])
 	{
-		ret = is_valid(arg[i]);
-		if (ret == -1)
+		has_eq = is_valid(arg[i]);
+		if (has_eq == -1)
 			print_error(arg[i]);
-		n = is_in_env(arg[i], ret, env);
-		n += is_in_env(arg[i], ret, secret);
+		n = is_in_env(arg[i], has_eq, env);
+		n += is_in_env(arg[i], has_eq, secret);
 		if (n <= 1)
-			if (ret == 1)
+			if (has_eq == 1)
 				add_2_env(arg[i], env);
 		if (n == 0)
 			add_2_env(arg[i], secret);
 		i++;
 	}
+	if (g_shell->pipes != 0)
+		exit(0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:13:10 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/20 14:49:45 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/23 21:10:39 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,27 +75,29 @@ static int	cd_aux(char *s, t_list *env)
 	return (ret);
 }
 
-int	ft_cd(char **arg, t_list *env)
+int	ft_cd(char **arg, t_shell *shell)
 {
 	int		ret;
 
 	ret = 0;
 	if (!arg[1])
-		ret = cd_aux("HOME", env);
+		ret = cd_aux("HOME", shell->env);
 	else if (arg[1] && ft_strncmp(arg[1], "-", 1) == 0)
 	{	
-		ret = cd_aux("OLDPWD", env);
+		ret = cd_aux("OLDPWD", shell->env);
 		if (ret == 0)
-			ft_pwd(1);
+			ft_pwd(1, shell);
 	}
 	else
 	{
-		update_env("OLDPWD=", env);
+		update_env("OLDPWD=", shell->env);
 		ret = chdir(arg[1]);
 		if (ret == -1)
 			print_error(1, arg[1]);
-		update_env("PWD=", env);
+		update_env("PWD=", shell->env);
 	}
+	if (shell->pipes != 0)
+		exit(0);
 	if (ret < 0)
 		return (ret * -1);
 	return (ret);
