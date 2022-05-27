@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 18:50:37 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/23 17:42:41 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/27 19:53:51 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 t_cmd	*ft_cmdlast(t_cmd *cmd)
 {
-	if (!cmd)
-		return (NULL);
-	while (cmd->next)
-		cmd = cmd->next;
-	return (cmd);
+	t_cmd	*aux;
+
+	aux = cmd;
+	while (aux)
+		aux = aux->next;
+	return (aux);
 }
 
 t_cmd	*add_cmds(char *arg, t_cmd *cmd, int i)
@@ -26,7 +27,10 @@ t_cmd	*add_cmds(char *arg, t_cmd *cmd, int i)
 	t_cmd	*new;
 	t_cmd	*last;
 
-	last = ft_cmdlast(cmd);
+	if (!cmd)
+		last = NULL;
+	else
+		last = ft_cmdlast(cmd);
 	new = malloc(sizeof (t_cmd));
 	if (!new)
 		return (NULL);
@@ -39,6 +43,8 @@ t_cmd	*add_cmds(char *arg, t_cmd *cmd, int i)
 		cmd = new;
 	}
 	else
-	last->next = new;
+		last->next = new;
 	return (cmd);
 }
+
+/* Dividir add_cmds en dos funciones: create new node and add node back */

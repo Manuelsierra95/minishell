@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/23 17:43:45 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/27 19:55:33 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,24 @@ void	print_env(char **env)
 	i = 0;
 	while (env[i])
 	{
-		printf("%s\n", env[i]);
+		printf("%s", env[i]);
 		i++;
 	}
 }
+
+void	print_list(t_list *env)
+{
+	t_list	*aux;
+
+	aux = env;
+	while (aux)
+	{
+		if (aux->content)
+			printf("%s\n", aux->content);
+		aux = aux->next;
+	}
+}
+
 
 int	main(int argc, char **argv, char **env)
 {
@@ -61,11 +75,12 @@ int	main(int argc, char **argv, char **env)
 	(void) argc;
 	(void) argv;
 	g_shell = init_shell();
-	exe = init_exec();
+	//exe = init_exec();
 	env_to_shell(env);
 	secret_to_shell(env);
 	while (g_shell->exit == 1)
 	{
+		exe = init_exec();
 		inpt = readline("minishell> ");
 		add_history(inpt);
 		if (inpt[0] != 0 && inpt[0] != 32)
@@ -80,7 +95,7 @@ int	main(int argc, char **argv, char **env)
 				i++;
 			}
 			exec(exe, g_shell);
-	//	free_cmds(exe->cmds);
+		//	free_cmds(exe->cmds);
 			free_arr(line);
 		}
 	}

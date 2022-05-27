@@ -6,13 +6,13 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:13:10 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/23 21:10:39 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/26 17:51:08 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_error(int n, char *err)
+static void	print_error(int n, char *err, t_shell *shell)
 {
 	if (n == 0)
 	{
@@ -26,51 +26,53 @@ static void	print_error(int n, char *err)
 		ft_putstr_fd(err, STDERR_FILENO);
 		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 	}
+	if (shell->pipes != 0)
+		exit(1);
 }
 
-static int	update_env(char *s, t_list *env)
+static int	update_env(char *s, t_shell *shell)
 {
 	char	buf[PATH_MAX];
 	char	*path;
 
 	path = NULL;
-	if (!getcwd(buf, PATH_MAX) || !env)
+	if (!getcwd(buf, PATH_MAX) || !shell->env)
 		return (1);
-	while (env && env->next)
+	while (shell->env && shell->env->next)
 	{
-		if (ft_strncmp(env->content, s, ft_strlen(s)) == 0)
+		if (ft_strncmp(shell->env->content, s, ft_strlen(s)) == 0)
 		{
-			if (env->content)
-				ft_memdel(env->content);
+			if (shell->env->content)
+				ft_memdel(shell->env->content);
 			path = ft_strjoin(s, buf);
 			if (!path)
 				return (1);
-			env->content = ft_strdup(path);
+			shell->env->content = ft_strdup(path);
 			break ;
 		}
-		env = env->next;
+		shell->env = shell->env->next;
 	}
 	ft_memdel(path);
 	return (0);
 }
 
-static int	cd_aux(char *s, t_list *env)
+static int	cd_aux(char *s, t_shell *shell)
 {
 	int		ret;
 	char	*path;
 
-	path = ft_getenv(s, env);
+	path = ft_getenv(s, shell->env);
 	if (!path)
 	{
 		ret = 1;
-		print_error(0, s);
+		print_error(0, s, shell);
 		return (ret);
 	}
-	update_env("OLDPWD=", env);
+	update_env("OLDPWD=", shell);
 	ret = chdir(path);
 	if (ret == -1)
-		print_error(1, path);
-	update_env("PWD=", env);
+		print_error(1, path, shell);
+	update_env("PWD=", shell);
 	ft_memdel(path);
 	return (ret);
 }
@@ -81,20 +83,20 @@ int	ft_cd(char **arg, t_shell *shell)
 
 	ret = 0;
 	if (!arg[1])
-		ret = cd_aux("HOME", shell->env);
+		ret = cd_aux("HOME", shell);
 	else if (arg[1] && ft_strncmp(arg[1], "-", 1) == 0)
 	{	
-		ret = cd_aux("OLDPWD", shell->env);
+		ret = cd_aux("OLDPWD", shell);
 		if (ret == 0)
 			ft_pwd(1, shell);
 	}
 	else
 	{
-		update_env("OLDPWD=", shell->env);
+		update_env("OLDPWD=", shell);
 		ret = chdir(arg[1]);
 		if (ret == -1)
-			print_error(1, arg[1]);
-		update_env("PWD=", shell->env);
+			print_error(1, arg[1], shell);
+		update_env("PWD=", shell);
 	}
 	if (shell->pipes != 0)
 		exit(0);

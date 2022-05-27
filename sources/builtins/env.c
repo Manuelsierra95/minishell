@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:52:19 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/23 20:13:08 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/26 18:13:58 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,11 @@ int	ft_env(t_shell *shell, int fd)
 	aux = shell->env;
 	if (!aux)
 		return (1);
-	while (aux && aux->next != NULL)
+	while (aux)
 	{
-		if (aux->content)
-			ft_putendl_fd(aux->content, fd);
+		ft_putendl_fd(aux->content, fd);
 		aux = aux->next;
 	}
-	if (aux->content)
-		ft_putendl_fd(aux->content, fd);
 	if (shell->pipes != 0)
 		exit(0);
 	return (0);

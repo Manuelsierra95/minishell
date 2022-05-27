@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:14:15 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/20 14:13:14 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/27 19:42:26 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,11 @@ void	free_arr(char **arr)
 	while (arr[i])
 	{
 		if (arr[i])
-			ft_memdel(arr[i]);
+			free(arr[i]);
 		i++;
 	}
 	if (arr)
 		ft_memdel(arr);
-
 }
 
 void	free_env(t_list *env)
@@ -51,10 +50,9 @@ void	free_cmds(t_cmd	*cmd)
 	aux = cmd;
 	while (aux)
 	{
-		//printf("%s\n", aux->arg[0]);
 		node = aux;
 		aux = aux->next;
 		free_arr(node->arg);
-	//	ft_memdel(node);
+		free(node);
 	}
 }

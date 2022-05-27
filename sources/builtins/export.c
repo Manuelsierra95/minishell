@@ -6,13 +6,13 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 15:56:26 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/23 21:25:24 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/27 17:06:22 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_error(char *arg)
+static void	print_error(char *arg, t_shell *shell)
 {
 	char	*err_msg;
 	char	*aux;
@@ -24,6 +24,8 @@ static void	print_error(char *arg)
 	ft_putstr_fd(err_msg, STDERR_FILENO);
 	ft_putendl_fd(": not a valid identifier", STDERR_FILENO);
 	ft_memdel(err_msg);
+	if (shell->pipes != 0)
+		exit(1);
 }
 
 int	is_valid(char *arg)
@@ -66,7 +68,7 @@ int	add_2_env(char *arg, t_list *env)
 	return (0);
 }
 
-int	ft_export(char **arg, t_list *env, t_list *secret, int fd)
+int	ft_export(char **arg, t_shell **shell, int fd)
 {
 	int	i;
 	int	has_eq;
@@ -74,22 +76,22 @@ int	ft_export(char **arg, t_list *env, t_list *secret, int fd)
 
 	i = 1;
 	if (!arg[i])
-		return (print_secret(secret, fd));
+		return (print_secret(*shell, fd));
 	while (arg[i])
 	{
 		has_eq = is_valid(arg[i]);
 		if (has_eq == -1)
-			print_error(arg[i]);
-		n = is_in_env(arg[i], has_eq, env);
-		n += is_in_env(arg[i], has_eq, secret);
+			print_error(arg[i], *shell);
+		n = is_in_env(arg[i], has_eq, (*shell)->env);
+		n += is_in_env(arg[i], has_eq, (*shell)->secret);
 		if (n <= 1)
 			if (has_eq == 1)
-				add_2_env(arg[i], env);
+				add_2_env(arg[i], (*shell)->env);
 		if (n == 0)
-			add_2_env(arg[i], secret);
+			add_2_env(arg[i], (*shell)->secret);
 		i++;
 	}
-	if (g_shell->pipes != 0)
+	if ((*shell)->pipes != 0)
 		exit(0);
 	return (0);
 }

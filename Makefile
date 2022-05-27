@@ -6,7 +6,7 @@
 #    By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 14:59:23 by msierra-          #+#    #+#              #
-#    Updated: 2022/05/20 16:17:34 by mbarylak         ###   ########.fr        #
+#    Updated: 2022/05/27 19:24:36 by mbarylak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ RM		= rm -rf
 
 AR		= ar rcs
 
-CFLAGS 	= -Wall -Werror -Wextra -g3 #-fsanitize=address
+CFLAGS 	= -Wall -Werror -Wextra -g3 -fsanitize=address
 
 INCLUDES =	-I ./includes/ -I ./libft/
 
@@ -49,7 +49,7 @@ LIBFT	=	-L libft/ -lft
 all	:		$(NAME)
 
 $(NAME)	:	$(LIBFT_DIR)$(LIBFT_NAME) $(OBJS) bender
-			@$(CC) $(INCLUDES) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
+			@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
 			@echo "$(RESET)Done"
 			@echo "$(GREEN)==========WELLDONE==========$(RESET)"
 			@echo "Success creating $(NAME) file"

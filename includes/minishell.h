@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/23 21:14:12 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/27 19:53:47 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,19 @@ typedef struct s_shell
 	int		pipes;
 }	t_shell;
 
-typedef struct	s_cmd
+typedef struct s_cmd
 {
 	char			**arg;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;
 
-typedef struct	s_exec
+typedef struct s_exec
 {
 	t_cmd	*cmds;
 	int		fd_in;
 	int		fd_out;
-	int		oldfd_in;
-	int		oldfd_out;
+	int		oldfd[2];
 }	t_exec;
 
 t_shell	*g_shell;
@@ -66,6 +65,7 @@ int		env_to_shell(char **env_arr);
 int		secret_to_shell(char **env_arr);
 int		arr_len(char **arr);
 void	print_env(char **env);
+void	print_list(t_list *env);
 
 /* FREE TOOLS */
 
@@ -82,10 +82,9 @@ int		name_in_env(char *name, t_list *env);
 int		is_valid(char *arg);
 int		add_2_env(char *arg, t_list *env);
 int		is_in_env(char *arg, int ret, t_list *env);
-char	*env_2_str(t_list *env);
 char	**env_2_arr(t_list *env);
 void	sort_env(char **env_arr, int env_len);
-int		print_secret(t_list *secret, int fd);
+int		print_secret(t_shell *shell, int fd);
 
 /*  BUILTINS  */
 
@@ -94,13 +93,13 @@ void	ft_exit(char **argv, t_shell **shell, int fd);
 int		ft_env(t_shell *shell, int fd);
 int		ft_echo(int fd, char **arg, t_shell *shell);
 int		ft_cd(char **arg, t_shell *shell);
-int		ft_export(char **arg, t_list *env, t_list *secret, int fd);
+int		ft_export(char **arg, t_shell **shell, int fd);
 int		ft_unset(char **arg, t_shell *shell);
 
 /* MY LEXER */
 
 void	pipe_counter(char *input, t_shell *shell);
-int		has_pipes(char *input); 
+int		has_pipes(char *input);
 
 /*	EXECUTOR */
 

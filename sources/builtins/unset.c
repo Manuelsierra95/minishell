@@ -6,13 +6,13 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 18:07:23 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/23 21:13:12 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/27 17:05:56 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	print_error(char *arg)
+static int	print_error(char *arg, t_shell *shell)
 {
 	char	*err_msg;
 	char	*aux;
@@ -24,6 +24,8 @@ static int	print_error(char *arg)
 	ft_putstr_fd(err_msg, STDERR_FILENO);
 	ft_putendl_fd(": not a valid identifier", STDERR_FILENO);
 	ft_memdel(err_msg);
+	if (shell->pipes != 0)
+		exit(0);
 	return (1);
 }
 
@@ -103,7 +105,7 @@ int	ft_unset(char **arg, t_shell *shell)
 	{
 		flag = 0;
 		if (is_valid(arg[i]) == -1)
-			flag = print_error(arg[i]);
+			flag = print_error(arg[i], shell);
 		if (flag == 0)
 		{
 			free_env_node(arg[i], env);

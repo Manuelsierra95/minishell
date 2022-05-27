@@ -6,18 +6,20 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 12:32:24 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/20 19:22:40 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/26 21:09:40 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	print_error(char *cmd, int n)
+static int	print_error(char *cmd, int n, t_shell *shell)
 {
 	if (n == 0)
 	{	
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		perror(cmd);
+		if (shell->pipes != 0)
+			exit(1);
 		return (errno);
 	}
 	else if (n == 1)
@@ -25,6 +27,8 @@ static int	print_error(char *cmd, int n)
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(cmd, STDERR_FILENO);
 		ft_putendl_fd(": command not found", STDERR_FILENO);
+		if (shell->pipes != 0)
+			exit(1);
 		return (127);
 	}
 	return (0);
@@ -75,15 +79,15 @@ int	exe_cmd(char **cmd, t_shell *shell)
 	env_arr = env_2_arr(shell->env);
 	if ((cmd[0][0] == '.' && cmd[0][1] == '/') || access(cmd[0], X_OK) == 0)
 		if (execve(cmd[0], cmd, env_arr) == -1)
-			return (print_error(cmd[0], 0));
+			return (print_error(cmd[0], 0, shell));
 	path = get_right_path(cmd[0], shell);
 	if (path == NULL)
-		return (print_error(cmd[0], 1));
+		return (print_error(cmd[0], 1, shell));
 	if (execve(path, cmd, env_arr) == -1)
 	{	
 		free_arr(env_arr);
 		ft_memdel(path);
-		return (print_error(cmd[0], 0));
+		return (print_error(cmd[0], 0, shell));
 	}
 	return (0);
 }

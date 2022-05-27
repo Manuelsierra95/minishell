@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 20:12:54 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/23 21:13:32 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/27 17:05:32 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	exec_builtin(char **cmd, t_shell *shell, int fd)
 	else if (ft_strcmp(cmd[0], "echo") == 0)
 		ret = ft_echo(fd, cmd, shell);
 	else if (ft_strcmp(cmd[0], "export") == 0)
-		ret = ft_export(cmd, shell->env, shell->secret, fd);
+		ret = ft_export(cmd, &shell, fd);
 	else if (ft_strcmp(cmd[0], "unset") == 0)
 		ret = ft_unset(cmd, shell);
 	else if (ft_strcmp(cmd[0], "cd") == 0)
