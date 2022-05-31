@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/31 18:42:12 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/31 19:55:21 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ int	main(int argc, char **argv, char **env)
 	(void) argc;
 	(void) argv;
 	g_shell = init_shell();
-	exe = init_exec();
 	env_to_shell(env);
 	secret_to_shell(env);
 	while (g_shell->exit == 1)
 	{
+		exe = init_exec();
 		inpt = readline("minishell> ");
 		add_history(inpt);
 		if (inpt[0] != 0 && inpt[0] != 32)
@@ -90,9 +90,9 @@ int	main(int argc, char **argv, char **env)
 				i++;
 			}
 			exec(exe, g_shell);
-			free_cmds(exe->cmds);
 			free_arr(line);
 		}
+		free_cmds(exe->cmds);
 	}
 	return (g_shell->ret);
 }

@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:45 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/23 17:15:03 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/31 19:53:46 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,6 @@ void	ft_exit(char **argv, t_shell **shell, int fd)
 		(*shell)->ret = ft_atoi(argv[1]) % 256;
 	else
 		(*shell)->ret = 0;
+	if ((*shell)->pipes != 0)
+		exit(0);
 }
