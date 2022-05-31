@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/31 18:26:17 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:23:47 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_exec
 	int		oldfd[2];
 }	t_exec;
 
-t_shell	*g_shell;
+t_shell	g_shell;
 
 /* UTILS */
 

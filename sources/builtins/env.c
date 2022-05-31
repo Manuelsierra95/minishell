@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:52:19 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/26 18:13:58 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:12:41 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	env_to_shell(char **env_arr)
 		return (1);
 	env->content = ft_strdup(env_arr[0]);
 	env->next = NULL;
-	g_shell->env = env;
+	g_shell.env = env;
 	i = 1;
 	while (env_arr && env_arr[0] && env_arr[i])
 	{
@@ -50,7 +50,7 @@ int	secret_to_shell(char **env_arr)
 		return (1);
 	env->content = ft_strdup(env_arr[0]);
 	env->next = NULL;
-	g_shell->secret = env;
+	g_shell.secret = env;
 	i = 1;
 	while (env_arr && env_arr[0] && env_arr[i])
 	{

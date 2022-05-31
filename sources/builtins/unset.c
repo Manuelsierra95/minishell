@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 18:07:23 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/27 17:05:56 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:16:25 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ static void	free_env_node(char *arg, t_list *env)
 
 	if (ft_strncmp(arg, env->content, len(env->content)) == 0)
 	{
-		g_shell->env = g_shell->env->next;
+		g_shell.env = g_shell.env->next;
 		ft_memdel(env->content);
 		ft_memdel(env);
-		env = g_shell->env;
+		env = g_shell.env;
 		return ;
 	}
 	while (env && env->next)
@@ -70,10 +70,10 @@ static void	free_secret_node(char *arg, t_list *env)
 
 	if (ft_strncmp(arg, env->content, len(env->content)) == 0)
 	{
-		g_shell->secret = g_shell->secret->next;
+		g_shell.secret = g_shell.secret->next;
 		ft_memdel(env->content);
 		ft_memdel(env);
-		env = g_shell->secret;
+		env = g_shell.secret;
 		return ;
 	}
 	while (env && env->next)
