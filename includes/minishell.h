@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/27 19:53:47 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/31 18:26:17 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,6 @@ int		exe_pipes(t_exec *exe, t_shell *shell);
 int		exec(t_exec *exe, t_shell *shell);
 int		is_builtin(char *cmd);
 int		exec_builtin(char **cmd, t_shell *shell, int fd);
-t_cmd	*add_cmds(char *arg, t_cmd *cmd, int i);
+void	add_cmds(char *cmd, t_cmd **cmds);
 
 #endif

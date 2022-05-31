@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:14:15 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/27 19:42:26 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/31 16:48:22 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ void	free_cmds(t_cmd	*cmd)
 		node = aux;
 		aux = aux->next;
 		free_arr(node->arg);
-		free(node);
+		ft_memdel(node);
 	}
 }
