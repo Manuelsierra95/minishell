@@ -6,19 +6,19 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/31 21:59:22 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/01 19:39:27 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_shell(void)
+void	init_shell(char **env)
 {
 	g_shell.exit = 1;
 	g_shell.ret = 0;
-	g_shell.env = NULL;
-	g_shell.secret = NULL;
 	g_shell.pipes = 0;
+	env_to_shell(env);
+	secret_to_shell(env);
 }
 
 void	init_exec(t_exec *exe)
@@ -28,29 +28,11 @@ void	init_exec(t_exec *exe)
 	exe->cmds = NULL;
 }
 
-void	print_env(char **env)
+void	ft_free(char *inpt, char **line, t_cmd *cmds)
 {
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		dprintf(2, "%s", env[i]);
-		i++;
-	}
-}
-
-void	print_list(t_list *env)
-{
-	t_list	*aux;
-
-	aux = env;
-	while (aux)
-	{
-		if (aux->content)
-			dprintf(2, "%s\n", aux->content);
-		aux = aux->next;
-	}
+	free_arr(line);
+	ft_memdel(inpt);
+	free_cmds(cmds);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -62,9 +44,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void) argc;
 	(void) argv;
-	init_shell();
-	env_to_shell(env);
-	secret_to_shell(env);
+	init_shell(env);
 	while (g_shell.exit == 1)
 	{
 		init_exec(&exe);
@@ -74,17 +54,12 @@ int	main(int argc, char **argv, char **env)
 		{	
 			line = ft_split(inpt, '|');
 			pipe_counter(inpt, &g_shell);
-			i = 0;
-			while (line[i])
-			{
+			i = -1;
+			while (line[++i])
 				add_cmds(line[i], &exe.cmds);
-				i++;
-			}
 			exec(&exe, &g_shell);
-			free_arr(line);
 		}
-		//ft_memdel(inpt);
-		free_cmds(exe.cmds);
+		ft_free(inpt, line, exe.cmds);
 	}
 	return (g_shell.ret);
 }

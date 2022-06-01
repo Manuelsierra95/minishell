@@ -6,7 +6,7 @@
 #    By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 14:59:23 by msierra-          #+#    #+#              #
-#    Updated: 2022/05/31 19:54:10 by mbarylak         ###   ########.fr        #
+#    Updated: 2022/06/01 19:40:35 by mbarylak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		= 	minishell
 LIBFT_NAME  =	libft.a
 
 BUILTINS	=	pwd exit env echo cd export unset
-UTILS	=	isnum getenv is_in_env sort_env free
+UTILS	=	isnum getenv is_in_env sort_env free print_info
 EXEC    =	exe_cmd exe builtin lexer exe_utils exe_pipes
 
 ##LEXER##

@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:13:10 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/26 17:51:08 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:54:01 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,25 @@ static int	update_env(char *s, t_shell *shell)
 {
 	char	buf[PATH_MAX];
 	char	*path;
+	t_list	*aux_env;
 
 	path = NULL;
+	aux_env = shell->env;
 	if (!getcwd(buf, PATH_MAX) || !shell->env)
 		return (1);
-	while (shell->env && shell->env->next)
+	while (aux_env && aux_env->next)
 	{
-		if (ft_strncmp(shell->env->content, s, ft_strlen(s)) == 0)
+		if (ft_strncmp(aux_env->content, s, ft_strlen(s)) == 0)
 		{
-			if (shell->env->content)
-				ft_memdel(shell->env->content);
+			if (aux_env->content)
+				ft_memdel(aux_env->content);
 			path = ft_strjoin(s, buf);
 			if (!path)
 				return (1);
-			shell->env->content = ft_strdup(path);
+			aux_env->content = ft_strdup(path);
 			break ;
 		}
-		shell->env = shell->env->next;
+		aux_env = aux_env->next;
 	}
 	ft_memdel(path);
 	return (0);
