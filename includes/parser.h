@@ -1,29 +1,39 @@
 #ifndef PARSER_H
 # define PARSER_H
 
+#include"interface.h"
+
+enum redir_type
+{
+	REDIR_OUT = 1,
+	REDIR_APPEND_OUT,
+	REDIR_IN,
+	REDIR_HEREDOC,
+};
+
+enum node_type
+{
+	N_PIPE = 1,
+	N_OTHER,
+};
+
+// Tree
+typedef struct s_redir {
+	char			*value;
+	int				r_type;
+	struct s_redir	*next;
+} t_redir;
 
 typedef struct s_tree
 {
-	char			*cmd; // todo el string de info
-	struct s_tree	*left; // aqui ira la info del comando
-	struct s_tree	*right; // aqui iran los pipes y se ira ramificando en funcion del numOfPipes
+	char			**cmd;
+	int				n_type; // 1 -> PIPE // 2 -> OTHER
+	t_redir			*l_redir;
+	struct s_tree	*right;
+	struct s_tree	*left;
 } t_tree;
 
-typedef struct s_cmd
-{
-	char			*cmd[2]; // Si solo hay 1 cmd el 2 es NULL (hay que rellenarlo);
-	struct s_cmd	*next;
-} t_cmd;
 
-
-// Sacamos todos los argumentos y los separamos en comandos simples
-typedef struct s_dataCmd
-{
-	int				numOfAvArgs; 
-	int				numOfArgs;
-	char			**args;
-	t_cmd			*cmd;
-	// Control de argumentos separados
-} t_dataCmd;
+t_tree	*create_tree();
 
 #endif

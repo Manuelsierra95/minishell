@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
+/*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:09 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/27 16:58:38 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/08 12:54:04 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	print_secret(t_shell *shell, int fd)
 		i++;
 	}
 	free_arr(env_arr);
-	if (shell->pipes != 0)
+	if (shell->numOfPipes != 0)
 		exit(0);
 	return (0);
 }

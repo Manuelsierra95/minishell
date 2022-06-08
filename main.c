@@ -6,26 +6,25 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/06 12:06:59 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/08 12:48:47 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_shell	*init_shell(void)
+t_shell	*init_shell(char **env)
 {
 	t_shell	*shell;
 
 	shell = malloc(sizeof (t_shell));
 	shell->exit = 1;
 	shell->ret = 0;
-	shell->env = NULL;
 	shell->exit_stat = 0;
 	shell->secret = NULL;
 	put_builtins(shell->map);
-	return (shell);
 	env_to_shell(env);
 	secret_to_shell(env);
+	return (shell);
 }
 
 void	init_exec(t_exec *exe)
@@ -33,6 +32,9 @@ void	init_exec(t_exec *exe)
 	exe->fd_in = 0;
 	exe->fd_out = 1;
 	exe->cmds = NULL;
+	g_shell->index = 0;
+	g_shell->numOfArgs = 0;
+	g_shell->numOfPipes = 0;
 }
 
 void	ft_free(char *inpt, char **line, t_cmd *cmds)
@@ -66,17 +68,14 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 	(void) argv;
 	init_shell(env);
 	get_path();
-	while (g_shell.exit == 1)
+	while (g_shell->exit == 1)
 	{
 		init_exec(&exe);
-		inpt = readline("minishell> ");
+		inpt = readline(CYAN "minishell> " RESET);
 		add_history(inpt);
 		flag = 0;
 		if (ft_strchr(inpt, '$'))
 			flag = 1;
-		g_shell->index = 0;
-		g_shell->numOfArgs = 0;
-		g_shell->numOfPipes = 0;
 		line = split_input(inpt);
 		// shell_cmds(inpt, line);
 		g_shell->tokens = lexer(line);

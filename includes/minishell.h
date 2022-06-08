@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/01 18:43:22 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/08 12:48:56 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,8 @@ typedef struct s_exec
 	int		fd_out;
 	int		oldfd[2];
 }	t_exec;
-t_shell *g_shell;
 
-t_shell	g_shell;
+t_shell *g_shell;
 
 /* UTILS */
 
