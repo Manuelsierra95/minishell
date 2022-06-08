@@ -6,7 +6,7 @@
 #    By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 14:59:23 by msierra-          #+#    #+#              #
-#    Updated: 2022/06/05 13:42:28 by msierra-         ###   ########.fr        #
+#    Updated: 2022/06/08 13:20:46 by msierra-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ LEXER		= 	tokenizer checkCmd get_path quote_manage get_input
 PARSER 		= 	parser
 ERRORS		=	errors
 EXPANDER 	= 	expander 
-EXEC    =	exe_cmd exe builtin lexer exe_utils exe_pipes
+EXEC    	=	exe_cmd exe builtin lexer exe_utils exe_pipes
 
 SRCS	=	$(addsuffix .c, $(addprefix sources/errors/, $(ERRORS))) 				\
 			$(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) 					\

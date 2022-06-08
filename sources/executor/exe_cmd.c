@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe.c                                              :+:      :+:    :+:   */
+/*   exe_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
+/*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 12:32:24 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/01 19:10:11 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:04:01 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	print_error(char *cmd, int n, t_shell *shell)
 	{	
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		perror(cmd);
-		if (shell->pipes != 0)
+		if (shell->numOfPipes != 0)
 			exit(1);
 		return (errno);
 	}
@@ -27,7 +27,7 @@ static int	print_error(char *cmd, int n, t_shell *shell)
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(cmd, STDERR_FILENO);
 		ft_putendl_fd(": command not found", STDERR_FILENO);
-		if (shell->pipes != 0)
+		if (shell->numOfPipes != 0)
 			exit(1);
 		return (127);
 	}

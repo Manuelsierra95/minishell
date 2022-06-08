@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/08 13:01:13 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:10:22 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,8 @@ typedef struct s_shell
 	t_tree			*tree;
 }	t_shell;
 
-typedef struct s_cmd
-{
-	char			**arg;
-	struct s_cmd	*next;
-	struct s_cmd	*prev;
-}	t_cmd;
-
 typedef struct s_exec
 {
-	t_cmd	*cmds;
 	int		fd_in;
 	int		fd_out;
 	int		oldfd[2];
@@ -97,7 +89,6 @@ void	print_list(t_list *env);
 
 void	free_arr(char **arr);
 void	free_env(t_list *env);
-void	free_cmds(t_cmd *cmd);
 
 /*  BUILTINS TOOLS  */
 
@@ -121,7 +112,7 @@ int		exe_pipes(t_exec *exe, t_shell *shell);
 int		exec(t_exec *exe, t_shell *shell);
 int		is_builtin(char *cmd);
 int		exec_builtin(char **cmd, t_shell *shell, int fd);
-void	add_cmds(char *cmd, t_cmd **cmds);
+void	add_cmds(char *cmd);
 
 /* EXPANDER */
 

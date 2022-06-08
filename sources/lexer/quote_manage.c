@@ -60,7 +60,7 @@ void	check_quote_error(char *input)
 		state = input_state(input[i]);
 		if (state == D_QUOTE || state == S_QUOTE)
 		{
-			if ((state == D_QUOTE || state == S_QUOTE) && !(input[i + 1]))
+			if ((state == D_QUOTE || state == S_QUOTE) && (int)ft_strlen(input) == i + 1)
 				mng_errors(QUOTE_ERROR, NULL);
 			while (input[++i])
 			{

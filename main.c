@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/08 12:48:47 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:17:23 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,16 @@ void	init_exec(t_exec *exe)
 {
 	exe->fd_in = 0;
 	exe->fd_out = 1;
-	exe->cmds = NULL;
+	// exe->cmds = NULL;
 	g_shell->index = 0;
 	g_shell->numOfArgs = 0;
 	g_shell->numOfPipes = 0;
 }
 
-void	ft_free(char *inpt, char **line, t_cmd *cmds)
+void	ft_free(char *inpt, char **line)
 {
 	free_arr(line);
 	ft_memdel(inpt);
-	free_cmds(cmds);
 }
 
 
@@ -61,7 +60,6 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 	char	*inpt;
 	char	**line;
 	t_exec	exe;
-	int		i;
 	int		flag;
 
 	(void) argc;
@@ -86,7 +84,7 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 			
 			g_shell->tree = create_tree();
 			shell_loop();
-			exec(&exe, &g_shell);
+			exec(&exe, g_shell);
 		}
 
 		// free_matrix(line);

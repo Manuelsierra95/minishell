@@ -21,14 +21,12 @@ int input_state(char input)
 
 	if (input == D_QUOTE)
 		state = D_QUOTE;
-	else if (input == S_QUOTE)
+	if (input == S_QUOTE)
 		state = S_QUOTE;
-	else if (ft_isalpha_edit(input))
+	if (ft_isalpha_edit(input))
 		state = CHAR;
-	else if (s_isspecial(input))
+	if (s_isspecial(input))
 		state = s_isspecial(input);
-	else
-		state = 0;
 	return (state);
 }
 

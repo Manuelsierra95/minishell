@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
+/*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:54:06 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/01 18:28:51 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:04:26 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ int	exec(t_exec *exe, t_shell *shell)
 	int	ret;
 
 	ret = 1;
-	if (shell->pipes == 0)
+	if (shell->numOfPipes == 0)
 		ret = exe_single_child(exe->cmds->arg, shell, 1);
 	else
 	{
 		ret = exe_pipes(exe, shell);
-		shell->pipes = 0;
+		shell->numOfPipes = 0;
 	}
 	return (ret);
 }
