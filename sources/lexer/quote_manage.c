@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	count_quotes(char *input)
 {
@@ -49,31 +49,26 @@ char	*take_off_quotes(char *input)
 	return (no_quotes_input);
 }
 
-int	quote_analyzer_utils(char *input, int quote)
+void	check_quote_error(char *input)
 {
+	int	state;
 	int	i;
-	int	num_quote;
 
-	i = 0;
-	num_quote = 0;
-	while (input[i])
+	i = -1;
+	while (input[++i])
 	{
-		if (input[i] == quote)
-			num_quote++;
-		i++;
+		state = input_state(input[i]);
+		if (state == D_QUOTE || state == S_QUOTE)
+		{
+			if ((state == D_QUOTE || state == S_QUOTE) && (int)ft_strlen(input) == i + 1)
+				mng_errors(QUOTE_ERROR, NULL);
+			while (input[++i])
+			{
+				if (input[i] == state)
+					break ;
+				if (i == (int)ft_strlen(input) - 1)
+					mng_errors(QUOTE_ERROR, NULL);
+			}
+		}
 	}
-	return (num_quote);
-}
-
-int	quote_analyzer(char *input)
-{
-	int	diff_d_quote;
-	int	diff_s_quote;
-
-	diff_d_quote = quote_analyzer_utils(input, D_QUOTE);
-	diff_s_quote = quote_analyzer_utils(input, S_QUOTE);
-	printf("s_quote: %d\td_quote: %d\n", diff_s_quote, diff_d_quote);
-	if (diff_d_quote % 2 != 0 || diff_s_quote % 2 != 0)
-		return (1);
-	return (0);
 }

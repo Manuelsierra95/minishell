@@ -43,4 +43,7 @@ int		s_isspecial(int c);
 char	*take_off_quotes(char *input);
 int		check_quotes(char *input);
 int		count_quotes(char *input);
+int		input_state(char input);
+
+void	check_quote_error(char *input);
 #endif

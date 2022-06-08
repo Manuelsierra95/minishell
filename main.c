@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/18 13:45:12 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/06 12:06:59 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_shell	*init_shell(void)
 	shell->env = NULL;
 	shell->exit_stat = 0;
 	shell->secret = NULL;
-	map_create(shell->map);
+	put_builtins(shell->map);
 	return (shell);
 }
 
@@ -64,6 +64,7 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 	while (g_shell->exit == 1)
 	{
 		inpt = readline(CYAN "minishell> " RESET);
+		check_quote_error(inpt);
 		add_history(inpt);
 		flag = 0;
 		if (ft_strchr(inpt, '$'))
@@ -71,28 +72,16 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 		g_shell->index = 0;
 		g_shell->numOfArgs = 0;
 		g_shell->numOfPipes = 0;
-		if (quote_analyzer(inpt))	//TODO: falla echo "'"' deberia dar error y no lo da
-		{							//Falla mucho, hay que replantearlo de 0
-			printf("Error de comillas\n");
-			exit(-1);
-		}
 		line = split_input(inpt);
 		// shell_cmds(inpt, line);
 		g_shell->tokens = lexer(line);
-		if (!check_for_errors(g_shell->tokens)) // NO detecta exit y demas como comandos y salta error!!
+		if (!check_for_errors(g_shell->tokens))
 		{
 			if (flag == 1)
 				g_shell->tokens = expander(g_shell->tokens);
 			
 			g_shell->tree = create_tree();
 			shell_loop();
-
-
-			// {
-			// 	printf("Index: %d\tType: %d\tData: %s\n", index, g_shell->tokens[index].type, g_shell->tokens[index].data);
-			// 	index++;
-			// }
-
 		}
 
 		// free_matrix(line);
@@ -100,5 +89,6 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 			// while (index < g_shell->numOfArgs)
 			// int index = 0;
 	}
+	clean_map(g_shell->map);
 	return (g_shell->ret);
 }

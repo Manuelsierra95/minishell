@@ -6,7 +6,7 @@
 #    By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 14:59:23 by msierra-          #+#    #+#              #
-#    Updated: 2022/05/20 14:28:34 by msierra-         ###   ########.fr        #
+#    Updated: 2022/06/05 13:42:28 by msierra-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,31 +23,36 @@ EXPORT		=	export get_export
 PWD			=	pwd get_pwd
 UNSET		=	unset get_unset
 UTILS		=	isnum getenv is_in_env sort_env free isspecial isalpha_edit shell_loop
-LEXER		= 	lexer checkCmd get_path quote_manage lexer_utils
+LEXER		= 	tokenizer checkCmd get_path quote_manage get_input
 PARSER 		= 	parser
 ERRORS		=	errors
 EXPANDER 	= 	expander 
-		
-SRCS	=	$(addsuffix .c, $(addprefix sources/errors/, $(ERRORS))) 							\
-			$(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) 								\
-			$(addsuffix .c, $(addprefix sources/lexer/, $(LEXER))) 								\
-			$(addsuffix .c, $(addprefix sources/executor/, $(EXEC)))        					\
-			$(addsuffix .c, $(addprefix sources/parser/, $(PARSER))) 							\
-			$(addsuffix .c, $(addprefix sources/expander/, $(EXPANDER))) 						\
-			$(addsuffix .c, $(addprefix sources/builtins/, $(INTERFACE))) 						\
-			$(addsuffix .c, $(addprefix sources/builtins/interface/map_builder, $(MAP)))	 	\
-			$(addsuffix .c, $(addprefix sources/builtins/interface/builtins/cd, $(CD))) 		\
-			$(addsuffix .c, $(addprefix sources/builtins/interface/builtins/echo, $(ECHO))) 	\
-			$(addsuffix .c, $(addprefix sources/builtins/interface/builtins/env, $(ENV))) 		\
-			$(addsuffix .c, $(addprefix sources/builtins/interface/builtins/exit, $(EXIT))) 	\
-			$(addsuffix .c, $(addprefix sources/builtins/interface/builtins/export, $(EXPORT))) \
-			$(addsuffix .c, $(addprefix sources/builtins/interface/builtins/pwd, $(PWD))) 		\
-			$(addsuffix .c, $(addprefix sources/builtins/interface/builtins/unset, $(UNSET))) 	\
+
+SRCS	=	$(addsuffix .c, $(addprefix sources/errors/, $(ERRORS))) 				\
+			$(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) 					\
+			$(addsuffix .c, $(addprefix sources/lexer/, $(LEXER))) 					\
+			$(addsuffix .c, $(addprefix sources/executor/, $(EXEC)))     			\
+			$(addsuffix .c, $(addprefix sources/parser/, $(PARSER))) 				\
+			$(addsuffix .c, $(addprefix sources/expander/, $(EXPANDER))) 			\
+			$(addsuffix .c, $(addprefix sources/interface/, $(INTERFACE))) 			\
+			$(addsuffix .c, $(addprefix sources/interface/map_builder/, $(MAP)))	\
+			$(addsuffix .c, $(addprefix sources/builtins/cd/, $(CD))) 				\
+			$(addsuffix .c, $(addprefix sources/builtins/echo/, $(ECHO))) 			\
+			$(addsuffix .c, $(addprefix sources/builtins/env/, $(ENV))) 			\
+			$(addsuffix .c, $(addprefix sources/builtins/exit/, $(EXIT))) 			\
+			$(addsuffix .c, $(addprefix sources/builtins/export/, $(EXPORT)))		\
+			$(addsuffix .c, $(addprefix sources/builtins/pwd/, $(PWD))) 			\
+			$(addsuffix .c, $(addprefix sources/builtins/unset/, $(UNSET))) 		\
 			main.c
 
-FOLDERS = ./includes/ ./libft/ ./interface/ ./cd/ ./echo/ ./env/ ./exit/ ./export/ ./pwd/ ./unset/
+FOLDERS = 	./includes/ ./libft/ ./sources/interface/ ./sources/interface/map_builder/ 	\
+			./sources/builtins/echo/ ./sources/builtins/env/ 							\
+			./sources/builtins/exit/ ./sources/builtins/export/ 						\
+			./sources/builtins/pwd/ ./sources/builtins/unset/							\
+ 			./sources/builtins/cd/														\
 
-INCLUDE_HEADERS = $(addprefix -I $(FOLDERS))
+
+INCLUDE_HEADERS = $(addprefix -I, $(FOLDERS))
 
 PINK = \033[1;35m
 GREEN = \033[1;32m

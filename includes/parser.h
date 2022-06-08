@@ -1,6 +1,8 @@
 #ifndef PARSER_H
 # define PARSER_H
 
+#include"interface.h"
+
 enum redir_type
 {
 	REDIR_OUT = 1,
@@ -15,11 +17,12 @@ enum node_type
 	N_OTHER,
 };
 
+// Tree
 typedef struct s_redir {
 	char			*value;
 	int				r_type;
 	struct s_redir	*next;
-}				t_redir;
+} t_redir;
 
 typedef struct s_tree
 {
@@ -29,13 +32,6 @@ typedef struct s_tree
 	struct s_tree	*right;
 	struct s_tree	*left;
 } t_tree;
-
-typedef struct s_parser
-{
-	char			**cmd;
-	char			*n_data;
-	int				n_type;
-} t_parser;
 
 
 t_tree	*create_tree();

@@ -6,18 +6,18 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/20 14:44:06 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/08 11:23:14 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "./lexer.h"
-# include "./parser.h"
-# include "./error.h"
-# include "./builtins.h"
-# include "./libft.h"
+# include "lexer.h"
+# include "parser.h"
+# include "error.h"
+# include "builtins.h"
+# include "libft.h"
 
 # include <stdio.h>
 # include <errno.h>
@@ -45,6 +45,7 @@ typedef struct s_shell
 	int		ret;
 	int		exit_stat;
 	t_map	map[NUM_OF_ELEMENTS];
+	char	**arg;
 
 	int		fd; // De momento vale 1
 
@@ -62,29 +63,6 @@ typedef struct	s_builtin
 	int		(*f)();
 }	t_builtin;
 
-t_shell	*g_shell;
-
-
-// typedef struct s_env   /* Estructura del entorno */
-// {
-// 	char			*content;
-// 	struct s_env	*next;
-// }	t_env;
-
-// typedef struct s_shell
-// {
-	
-
-// 	int				numOfCmd;
-// 	int				numOfPipes;
-// 	char			*outFile;
-// 	char			*inFile; // Implementar el GNL (Ver errores que pueda haber en los infiles)
-// 	char			*errFile;
-// 	struct s_env	*env;
-// 	int				exit;
-// 	int				ret;
-// }	t_shell;
-
 t_shell *g_shell;
 
 /* UTILS */
@@ -100,7 +78,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s);
 char	**ft_split(const char *s, char c);
 int		ft_isalpha_edit(int c);
-void	shell_cmds(char *inpt, char **line);
+void	*shell_cmds(char **cmd);
 void	shell_loop();
 
 /* FREE TOOLS */
@@ -122,16 +100,6 @@ char	**env_2_arr(t_list *env);
 void	sort_env(char **env_arr, int env_len);
 int		print_secret(t_list *secret, int fd);
 
-/*  BUILTINS  */
-
-int		ft_cd(char **arg, t_list *env);
-int		ft_echo(int fd, char **arg);
-int		ft_env(t_list *env, int fd);
-void	ft_exit(char **argv, t_shell *shell);
-int		ft_export(char **arg, t_list *env, t_list *secret, int fd);
-int		ft_pwd(int fd);
-int		ft_unset(char **arg);
-
 /*	EXECUTOR */
 
 int		exe_cmd(char **argv, t_shell *shell);
@@ -141,10 +109,6 @@ int		exe_child(char **cmd, t_shell *shell);
 
 t_token	*expander(t_token *tokens);
 char	*exp_getenv(char *arg, t_list *env);
-
-/* ERROR */
-
-int	check_for_errors(t_token *tokens);
 
 
 #endif
