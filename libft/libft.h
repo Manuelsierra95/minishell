@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 16:26:51 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/04/20 20:25:08 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:08:47 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
 # include <stddef.h>
 
 typedef struct s_list

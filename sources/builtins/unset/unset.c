@@ -12,7 +12,7 @@
 
 #include "unset.h"
 
-static int	print_error(char *arg)
+static int	print_error(char *arg, t_shell *shell)
 {
 	char	*err_msg;
 	char	*aux;
@@ -24,6 +24,8 @@ static int	print_error(char *arg)
 	ft_putstr_fd(err_msg, STDERR_FILENO);
 	ft_putendl_fd(": not a valid identifier", STDERR_FILENO);
 	ft_memdel(err_msg);
+	if (shell->pipes != 0)
+		exit(0);
 	return (1);
 }
 
@@ -43,10 +45,10 @@ static void	free_env_node(char *arg, t_list *env)
 
 	if (ft_strncmp(arg, env->content, len(env->content)) == 0)
 	{
-		g_shell->env = g_shell->env->next;
+		g_shell.env = g_shell.env->next;
 		ft_memdel(env->content);
 		ft_memdel(env);
-		env = g_shell->env;
+		env = g_shell.env;
 		return ;
 	}
 	while (env && env->next)
@@ -68,10 +70,10 @@ static void	free_secret_node(char *arg, t_list *env)
 
 	if (ft_strncmp(arg, env->content, len(env->content)) == 0)
 	{
-		g_shell->secret = g_shell->secret->next;
+		g_shell.secret = g_shell.secret->next;
 		ft_memdel(env->content);
 		ft_memdel(env);
-		env = g_shell->secret;
+		env = g_shell.secret;
 		return ;
 	}
 	while (env && env->next)
@@ -113,5 +115,7 @@ void	*ft_unset(void *b_struct)
 		}
 		i++;
 	}
+	if (shell->pipes != 0)
+		exit(0);
 	return (0);
 }

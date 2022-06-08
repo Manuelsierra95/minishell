@@ -12,7 +12,7 @@
 
 #include "export.h"
 
-static void	print_error(char *arg)
+static void	print_error(char *arg, t_shell *shell)
 {
 	char	*err_msg;
 	char	*aux;
@@ -24,6 +24,8 @@ static void	print_error(char *arg)
 	ft_putstr_fd(err_msg, STDERR_FILENO);
 	ft_putendl_fd(": not a valid identifier", STDERR_FILENO);
 	ft_memdel(err_msg);
+	if (shell->pipes != 0)
+		exit(1);
 }
 
 int	is_valid(char *arg)
@@ -91,5 +93,7 @@ void	*ft_export(void *b_struct)
 			add_2_env(export->arg[i], export->secret);
 		i++;
 	}
+	if ((*shell)->pipes != 0)
+		exit(0);
 	return (0);
 }

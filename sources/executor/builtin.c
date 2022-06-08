@@ -6,42 +6,49 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 20:12:54 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/12 19:21:13 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/27 17:05:32 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_builtin	init_builtins(void)
+int	is_builtin(char *cmd)
 {
-	t_builtin	b_arr[7];
-
-	b_arr[0].builtin = ft_strdup("pwd");
-	b_arr[0].f = &ft_pwd;
-	b_arr[1].builtin = ft_strdup("exit");
-	b_arr[1].f = &ft_exit;
-	b_arr[2].builtin = ft_strdup("env");
-	b_arr[2].f = &ft_env;
-	b_arr[3].builtin = ft_strdup("echo");
-	b_arr[3].f = &ft_echo;
-	b_arr[4].builtin = ft_strdup("cd");
-	b_arr[4].f = &ft_cd;
-	b_arr[5].builtin = ft_strdup("export");
-	b_arr[5].f = &ft_export;
-	b_arr[6].builtin = ft_strdup("unset");
-	b_arr[6].f = &ft_unset;
-	return (b_arr);
+	if (ft_strcmp(cmd, "pwd") == 0)
+		return (1);
+	if (ft_strcmp(cmd, "echo") == 0)
+		return (1);
+	if (ft_strcmp(cmd, "export") == 0)
+		return (1);
+	if (ft_strcmp(cmd, "unset") == 0)
+		return (1);
+	if (ft_strcmp(cmd, "exit") == 0)
+		return (1);
+	if (ft_strcmp(cmd, "cd") == 0)
+		return (1);
+	if (ft_strcmp(cmd, "env") == 0)
+		return (1);
+	return (0);
 }
 
 int	exec_builtin(char **cmd, t_shell *shell, int fd)
 {
-	t_builtin	b_arr[7];
-	int			ret;
-	int			i;
+	int	ret;
 
-	b_arr = init_builtin();
-	i = 0;
-	while (i < 7)
-		if (ft_strcmp(cmd[0], b_arr[i].builtin) == 0)
-			b_arr[i].f;
+	ret = 1;
+	if (ft_strcmp(cmd[0], "pwd") == 0)
+		ret = ft_pwd(fd, shell);
+	else if (ft_strcmp(cmd[0], "echo") == 0)
+		ret = ft_echo(fd, cmd, shell);
+	else if (ft_strcmp(cmd[0], "export") == 0)
+		ret = ft_export(cmd, &shell, fd);
+	else if (ft_strcmp(cmd[0], "unset") == 0)
+		ret = ft_unset(cmd, shell);
+	else if (ft_strcmp(cmd[0], "cd") == 0)
+		ret = ft_cd(cmd, shell);
+	else if (ft_strcmp(cmd[0], "env") == 0)
+		ret = ft_env(shell, fd);
+	else if (ft_strcmp(cmd[0], "exit") == 0)
+		ft_exit(cmd, &shell, fd);
+	return (ret);
 }

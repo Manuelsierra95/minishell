@@ -23,7 +23,7 @@ int	env_to_shell(char **env_arr)
 		return (1);
 	env->content = ft_strdup(env_arr[0]);
 	env->next = NULL;
-	g_shell->env = env;
+	g_shell.env = env;
 	i = 1;
 	while (env_arr && env_arr[0] && env_arr[i])
 	{
@@ -50,7 +50,7 @@ int	secret_to_shell(char **env_arr)
 		return (1);
 	env->content = ft_strdup(env_arr[0]);
 	env->next = NULL;
-	g_shell->secret = env;
+	g_shell.secret = env;
 	i = 1;
 	while (env_arr && env_arr[0] && env_arr[i])
 	{

@@ -1,37 +1,38 @@
 #include "../../includes/minishell.h"
 
-void	join_path()
+void	join_path(t_dataInfo *data)
 {
 	int		i;
 
 	i = 0;
-	while (g_shell->path[i])
+	while (data->path[i])
 	{
-		g_shell->path[i] = ft_strjoin(g_shell->path[i], "/");
+		data->path[i] = ft_strjoin(data->path[i], "/");
 		i++;
 	}
 }
 
-void	split_path()
+void	split_path(t_dataInfo *data)
 {
-	t_list	*aux;
+	int		x;
 
-	aux = g_shell->env;
-	while (aux)
+	x = 0;
+	while (data->env[x])
 	{
-		if (ft_strncmp(aux->content, "PATH", 4) == 0)
+		if (ft_strncmp(data->env[x], "PATH", 4) == 0)
 		{
-			g_shell->path = ft_split(ft_strchr(aux->content, '/'), ':');
+			data->path = ft_split(ft_strchr(data->env[x], '/'), ':');
 		}
-		aux = aux->next;
+		x++;
 	}
 }
 
-void	get_path(void) // Cambiar por la ENV de Miguel
+void	get_path(t_dataInfo *data, char **env)
 {
-	if (g_shell->env->content != NULL)
+	if (env[0] != NULL)
 	{
-		split_path();
-		join_path();
+		data->env = env;
+		split_path(data);
+		join_path(data);
 	}
 }

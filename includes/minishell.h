@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/08 11:23:14 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:43:22 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <readline/readline.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <sys/errno.h>
 # include <unistd.h>
 # include <readline/history.h>
 # include <limits.h>
@@ -57,13 +58,23 @@ typedef struct s_shell
 	t_tree			*tree;
 }	t_shell;
 
-typedef struct	s_builtin
+typedef struct s_cmd
 {
-	char	*builtin;
-	int		(*f)();
-}	t_builtin;
+	char			**arg;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
+}	t_cmd;
 
+typedef struct s_exec
+{
+	t_cmd	*cmds;
+	int		fd_in;
+	int		fd_out;
+	int		oldfd[2];
+}	t_exec;
 t_shell *g_shell;
+
+t_shell	g_shell;
 
 /* UTILS */
 
@@ -80,11 +91,14 @@ char	**ft_split(const char *s, char c);
 int		ft_isalpha_edit(int c);
 void	*shell_cmds(char **cmd);
 void	shell_loop();
+void	print_env(char **env);
+void	print_list(t_list *env);
 
 /* FREE TOOLS */
 
 void	free_arr(char **arr);
 void	free_env(t_list *env);
+void	free_cmds(t_cmd *cmd);
 
 /*  BUILTINS TOOLS  */
 
@@ -95,15 +109,20 @@ int		name_in_env(char *name, t_list *env);
 int		is_valid(char *arg);
 int		add_2_env(char *arg, t_list *env);
 int		is_in_env(char *arg, int ret, t_list *env);
-char	*env_2_str(t_list *env);
 char	**env_2_arr(t_list *env);
 void	sort_env(char **env_arr, int env_len);
-int		print_secret(t_list *secret, int fd);
+int		print_secret(t_shell *shell, int fd);
 
 /*	EXECUTOR */
 
 int		exe_cmd(char **argv, t_shell *shell);
-int		exe_child(char **cmd, t_shell *shell);
+int		exe_single_child(char **cmd, t_shell *shell, int fd);
+int		exe_child(char **cmd, t_shell *shell, int fd);
+int		exe_pipes(t_exec *exe, t_shell *shell);
+int		exec(t_exec *exe, t_shell *shell);
+int		is_builtin(char *cmd);
+int		exec_builtin(char **cmd, t_shell *shell, int fd);
+void	add_cmds(char *cmd, t_cmd **cmds);
 
 /* EXPANDER */
 

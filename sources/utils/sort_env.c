@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:09 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/04 18:35:44 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/05/27 16:58:38 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,15 @@ static char	*ft_msg(char *arg)
 	return (msg);
 }
 
-int	print_secret(t_list *secret, int fd)
+int	print_secret(t_shell *shell, int fd)
 {
 	int		i;
-	char	*env_str;
 	char	**env_arr;
 	char	*msg;
 
-	env_str = env_2_str(secret);
-	if (!env_str)
+	env_arr = env_2_arr(shell->secret);
+	if (!env_arr)
 		return (1);
-	env_arr = ft_split(env_str, '\n');
-	ft_memdel(env_str);
 	sort_env(env_arr, arr_len(env_arr));
 	i = 0;
 	while (env_arr[i])
@@ -99,5 +96,7 @@ int	print_secret(t_list *secret, int fd)
 		i++;
 	}
 	free_arr(env_arr);
+	if (shell->pipes != 0)
+		exit(0);
 	return (0);
 }

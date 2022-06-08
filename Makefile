@@ -22,11 +22,12 @@ EXIT		=	exit get_exit
 EXPORT		=	export get_export
 PWD			=	pwd get_pwd
 UNSET		=	unset get_unset
-UTILS		=	isnum getenv is_in_env sort_env free isspecial isalpha_edit shell_loop
+UTILS		=	isnum getenv is_in_env sort_env free isspecial isalpha_edit shell_loop print_info
 LEXER		= 	tokenizer checkCmd get_path quote_manage get_input
 PARSER 		= 	parser
 ERRORS		=	errors
 EXPANDER 	= 	expander 
+EXEC    =	exe_cmd exe builtin lexer exe_utils exe_pipes
 
 SRCS	=	$(addsuffix .c, $(addprefix sources/errors/, $(ERRORS))) 				\
 			$(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) 					\
@@ -79,7 +80,7 @@ LIBFT	=	-L libft/ -lft
 all	:		$(NAME)
 
 $(NAME)	:	$(LIBFT_DIR)$(LIBFT_NAME) $(OBJS) bender
-			@$(CC) $(INCLUDE_HEADERS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
+			@$(CC)$(CFLAGS) $(INCLUDE_HEADERS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
 			@echo "$(RESET)Done"
 			@echo "$(GREEN)==========WELLDONE==========$(RESET)"
 			@echo "Success creating $(NAME) file"

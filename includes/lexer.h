@@ -3,21 +3,20 @@
 
 enum char_type
 {
-	CHAR = 1,
+	CHAR = -1,
 	DOLLAR = '$',
 	PIPE = '|',
 	GREATER = '>',
 	LESSER = '<',
-	SPACE = 32,
-	S_QUOTE = 39,
-	D_QUOTE = '"',
+	S_QUOTE = 39, // Comilla simple
+	D_QUOTE = '"', // Comilla doble
 };
 
 enum token_type
 {
-	T_CMD = 1,
-	T_TEXT,
 	T_PIPE,
+	T_CMD,
+	T_TEXT,
 	T_GREATER,
 	T_GREATERGREATER,
 	T_LESSER,
@@ -31,19 +30,8 @@ typedef struct s_token
 } t_token;
 
 
-int		check_access(char *input);
-void	get_path(void);
-char 	**split_input(char *input);
-t_token	*lexer(char **input);
-int		quote_analyzer(char *input);
 int		check_cmd(char *input);
 int		ft_isalpha(int c);
-int		d_isspecial(int c, int d);
-int		s_isspecial(int c);
-char	*take_off_quotes(char *input);
-int		check_quotes(char *input);
-int		count_quotes(char *input);
-int		input_state(char input);
+int		ft_isspecial(int c, int d);
 
-void	check_quote_error(char *input);
 #endif

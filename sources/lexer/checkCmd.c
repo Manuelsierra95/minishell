@@ -12,7 +12,7 @@ int	check_cmd(char *input)
 	return (0);
 }
 
-int	check_access(char *input)
+int	check_access(t_dataCmd *data, char *input)
 {
 	int		flag;
 	int		i;
@@ -23,15 +23,17 @@ int	check_access(char *input)
 	{
 		if (check_cmd(input))
 		{
+			data->cmd = input;
 			return (1);
 		}
 	}
-	while (g_shell->path[i] && g_shell->env)
+	while (data->path[i] && data->env != NULL)
 	{
-		cmd = ft_strjoin(g_shell->path[i], input);
-		flag = check_cmd(cmd);
-		if (flag == 1)
+		cmd = ft_strjoin(data->path[i], input);
+		flag = access(cmd, X_OK);
+		if (flag == 0)
 		{
+			data->cmd = cmd;
 			return (1);
 		}
 		i++;

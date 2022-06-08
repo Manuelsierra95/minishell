@@ -6,71 +6,48 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:54:06 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/12 19:14:57 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:28:51 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exe_child(char **cmd, t_shell *shell)
+int	exe_single_child(char **cmd, t_shell *shell, int fd)
 {
 	int	pid;
 	int	status;
+	int	ret;
 
-	pid = fork();
-	if (pid == -1)
-		return (-1);
-	else if (pid == 0)
-	{	
-		exe_cmd(cmd, shell);
-		exit(EXIT_FAILURE);
-	}
+	ret = 1;
+	if (is_builtin(cmd[0]))
+		return (exec_builtin(cmd, shell, fd));
 	else
-		waitpid(pid, &status, 0);
-	return (0);
-}
-/*
-struct	builtin_t
-{
-	char *builtin;
-	int	(*f)();
-}
-
-{
-	bultin_t	array[8];
-
-	array[1].builtin =  
-	array[1].f = 
-}
-
-int i = 0;
-while (i < 8)
-{
-	if (array[i].builtin == cmd)
-		array[i].f;
-	i++;
-}*/
-
-void	ft_pipex_s(int n, char **argv, t_pipex *pipex)
-{
-	int	pid;
-	int	fd[2];
-
-	if(g_shell->swicth)
-
-	if (pipe(fd) == -1)
-		ft_error("pipex", 0);
-	pid = fork();
-	if (pid == -1)
-		ft_error("pipex", 0);
-	if (pid == 0)
 	{
-		close(fd[READ_END]);
-		if (dup2(fd[WRITE_END], STDOUT_FILENO) == -1)
-			ft_error("pipex", 0);
-		close(fd[WRITE_END]);
-		ft_exe(argv, n, pipex);
+		pid = fork();
+		if (pid == -1)
+			return (-1);
+		else if (pid == 0)
+		{	
+			ret = exe_cmd(cmd, shell);
+			exit(EXIT_FAILURE);
+		}
+		else
+			waitpid(pid, &status, 0);
 	}
+	return (ret);
+}
+
+int	exec(t_exec *exe, t_shell *shell)
+{
+	int	ret;
+
+	ret = 1;
+	if (shell->pipes == 0)
+		ret = exe_single_child(exe->cmds->arg, shell, 1);
 	else
-		ft_pipex_p(fd, pid);
+	{
+		ret = exe_pipes(exe, shell);
+		shell->pipes = 0;
+	}
+	return (ret);
 }

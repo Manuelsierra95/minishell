@@ -1,90 +1,49 @@
 #include "../../includes/minishell.h"
 
-int	len_of_tokens(int tok, int index)
+void	getPath(t_dataInfo *data)
 {
-	t_token	*tokens;
-	int	size;
+	int		x;
 
-	size = 0;
-	tokens = g_shell->tokens;
-	while (tok < index)
+	x = 0;
+	while (data->env[x])
 	{
-		if (tokens[tok].type == T_CMD || tokens[tok].type == T_TEXT)
-			size++;
-		tok++;
+		if (ft_strncmp(data->env[x], "PATH", 4) == 0)
+			data->path = ft_split(ft_strchr(data->env[x], '/'), ':');
+		x++;
 	}
-	return (size);
 }
 
-char	**t_cmd(int tok, int index)
+void	getCmd(char *argv, t_dataInfo *data)
 {
-	t_token	*tokens;
-	char	**cmd;
+	int	i;
+	int	flag;
+
+	i = 0;
+	flag = 0;
+	if (!argv)
+		errormsg(-1);
+	while (argv[i])
+	{
+		if (argv[i] >= 'a' && argv[i] <= 'z')
+		{
+			flag = 1;
+			break ;
+		}
+		i++;
+	}
+	if (flag == 0)
+		errormsg(-1);
+	data->cmd = ft_split(argv, ' '); // ir guardando en una struct de Cmds
+}
+
+void	joinPath(t_dataInfo *data)
+{
 	int		i;
 
 	i = 0;
-	tokens = g_shell->tokens;
-	cmd = malloc(sizeof(char *) * (len_of_tokens(tok, index) + 1));
-	while (tok < index + 1)
+	while (data->path[i])
 	{
-		if (tokens[tok].type == T_CMD || tokens[tok].type == T_TEXT)
-			cmd[i++] = tokens[tok].data;
-		tok++;
+		data->path[i] = ft_strjoin(data->path[i], "/");
+		i++;
 	}
-	cmd[i] = NULL;
-	return (cmd);
-}
-
-t_tree	*create_node(char **cmd, int type)
-{
-	t_tree	*new;
-
-	new = malloc(sizeof(t_tree));
-	if (!new)
-		return (NULL);
-	new->cmd = cmd;
-	new->n_type = type;
-	new->right = NULL;
-	new->left = NULL;
-
-	return (new);
-}
-
-void	add_value(t_tree *tree, int type, char **cmd)
-{
-	if (type == N_PIPE)
-	{
-		if (tree->right)
-            add_value(tree->right, type, cmd);
-        else
-            tree->right = create_node(NULL, type);
-	}
-	else
-	{
-		if (tree->left)
-            add_value(tree->left, type, cmd);
-		else
-			tree->left = create_node(cmd, type);
-	}
-}
-
-t_tree	*create_tree()
-{
-	t_tree	*tree;
-	int		index;
-	int		tok;
-
-	index = -1;
-	tree = create_node(NULL, N_PIPE);
-	tok = 0;
-	while (++index < g_shell->numOfArgs)
-	{
-		if (g_shell->tokens[index].type == T_PIPE || (index + 1) == g_shell->numOfArgs)
-		{
-			add_value(tree, N_OTHER, t_cmd(tok, index));
-			add_value(tree, N_PIPE, NULL);
-			tok = index;
-		}
-	}
-	return (tree);
 }

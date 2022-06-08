@@ -1,58 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/18 17:14:15 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/12 19:50:10 by mbarylak         ###   ########.fr       */
+/*   Created: 2022/05/17 18:27:46 by mbarylak          #+#    #+#             */
+/*   Updated: 2022/05/19 17:46:00 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_arr(char **arr)
+void	pipe_counter(char *input, t_shell *shell)
 {
 	int	i;
 
 	i = 0;
-	while (arr[i])
+	while (input[i])
 	{
-		if (arr[i])
-			free(arr[i]);
+		if (input[i] == '|')
+			shell->pipes++;
 		i++;
 	}
-	if (arr)
-		ft_memdel(arr);
 }
 
-void	free_env(t_list *env)
+int	has_pipes(char *input)
 {
-	t_list	*aux;
+	int	i;
 
-	while (env && env->next)
+	i = 0;
+	while (input[i])
 	{
-		aux = env;
-		env = env->next;
-		ft_memdel(aux->content);
-		ft_memdel(aux);
+		if (input[i] == '|')
+			return (1);
+		i++;
 	}
-	ft_memdel(env->content);
-	ft_memdel(env);
-}
-
-void	free_cmds(t_cmd	*cmd)
-{
-	t_cmd	*aux;
-	t_cmd	*node;
-
-	aux = cmd;
-	while (aux)
-	{
-		node = aux;
-		aux = aux->next;
-		free_arr(node->arg);
-		ft_memdel(node);
-	}
+	return (0);
 }
