@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:52:00 by msierra-          #+#    #+#             */
-/*   Updated: 2022/06/08 12:52:02 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/09 12:30:14 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,17 @@ t_tree	*create_tree()
 	index = -1;
 	tree = create_node(NULL, N_PIPE);
 	tok = 0;
+	tree->pos_cmd = P_FIRST;
 	while (++index < g_shell->numOfArgs)
 	{
 		if (g_shell->tokens[index].type == T_PIPE || (index + 1) == g_shell->numOfArgs)
 		{
+			if ((index + 1) == g_shell->numOfArgs)
+				tree->pos_cmd = P_LAST;
 			add_value(tree, N_OTHER, t_cmd(tok, index));
 			add_value(tree, N_PIPE, NULL);
 			tok = index;
+			tree->pos_cmd = P_MIDDLE;
 		}
 	}
 	return (tree);

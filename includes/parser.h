@@ -11,6 +11,13 @@ enum redir_type
 	REDIR_HEREDOC,
 };
 
+enum pos_cmd
+{
+	P_FIRST = 1,
+	P_MIDDLE,
+	P_LAST,
+};
+
 enum node_type
 {
 	N_PIPE = 1,
@@ -28,6 +35,7 @@ typedef struct s_tree
 {
 	char			**cmd;
 	int				n_type; // 1 -> PIPE // 2 -> OTHER
+	int				pos_cmd;
 	t_redir			*l_redir;
 	struct s_tree	*right;
 	struct s_tree	*left;

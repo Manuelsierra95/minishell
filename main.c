@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/08 13:17:23 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/09 12:40:08 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@ t_shell	*init_shell(char **env)
 {
 	t_shell	*shell;
 
-	shell = malloc(sizeof (t_shell));
+	shell = malloc(sizeof(t_shell));
 	shell->exit = 1;
 	shell->ret = 0;
 	shell->exit_stat = 0;
 	shell->fd[0] = 0;
 	shell->fd[1] = 1;
-	shell->numOfArgs = 0;
-	shell->numOfPipes = 0;
 	put_builtins(shell->map);
 	env_to_shell(env);
 	secret_to_shell(env);
@@ -60,11 +58,11 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 	get_path();
 	while (g_shell->exit == 1)
 	{
-		g_shell->numOfArgs = 0;
-		g_shell->numOfPipes = 0;
 		inpt = readline(CYAN "minishell> " RESET);
 		add_history(inpt);
 		flag = 0;
+		g_shell->numOfArgs = 0;
+		g_shell->numOfPipes = 0;
 		if (ft_strchr(inpt, '$'))
 			flag = 1;
 		line = split_input(inpt);
@@ -77,7 +75,7 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 			
 			g_shell->tree = create_tree();
 			shell_loop();
-			exec(g_shell->tree, g_shell);
+			// exec(g_shell->tree, g_shell);
 		}
 
 		// free_matrix(line);

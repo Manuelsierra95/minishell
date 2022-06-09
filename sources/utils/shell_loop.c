@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	*shell_cmds(char **cmd)
+void	*shell_cmds(char **cmd) // echo "hola" | cat | wc -l
 {
 	t_value		*exec;
 	void		*get_arg;
@@ -28,7 +28,10 @@ void inorden(t_tree *tree)
 	if (tree != NULL)
 	{
 		if (tree->n_type != N_PIPE)
-			shell_cmds(tree->cmd);
+		{
+			// shell_cmds(tree->cmd);
+			exe_pipes(tree, g_shell);
+		}
         inorden(tree->left);
         inorden(tree->right);
     }
