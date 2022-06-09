@@ -12,20 +12,17 @@
 
 #include "minishell.h"
 
-t_shell	*init_shell(char **env)
+void	init_shell(char **env)
 {
-	t_shell	*shell;
-
-	shell = malloc(sizeof(t_shell));
-	shell->exit = 1;
-	shell->ret = 0;
-	shell->exit_stat = 0;
-	shell->fd[0] = 0;
-	shell->fd[1] = 1;
-	put_builtins(shell->map);
+	g_shell = malloc(sizeof(t_shell));
+	g_shell->exit = 1;
+	g_shell->ret = 0;
+	g_shell->exit_stat = 0;
+	g_shell->fd[0] = 0;
+	g_shell->fd[1] = 1;
+	put_builtins(g_shell->map);
 	env_to_shell(env);
 	secret_to_shell(env);
-	return (shell);
 }
 
 void	ft_free(char *inpt, char **line)
