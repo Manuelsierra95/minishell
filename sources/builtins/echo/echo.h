@@ -8,7 +8,7 @@ typedef struct s_echo
 {
 	int		fd;
 	char	**arg;
-} t_echo;
+}	t_echo;
 
 void	*ft_echo(void *b_struct);
 void	*get_echo();

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 int	is_builtin(char *cmd)
 {
 	if (ft_strcmp(cmd, "pwd") == 0)
@@ -51,4 +51,4 @@ int	exec_builtin(char **cmd, t_shell *shell, int fd)
 	else if (ft_strcmp(cmd[0], "exit") == 0)
 		ft_exit(cmd, &shell, fd);
 	return (ret);
-}
+}*/

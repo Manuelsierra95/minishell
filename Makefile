@@ -14,7 +14,7 @@ NAME		= 	minishell
 LIBFT_NAME  =	libft.a
 
 INTERFACE	=	utils
-MAP			=	map_create map_utils utils
+MAP			=	map_create map_utils
 CD			=	cd get_cd
 ECHO		=	echo get_echo
 ENV			=	env get_env
@@ -27,7 +27,7 @@ LEXER		= 	tokenizer checkCmd get_path quote_manage get_input
 PARSER 		= 	parser
 ERRORS		=	errors
 EXPANDER 	= 	expander 
-EXEC    	=	exe_cmd exe builtin lexer exe_utils exe_pipes
+EXEC    	=	exe_cmd exe builtin exe_pipes
 
 SRCS	=	$(addsuffix .c, $(addprefix sources/errors/, $(ERRORS))) 				\
 			$(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) 					\
@@ -80,7 +80,7 @@ LIBFT	=	-L libft/ -lft
 all	:		$(NAME)
 
 $(NAME)	:	$(LIBFT_DIR)$(LIBFT_NAME) $(OBJS) bender
-			@$(CC)$(CFLAGS) $(INCLUDE_HEADERS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
+			@$(CC) $(CFLAGS) $(INCLUDE_HEADERS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
 			@echo "$(RESET)Done"
 			@echo "$(GREEN)==========WELLDONE==========$(RESET)"
 			@echo "Success creating $(NAME) file"

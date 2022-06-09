@@ -6,6 +6,6 @@ void	*get_pwd()
 	t_pwd	*pwd;
 
 	pwd = malloc(sizeof(t_pwd));
-	pwd->fd = g_shell->fd;
+	pwd->fd = g_shell->fd[1];
 	return (pwd);
 }

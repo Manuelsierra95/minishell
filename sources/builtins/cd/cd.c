@@ -27,7 +27,7 @@ static void	print_error(int n, char *err, t_shell *shell)
 		ft_putstr_fd(err, STDERR_FILENO);
 		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 	}
-	if (shell->pipes != 0)
+	if (shell->numOfPipes != 0)
 		exit(1);
 }
 
@@ -60,7 +60,6 @@ static int	update_env(char *s, t_shell *shell)
 }
 
 static int	cd_aux(char *s, t_shell *shell)
-static int	cd_aux(char *s, t_list *env)
 {
 	int		ret;
 	char	*path;
@@ -81,7 +80,6 @@ static int	cd_aux(char *s, t_list *env)
 	return (ret);
 }
 
-
 void	*ft_cd(void *b_struct)
 {
 	int		ret;
@@ -90,22 +88,22 @@ void	*ft_cd(void *b_struct)
 	cd = (t_cd*)b_struct;
 	ret = 0;
 	if (!cd->arg[1])
-		ret = cd_aux("HOME", cd->env);
+		ret = cd_aux("HOME", g_shell);
 	else if (cd->arg[1] && ft_strncmp(cd->arg[1], "-", 1) == 0)
 	{	
-		ret = cd_aux("OLDPWD", cd->env);
+		ret = cd_aux("OLDPWD", g_shell);
 		if (ret == 0)
 			ft_pwd((int*)1);
 	}
 	else
 	{
-		update_env("OLDPWD=", cd->env);
+		update_env("OLDPWD=", g_shell);
 		ret = chdir(cd->arg[1]);
 		if (ret == -1)
-			print_error(1, cd->arg[1]);
-		update_env("PWD=", cd->env);
+			print_error(1, cd->arg[1], g_shell);
+		update_env("PWD=", g_shell);
 	}
-	if (shell->pipes != 0)
+	if (g_shell->numOfPipes != 0)
 		exit(0);
 	if (ret < 0)
 		return ((void*)(intptr_t)(ret * -1));	// Para acceder al int del return seria "*(int *)"

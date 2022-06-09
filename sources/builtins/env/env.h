@@ -8,7 +8,7 @@ typedef struct s_env
 {
 	t_list	*env;
 	int		fd;
-} t_env;
+} 	t_env;
 
 void	*ft_env(void *b_struct);
 void	*get_env();

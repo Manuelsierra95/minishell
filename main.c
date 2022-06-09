@@ -20,21 +20,14 @@ t_shell	*init_shell(char **env)
 	shell->exit = 1;
 	shell->ret = 0;
 	shell->exit_stat = 0;
-	shell->secret = NULL;
+	shell->fd[0] = 0;
+	shell->fd[1] = 1;
+	shell->numOfArgs = 0;
+	shell->numOfPipes = 0;
 	put_builtins(shell->map);
 	env_to_shell(env);
 	secret_to_shell(env);
 	return (shell);
-}
-
-void	init_exec(t_exec *exe)
-{
-	exe->fd_in = 0;
-	exe->fd_out = 1;
-	// exe->cmds = NULL;
-	g_shell->index = 0;
-	g_shell->numOfArgs = 0;
-	g_shell->numOfPipes = 0;
 }
 
 void	ft_free(char *inpt, char **line)
@@ -59,7 +52,6 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 {
 	char	*inpt;
 	char	**line;
-	t_exec	exe;
 	int		flag;
 
 	(void) argc;
@@ -68,7 +60,8 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 	get_path();
 	while (g_shell->exit == 1)
 	{
-		init_exec(&exe);
+		g_shell->numOfArgs = 0;
+		g_shell->numOfPipes = 0;
 		inpt = readline(CYAN "minishell> " RESET);
 		add_history(inpt);
 		flag = 0;
@@ -84,7 +77,7 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 			
 			g_shell->tree = create_tree();
 			shell_loop();
-			exec(&exe, g_shell);
+			exec(g_shell->tree, g_shell);
 		}
 
 		// free_matrix(line);

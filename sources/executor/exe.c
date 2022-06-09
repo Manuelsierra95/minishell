@@ -37,16 +37,16 @@ int	exe_single_child(char **cmd, t_shell *shell, int fd)
 	return (ret);
 }
 
-int	exec(t_exec *exe, t_shell *shell)
+int	exec(t_tree *tree, t_shell *shell)
 {
 	int	ret;
 
 	ret = 1;
 	if (shell->numOfPipes == 0)
-		ret = exe_single_child(exe->cmds->arg, shell, 1);
+		ret = exe_single_child(tree->cmd, shell, 1);
 	else
 	{
-		ret = exe_pipes(exe, shell);
+		ret = exe_pipes(tree, shell);
 		shell->numOfPipes = 0;
 	}
 	return (ret);

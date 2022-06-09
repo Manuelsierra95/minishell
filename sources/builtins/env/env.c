@@ -23,7 +23,7 @@ int	env_to_shell(char **env_arr)
 		return (1);
 	env->content = ft_strdup(env_arr[0]);
 	env->next = NULL;
-	g_shell.env = env;
+	g_shell->env = env;
 	i = 1;
 	while (env_arr && env_arr[0] && env_arr[i])
 	{
@@ -50,7 +50,7 @@ int	secret_to_shell(char **env_arr)
 		return (1);
 	env->content = ft_strdup(env_arr[0]);
 	env->next = NULL;
-	g_shell.secret = env;
+	g_shell->secret = env;
 	i = 1;
 	while (env_arr && env_arr[0] && env_arr[i])
 	{
@@ -69,17 +69,19 @@ int	secret_to_shell(char **env_arr)
 void	*ft_env(void *b_struct)
 {
 	t_env	*env;
+	t_list	*aux;
 
 	env = (t_env*)b_struct;
-	if (!env->env)
+	aux = env->env;
+	if (!aux)
 		return ((int*)1);
-	while (env->env && env->env->next != NULL)
+	while (aux)
 	{
-		if (env->env->content)
-			ft_putendl_fd(env->env->content, env->fd);
-		env->env = env->env->next;
+		if (aux->content)
+			ft_putendl_fd(aux->content, env->fd);
+		aux = aux->next;
 	}
-	if (env->env->content)
-		ft_putendl_fd(env->env->content, env->fd);
+	if (g_shell->numOfPipes != 0)
+		exit(0);
 	return ((int*)0);
 }

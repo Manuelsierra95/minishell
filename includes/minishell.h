@@ -48,7 +48,8 @@ typedef struct s_shell
 	t_map	map[NUM_OF_ELEMENTS];
 	char	**arg;
 
-	int		fd; // De momento vale 1
+	int		fd[2];
+	int		oldfd[2]; // De momento vale 1
 
 	char			**path;
 	t_token			*tokens;
@@ -57,13 +58,6 @@ typedef struct s_shell
 	int				index;
 	t_tree			*tree;
 }	t_shell;
-
-typedef struct s_exec
-{
-	int		fd_in;
-	int		fd_out;
-	int		oldfd[2];
-}	t_exec;
 
 t_shell *g_shell;
 
@@ -108,8 +102,8 @@ int		print_secret(t_shell *shell, int fd);
 int		exe_cmd(char **argv, t_shell *shell);
 int		exe_single_child(char **cmd, t_shell *shell, int fd);
 int		exe_child(char **cmd, t_shell *shell, int fd);
-int		exe_pipes(t_exec *exe, t_shell *shell);
-int		exec(t_exec *exe, t_shell *shell);
+int		exe_pipes(t_tree *tree, t_shell *shell);
+int		exec(t_tree *tree, t_shell *shell);
 int		is_builtin(char *cmd);
 int		exec_builtin(char **cmd, t_shell *shell, int fd);
 void	add_cmds(char *cmd);

@@ -24,7 +24,7 @@ static void	print_error(char *arg, t_shell *shell)
 	ft_putstr_fd(err_msg, STDERR_FILENO);
 	ft_putendl_fd(": not a valid identifier", STDERR_FILENO);
 	ft_memdel(err_msg);
-	if (shell->pipes != 0)
+	if (shell->numOfPipes != 0)
 		exit(1);
 }
 
@@ -78,22 +78,22 @@ void	*ft_export(void *b_struct)
 	export = (t_export*)b_struct;
 	i = 1;
 	if (!export->arg[i])
-		return ((void*)(intptr_t)print_secret(export->secret, export->fd));
+		return ((void*)(intptr_t)print_secret(g_shell, export->fd));
 	while (export->arg[i])
 	{
 		ret = is_valid(export->arg[i]);
 		if (ret == -1)
-			print_error(export->arg[i]);
-		n = is_in_env(export->arg[i], ret, export->env);
-		n += is_in_env(export->arg[i], ret, export->secret);
+			print_error(export->arg[i], g_shell);
+		n = is_in_env(export->arg[i], ret, g_shell->env);
+		n += is_in_env(export->arg[i], ret, g_shell->secret);
 		if (n <= 1)
 			if (ret == 1)
-				add_2_env(export->arg[i], export->env);
+				add_2_env(export->arg[i], g_shell->env);
 		if (n == 0)
-			add_2_env(export->arg[i], export->secret);
+			add_2_env(export->arg[i], g_shell->secret);
 		i++;
 	}
-	if ((*shell)->pipes != 0)
+	if (g_shell->numOfPipes != 0)
 		exit(0);
 	return (0);
 }

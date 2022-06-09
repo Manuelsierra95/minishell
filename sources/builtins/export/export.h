@@ -10,7 +10,7 @@ typedef struct s_export
 	t_list	*env;
 	t_list	*secret;
 	int		fd;
-} t_export;
+}	t_export;
 
 void	*ft_export(void *b_struct);
 void	*get_export();

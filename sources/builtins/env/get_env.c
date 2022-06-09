@@ -6,6 +6,6 @@ void	*get_env()
 
 	env = malloc(sizeof(t_env));
 	env->env = g_shell->env;
-	env->fd = g_shell->fd;
+	env->fd = g_shell->fd[1];
 	return (env);
 }

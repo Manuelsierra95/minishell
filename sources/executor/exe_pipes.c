@@ -12,15 +12,15 @@
 
 #include "minishell.h"
 
-static void	choose_exec(t_cmd *cmds, t_shell *shell, int fd)
+static void	choose_exec(t_tree *tree, t_shell *shell, int fd)
 {
-	if (is_builtin(cmds->arg[0]))
-		exec_builtin(cmds->arg, shell, fd);
+	if (is_builtin(tree->cmd[0]))
+		exec_builtin(tree->cmd, shell, fd);
 	else
-		exe_cmd(cmds->arg, shell);
+		exe_cmd(tree->cmd, shell);
 }
 
-void	first_child(t_exec *exe, t_cmd *cmds, t_shell *shell)
+void	first_child(t_tree *tree, t_shell *shell)
 {
 	int	fd[2];
 	int	pid;
@@ -33,18 +33,18 @@ void	first_child(t_exec *exe, t_cmd *cmds, t_shell *shell)
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
-		choose_exec(cmds, shell, fd[1]);
+		choose_exec(tree, shell, fd[1]);
 	}
 	else
 	{
-		exe->oldfd[0] = fd[0];
-		exe->oldfd[1] = fd[1];
+		shell->oldfd[0] = fd[0];
+		shell->oldfd[1] = fd[1];
 		close(fd[1]);
 		waitpid(pid, &status, 0);
 	}
 }
 
-void	middle_child(t_exec *exe, t_cmd *cmds, t_shell *shell)
+void	middle_child(t_tree *tree, t_shell *shell)
 {
 	int	fd[2];
 	int	pid;
@@ -55,23 +55,23 @@ void	middle_child(t_exec *exe, t_cmd *cmds, t_shell *shell)
 	if (pid == 0)
 	{
 		close(fd[0]);
-		dup2(exe->oldfd[0], STDIN_FILENO);
-		close(exe->oldfd[0]);
+		dup2(shell->oldfd[0], STDIN_FILENO);
+		close(shell->oldfd[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
-		choose_exec(cmds, shell, fd[1]);
+		choose_exec(tree, shell, fd[1]);
 	}
 	else
 	{
-		close(exe->oldfd[0]);
-		exe->oldfd[0] = fd[0];
-		exe->oldfd[1] = fd[1];
+		close(shell->oldfd[0]);
+		shell->oldfd[0] = fd[0];
+		shell->oldfd[1] = fd[1];
 		close(fd[1]);
 		waitpid(pid, &status, 0);
 	}
 }
 
-void	last_child(t_exec *exe, t_cmd *cmds, t_shell *shell)
+void	last_child(t_tree *tree, t_shell *shell)
 {
 	int	pid;
 	int	status;
@@ -79,31 +79,31 @@ void	last_child(t_exec *exe, t_cmd *cmds, t_shell *shell)
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(exe->oldfd[0], STDIN_FILENO);
-		close(exe->oldfd[0]);
-		choose_exec(cmds, shell, 1);
+		dup2(shell->oldfd[0], STDIN_FILENO);
+		close(shell->oldfd[0]);
+		choose_exec(tree, shell, 1);
 	}
 	else
 	{
-		close(exe->oldfd[0]);
+		close(shell->oldfd[0]);
 		waitpid(pid, &status, 0);
 	}
 }
 
-int	exe_pipes(t_exec *exe, t_shell *shell)
+int	exe_pipes(t_tree *tree, t_shell *shell)
 {
-	t_cmd	*cmd_node;
+	t_tree	*tree_aux;
 
-	cmd_node = exe->cmds;
-	while (cmd_node)
+	tree_aux = tree;
+	while (tree_aux)
 	{
-		if (cmd_node->prev == NULL)
-			first_child(exe, cmd_node, shell);
-		else if (cmd_node->prev && cmd_node->next)
-			middle_child(exe, cmd_node, shell);
-		else if (cmd_node->next == NULL)
-			last_child(exe, cmd_node, shell);
-		cmd_node = cmd_node->next;
+		if (tree_aux->left == NULL)
+			first_child(tree_aux, shell);
+		else if (tree_aux->left && tree_aux->right)
+			middle_child(tree_aux, shell);
+		else if (tree_aux->right == NULL)
+			last_child(tree_aux, shell);
+		tree_aux = tree_aux->right;
 	}
 	return (0);
 }
