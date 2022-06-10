@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 15:54:42 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/10 13:14:51 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/10 19:47:29 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ int	exe_pipes(t_tree *tree, t_shell *shell)
 				tree->l_redir = tree->l_redir->next;
 			}
 		}
-		
 		// first_child(tree, shell);
 	}
 	else if (tree->pos_cmd == P_MIDDLE)
