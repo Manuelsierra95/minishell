@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/09 12:40:08 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/09 13:15:00 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 		flag = 0;
 		g_shell->numOfArgs = 0;
 		g_shell->numOfPipes = 0;
+		g_shell->index = 0;
 		if (ft_strchr(inpt, '$'))
 			flag = 1;
 		line = split_input(inpt);

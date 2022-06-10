@@ -21,12 +21,14 @@ int input_state(char input)
 
 	if (input == D_QUOTE)
 		state = D_QUOTE;
-	if (input == S_QUOTE)
+	else if (input == S_QUOTE)
 		state = S_QUOTE;
-	if (ft_isalpha_edit(input))
+	else if (ft_isalpha_edit(input))
 		state = CHAR;
-	if (s_isspecial(input))
+	else if (s_isspecial(input))
 		state = s_isspecial(input);
+	else
+		state = 0;
 	return (state);
 }
 
@@ -108,9 +110,12 @@ char **split_loop(char *input, char **split_input, int state)
 		if (input[i] == SPACE)
 			i++;
 		state = input_state(input[i]);
-		aux = input_line(input, state, &i, start);
-		if (aux)
-			split_input[g_shell->index++] = aux;
+		if (state != 0)
+		{
+			aux = input_line(input, state, &i, start);
+			if (aux)
+				split_input[g_shell->index++] = aux;
+		}
 	}
 	split_input[g_shell->index] = NULL;
 	return (split_input);
@@ -147,6 +152,5 @@ char **split_input(char *input) //TODO: free a la matriz
 	size = get_matrix_size(input, 0);
 	split_input = malloc(sizeof(char *) * (size + 1));
 	split_input = split_loop(input, split_input, 0);
-
 	return (split_input);
 }

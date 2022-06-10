@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 15:54:42 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/09 12:33:14 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/10 13:14:51 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,21 +95,55 @@ int	exe_pipes(t_tree *tree, t_shell *shell)
 	int i;
 	i = shell->index;
 	i++;
-	
-	if (tree->pos_cmd == P_FIRST) // tree->id == FIRST
+	i = -1;
+
+	if (tree->pos_cmd == P_FIRST)
 	{
-		printf("FIRST CMD\n");
+		printf("---FIRST CMD\n");
+		while (tree->cmd[++i])
+			printf("cmd[%d]: %s\n", i, tree->cmd[i]);
+		if (tree->l_redir)
+		{
+			while (tree->l_redir)
+			{
+				printf("type: %d\nvalue: %s\n", tree->l_redir->r_type, tree->l_redir->value);
+				tree->l_redir = tree->l_redir->next;
+			}
+		}
+		
 		// first_child(tree, shell);
 	}
 	else if (tree->pos_cmd == P_MIDDLE)
 	{
-		printf("MIDDLE CMD\n");
+		printf("---MIDDLE CMD\n");
+		while (tree->cmd[++i])
+			printf("cmd[%d]: %s\n", i, tree->cmd[i]);
+		if (tree->l_redir)
+		{
+			while (tree->l_redir)
+			{
+				printf("type: %d\nvalue: %s\n", tree->l_redir->r_type, tree->l_redir->value);
+				tree->l_redir = tree->l_redir->next;
+			}
+		}
 		// middle_child(tree, shell);
 	}
 	else if (tree->pos_cmd == P_LAST)
 	{
-		printf("LAST CMD\n");
+		printf("---LAST CMD\n");
+		while (tree->cmd[++i])
+			printf("cmd[%d]: %s\n", i, tree->cmd[i]);
+		if (tree->l_redir)
+		{
+			while (tree->l_redir)
+			{
+				printf("type: %d\nvalue: %s\n", tree->l_redir->r_type, tree->l_redir->value);
+				tree->l_redir = tree->l_redir->next;
+			}
+		}
 		// last_child(tree, shell);
 	}
+	else if (tree->pos_cmd == 0)
+		return (0);
 	return (0);
 }

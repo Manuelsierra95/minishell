@@ -1,13 +1,9 @@
 #include "minishell.h"
 
-void	*shell_cmds(char **cmd) // echo "hola" | cat | wc -l
+void	*shell_cmds(char **cmd)
 {
 	t_value		*exec;
 	void		*get_arg;
-
-	int i = -1;
-	while (cmd[++i])
-		printf("cmd[%d]: %s\n", i, cmd[i]);
 
 	if (get(g_shell->map, cmd[0]))
 	{

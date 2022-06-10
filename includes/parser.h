@@ -34,7 +34,7 @@ typedef struct s_redir {
 typedef struct s_tree
 {
 	char			**cmd;
-	int				n_type; // 1 -> PIPE // 2 -> OTHER
+	int				n_type;
 	int				pos_cmd;
 	t_redir			*l_redir;
 	struct s_tree	*right;
