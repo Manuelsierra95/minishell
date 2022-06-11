@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:52:00 by msierra-          #+#    #+#             */
-/*   Updated: 2022/06/10 19:47:16 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/11 11:57:55 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ t_redir	*get_redir_list(int tok, int index)
 	t_redir	*redir_list;
 
 	tokens = g_shell->tokens;
-	while (tok < index + 1)
+	redir_list = NULL;
+	while (tok < index)
 	{
 		if (tokens[tok].type == T_GREATER || tokens[tok].type == T_GREATERGREATER)
 		{
@@ -92,7 +93,7 @@ char	**t_cmd(int tok, int index)
 	i = 0;
 	tokens = g_shell->tokens;
 	cmd = malloc(sizeof(char *) * (len_of_tokens(tok, index) + 1));
-	while (tok < index + 1)
+	while (tok < index)
 	{
 		if (tokens[tok].type == T_GREATER || tokens[tok].type == T_GREATERGREATER
 			|| tokens[tok].type == T_LESSER ||tokens[tok].type == T_LESSERLESSER)

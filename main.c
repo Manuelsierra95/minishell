@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/09 13:15:00 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/11 11:59:56 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 	{
 		inpt = readline(CYAN "minishell> " RESET);
 		add_history(inpt);
+		check_quote_error(inpt);
 		flag = 0;
 		g_shell->numOfArgs = 0;
 		g_shell->numOfPipes = 0;
@@ -70,7 +71,6 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 		{
 			if (flag == 1)
 				g_shell->tokens = expander(g_shell->tokens);
-			
 			g_shell->tree = create_tree();
 			shell_loop();
 			// exec(g_shell->tree, g_shell);
