@@ -64,8 +64,7 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 		g_shell->index = 0;
 		if (ft_strchr(inpt, '$'))
 			flag = 1;
-		line = split_input(inpt);
-		// shell_cmds(inpt, line);
+		line = split_input(inpt); // Da segfault cuando el input es vacio, en plan \n
 		g_shell->tokens = lexer(line);
 		if (!check_for_errors(g_shell->tokens))
 		{
@@ -73,9 +72,7 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 				g_shell->tokens = expander(g_shell->tokens);
 			g_shell->tree = create_tree();
 			shell_loop();
-			// exec(g_shell->tree, g_shell);
 		}
-
 		// free_matrix(line);
 		// free(g_shell->tokens);
 			// while (index < g_shell->numOfArgs)
@@ -84,3 +81,13 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 	clean_map(g_shell->map);
 	return (g_shell->ret);
 }
+
+/* Cositas a cambiar 
+
+	Quitar la gestión de error de cmd not found, ya la gestiono yo.
+	Arreglar el segfault que da split_input cuando el inpt es salto de linea.
+	Unset no lo detecta correctamente el mapa, o lo que sea.
+	Export no recibe bien los argumentos, quitar split por '='.
+	De hecho parece que haces split con todo lo que no son letras, solo hazlo de espacios y pipes.
+	La ejecución de pipes da muchos errores muy raros con builtins todavia.
+*/

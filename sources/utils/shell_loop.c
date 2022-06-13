@@ -6,8 +6,10 @@ void inorden(t_tree *tree)
 	{
 		if (tree->n_type != N_PIPE)
 		{
-			// shell_cmds(tree->cmd);
-			exe_pipes(tree, g_shell);
+			if (g_shell->numOfPipes == 0)
+				exe_single_child(tree, 1);
+			else
+				exe_pipes(tree);
 		}
 		inorden(tree->left);
 		inorden(tree->right);

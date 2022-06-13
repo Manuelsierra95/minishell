@@ -100,9 +100,9 @@ int		print_secret(t_shell *shell, int fd);
 /*	EXECUTOR */
 
 int		exe_cmd(char **argv, t_shell *shell);
-int		exe_single_child(char **cmd, t_shell *shell, int fd);
+int		exe_single_child(t_tree *tree, int fd);
 int		exe_child(char **cmd, t_shell *shell, int fd);
-int		exe_pipes(t_tree *tree, t_shell *shell);
+int		exe_pipes(t_tree *tree);
 int		exec(t_tree *tree, t_shell *shell);
 int		is_builtin(char *cmd);
 int		exec_builtin(char **cmd, t_shell *shell, int fd);

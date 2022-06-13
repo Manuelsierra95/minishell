@@ -12,17 +12,16 @@
 
 #include "pwd.h"
 
-int	PATH_MAX=2;
-
 void	*ft_pwd(void *b_struct)
 {
-	char	buf[PATH_MAX];
+	char	buf[2048];
 	t_pwd	*pwd;
 
 	pwd = (t_pwd*)b_struct;
-	if (getcwd(buf, PATH_MAX))
+	if (getcwd(buf, 2048))
 	{
-		ft_putendl_fd(buf, pwd->fd);
+		pwd->fd = 1;
+		ft_putendl_fd(buf, 1);
 		return (0);
 	}
 	return ((int*)1);

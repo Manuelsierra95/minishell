@@ -149,7 +149,7 @@ char **split_input(char *input) //TODO: free a la matriz
 	char **split_input;
 	int		size;
 
-	size = get_matrix_size(input, 0);
+	size = get_matrix_size(input, 0); //Falla a partir de aqui con \n
 	split_input = malloc(sizeof(char *) * (size + 1));
 	split_input = split_loop(input, split_input, 0);
 	return (split_input);

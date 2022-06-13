@@ -2,7 +2,7 @@
 
 void	mng_errors(int flag, char *data)
 {
-	if (flag == CMD_NOT_FOUND)
+	if (flag == CMD_NOT_FOUND) //command not found ya lo gestiono yo, no hace falta
 		printf("bash: %s: command not found", data);
 	else if (flag == NO_FILE_DIR)
 		printf("bash: %s: No such file or directory", data);

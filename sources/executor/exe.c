@@ -12,30 +12,37 @@
 
 #include "minishell.h"
 
-// int	exe_single_child(char **cmd, t_shell *shell, int fd)
-// {
-// 	int	pid;
-// 	int	status;
-// 	int	ret;
+int	exe_single_child(t_tree *tree, int fd)
+{
+ 	int		pid;
+ 	int		status;
+	t_value	*exec;
+	void	*get_arg;
 
-// 	ret = 1;
-// 	if (is_builtin(cmd[0]))
-// 		return (exec_builtin(cmd, shell, fd));
-// 	else
-// 	{
-// 		pid = fork();
-// 		if (pid == -1)
-// 			return (-1);
-// 		else if (pid == 0)
-// 		{	
-// 			ret = exe_cmd(cmd, shell);
-// 			exit(EXIT_FAILURE);
-// 		}
-// 		else
-// 			waitpid(pid, &status, 0);
-// 	}
-// 	return (ret);
-// }
+	g_shell->arg = tree->cmd;
+	g_shell->fd[1] = fd;
+ 	if (get(g_shell->map, tree->cmd[0]))
+	{
+		exec = get(g_shell->map, tree->cmd[0]);
+		get_arg = exec->get_arg();
+		exec->function(get_arg);
+		free(get_arg);
+	}
+ 	else
+ 	{
+ 		pid = fork();
+ 		if (pid == -1)
+ 			return (-1);
+ 		else if (pid == 0)
+ 		{	
+ 			exe_cmd(tree->cmd, g_shell);
+ 			exit(EXIT_FAILURE);
+ 		}
+ 		else
+ 			waitpid(pid, &status, 0);
+ 	}
+	return (0);
+}
 
 // int	exec(t_tree *tree, t_shell *shell)
 // {
@@ -49,5 +56,5 @@
 // 		ret = exe_pipes(tree, shell);
 // 		shell->numOfPipes = 0;
 // 	}
-// 	return (ret);
+// 	0return (ret);
 // }

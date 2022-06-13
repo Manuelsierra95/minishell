@@ -25,11 +25,12 @@ enum node_type
 };
 
 // Tree
-typedef struct s_redir {
+typedef struct s_redir
+{
 	char			*value;
 	int				r_type;
 	struct s_redir	*next;
-} t_redir;
+}	t_redir;
 
 typedef struct s_tree
 {
@@ -39,7 +40,7 @@ typedef struct s_tree
 	int				pos_cmd;
 	struct s_tree	*right;
 	struct s_tree	*left;
-} t_tree;
+}	t_tree;
 
 
 t_tree	*create_tree();
