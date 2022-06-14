@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/14 11:23:16 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/14 21:16:50 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,8 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 
 /* Cositas a cambiar 
 
-	++Quitar la gestión de error de cmd not found, ya la gestiono yo.
-	++Arreglar el segfault que da split_input cuando el inpt es salto de linea.
-	++Unset no lo detecta correctamente el mapa, o lo que sea.
-	++Export no recibe bien los argumentos, quitar split por '='.
-	De hecho parece que haces split con todo lo que no son letras, solo hazlo de espacios y pipes.
+   Los errores no tienen que sacarte de la minishell, quita los exit que tengas.
+   ./minishell no se ejecuta dentro de la minishell porque salta un error tuyo, esa gestión ya la hago yo.
+   cd - da segfault y no sé por qué. En cd.c te marco donde creo que falla.
 	La ejecución de pipes da muchos errores muy raros con builtins todavia.
 */
