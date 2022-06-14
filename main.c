@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/11 11:59:56 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/14 11:23:16 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,22 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 		g_shell->index = 0;
 		if (ft_strchr(inpt, '$'))
 			flag = 1;
-		line = split_input(inpt); // Da segfault cuando el input es vacio, en plan \n
-		g_shell->tokens = lexer(line);
-		if (!check_for_errors(g_shell->tokens))
+		line = split_input(inpt);
+		if (line)
 		{
-			if (flag == 1)
-				g_shell->tokens = expander(g_shell->tokens);
-			g_shell->tree = create_tree();
-			shell_loop();
-		}
+			g_shell->tokens = lexer(line);
+			if (!check_for_errors(g_shell->tokens))
+			{
+				if (flag == 1)
+					g_shell->tokens = expander(g_shell->tokens);
+				g_shell->tree = create_tree();
+				shell_loop();
+			}
 		// free_matrix(line);
 		// free(g_shell->tokens);
 			// while (index < g_shell->numOfArgs)
 			// int index = 0;
+		}
 	}
 	clean_map(g_shell->map);
 	return (g_shell->ret);
@@ -84,10 +87,10 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 
 /* Cositas a cambiar 
 
-	Quitar la gestión de error de cmd not found, ya la gestiono yo.
-	Arreglar el segfault que da split_input cuando el inpt es salto de linea.
-	Unset no lo detecta correctamente el mapa, o lo que sea.
-	Export no recibe bien los argumentos, quitar split por '='.
+	++Quitar la gestión de error de cmd not found, ya la gestiono yo.
+	++Arreglar el segfault que da split_input cuando el inpt es salto de linea.
+	++Unset no lo detecta correctamente el mapa, o lo que sea.
+	++Export no recibe bien los argumentos, quitar split por '='.
 	De hecho parece que haces split con todo lo que no son letras, solo hazlo de espacios y pipes.
 	La ejecución de pipes da muchos errores muy raros con builtins todavia.
 */

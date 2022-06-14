@@ -2,9 +2,7 @@
 
 void	mng_errors(int flag, char *data)
 {
-	if (flag == CMD_NOT_FOUND) //command not found ya lo gestiono yo, no hace falta
-		printf("bash: %s: command not found", data);
-	else if (flag == NO_FILE_DIR)
+	if (flag == NO_FILE_DIR)
 		printf("bash: %s: No such file or directory", data);
 	else if (flag == PIPE_UNEXPECTED)
 		printf("bash: syntax error near unexpected token `|'");
@@ -12,7 +10,6 @@ void	mng_errors(int flag, char *data)
 		printf("bash: syntax error near unexpected token `newline'");
 	else if (flag == QUOTE_ERROR)
 		printf("insufficient number of quotes");
-	
 	exit(0);
 }
 
@@ -27,10 +24,7 @@ int	check_for_errors(t_token *tokens)// Pensar bien el tema de errores!!!
 	size = g_shell->numOfArgs;
 	while (index < size && flag == 0) // Hacer que exit y demas no los trate como error
 	{
-		// printf("data: %s\n", tokens[0].data);
-		if (tokens[0].type != T_CMD && !(ft_strchr(tokens[0].data, '/')))
-			flag = CMD_NOT_FOUND;
-		else if (ft_strchr(tokens[0].data, '/'))
+		if (ft_strchr(tokens[0].data, '/'))
 			flag = NO_FILE_DIR;
 		else if (tokens[0].type == T_PIPE)
 			flag = PIPE_UNEXPECTED;

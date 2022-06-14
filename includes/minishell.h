@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/08 13:10:22 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/14 11:21:35 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_shell
 	int		exit;
 	int		ret;
 	int		exit_stat;
-	t_map	map[NUM_OF_ELEMENTS];
+	t_map	map[NUM_OF_ELEMENTS + 1];
 	char	**arg;
 
 	int		fd[2];

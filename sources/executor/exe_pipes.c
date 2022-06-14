@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 15:54:42 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/11 12:07:13 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/14 11:25:56 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	choose_exec(t_tree *tree, int fd)//Quizas no hay falta pasarle la shell
 	g_shell->fd[1] = fd;
 	if (get(g_shell->map, tree->cmd[0]))
 	{
-		printf("Ejecuta el builtin\n");
 		exec = get(g_shell->map, tree->cmd[0]);
 		get_arg = exec->get_arg();
 		exec->function(get_arg);
