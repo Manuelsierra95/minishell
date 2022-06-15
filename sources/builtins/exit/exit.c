@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:45 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/22 22:25:58 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/15 21:07:37 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*ft_exit(void *b_struct)
 {
 	t_exit	*exit;
 
-	exit = (t_exit*)b_struct;
+	exit = (t_exit *)b_struct;
 	g_shell->exit = 0;
 	ft_putendl_fd("exit", STDERR_FILENO);
 	if (exit->arg[1] && !ft_isnum(exit->arg[1]))

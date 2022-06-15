@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:52:19 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/15 17:21:42 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/15 21:05:37 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ void	*ft_env(void *b_struct)
 	t_env	*env;
 	t_list	*aux;
 
-	env = (t_env*)b_struct;
+	env = (t_env *)b_struct;
 	aux = env->env;
 	if (!aux)
-		return ((int*)1);
+		return ((int *)1);
 	while (aux)
 	{
 		if (aux->content)
@@ -83,5 +83,5 @@ void	*ft_env(void *b_struct)
 	}
 	if (g_shell->numOfPipes != 0)
 		exit(0);
-	return ((int*)0);
+	return ((int *)0);
 }

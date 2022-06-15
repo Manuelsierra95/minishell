@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/14 21:16:50 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/15 20:51:40 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 	get_path();
 	while (g_shell->exit == 1)
 	{
-		inpt = readline(CYAN "minishell> " RESET);
+		inpt = readline("minishell> ");
 		add_history(inpt);
 		check_quote_error(inpt);
 		flag = 0;
@@ -89,6 +89,5 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 
    Los errores no tienen que sacarte de la minishell, quita los exit que tengas.
    ./minishell no se ejecuta dentro de la minishell porque salta un error tuyo, esa gestión ya la hago yo.
-   cd - da segfault y no sé por qué. En cd.c te marco donde creo que falla.
-	La ejecución de pipes da muchos errores muy raros con builtins todavia.
+
 */

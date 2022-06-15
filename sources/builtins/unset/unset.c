@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 18:07:23 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/15 18:23:19 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/15 21:11:27 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	*ft_unset(void *b_struct)
 	int		flag;
 	t_unset	*unset;
 
-	unset = (t_unset*)b_struct;
+	unset = (t_unset *)b_struct;
 	env = g_shell->env;
 	secret = g_shell->secret;
 	if (!unset->arg[1])

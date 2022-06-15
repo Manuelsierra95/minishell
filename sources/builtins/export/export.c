@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 15:56:26 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/15 18:02:08 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/15 21:09:00 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ void	*ft_export(void *b_struct)
 	int			n;
 	t_export	*export;
 
-	export = (t_export*)b_struct;
+	export = (t_export *)b_struct;
 	i = 1;
 	if (!export->arg[i])
-		return ((void*)(intptr_t)print_secret(g_shell, 1));
+		return ((void *)(intptr_t)print_secret(g_shell, 1));
 	while (export->arg[i])
 	{
 		ret = is_valid(export->arg[i]);

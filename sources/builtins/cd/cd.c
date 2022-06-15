@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:13:10 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/15 17:13:00 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/15 18:39:38 by mbarylak         ###   ########.fr       */
 /*   Updated: 2022/06/08 12:12:01 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -85,7 +85,7 @@ void	*ft_cd(void *b_struct)
 	int		ret;
 	t_cd	*cd;
 
-	cd = (t_cd*)b_struct;
+	cd = (t_cd *)b_struct;
 	ret = 0;
 	if (!cd->arg[1])
 		ret = cd_aux("HOME", g_shell);
@@ -106,6 +106,6 @@ void	*ft_cd(void *b_struct)
 	if (g_shell->numOfPipes != 0)
 		exit(0);
 	if (ret < 0)
-		return ((void*)(intptr_t)(ret * -1));
-	return ((void*)(intptr_t)ret);	
+		return ((void *)(intptr_t)(ret * -1));
+	return ((void *)(intptr_t)ret);
 }
