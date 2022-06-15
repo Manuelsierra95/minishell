@@ -6,10 +6,11 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:01:12 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/24 11:46:49 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/15 18:13:03 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 #include "echo.h"
 
 void	*ft_echo(void *b_struct)
@@ -28,12 +29,14 @@ void	*ft_echo(void *b_struct)
 	}
 	while (echo->arg[i])
 	{
-		ft_putstr_fd(echo->arg[i], echo->fd);
+		ft_putstr_fd(echo->arg[i], 1);
 		if (echo->arg[i + 1] && echo->arg[i] != NULL)
 			write(echo->fd, " ", 1);
 		i++;
 	}
 	if (flag == 0)
 		write(echo->fd, "\n", 1);
+	if (g_shell->numOfPipes != 0)
+		exit(0);
 	return (0);
 }

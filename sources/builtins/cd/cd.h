@@ -7,6 +7,7 @@
 typedef struct s_cd
 {
 	char	**arg;
+	int		fd;
 }	t_cd;
 
 void	*get_cd();

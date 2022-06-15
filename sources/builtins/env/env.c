@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:52:19 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/05/30 11:03:35 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/15 17:21:42 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	*ft_env(void *b_struct)
 	while (aux)
 	{
 		if (aux->content)
-			ft_putendl_fd(aux->content, env->fd);
+			ft_putendl_fd(aux->content, 1);
 		aux = aux->next;
 	}
 	if (g_shell->numOfPipes != 0)

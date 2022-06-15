@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:13:10 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/14 21:19:10 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/15 17:13:00 by mbarylak         ###   ########.fr       */
 /*   Updated: 2022/06/08 12:12:01 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -93,7 +93,7 @@ void	*ft_cd(void *b_struct)
 	{	
 		ret = cd_aux("OLDPWD", g_shell);
 		if (ret == 0)
-			ft_pwd((int*)1); //puede que esté aquí el fallo.
+			ft_pwd(&cd->fd);
 	}
 	else
 	{
@@ -106,6 +106,6 @@ void	*ft_cd(void *b_struct)
 	if (g_shell->numOfPipes != 0)
 		exit(0);
 	if (ret < 0)
-		return ((void*)(intptr_t)(ret * -1));	// Para acceder al int del return seria "*(int *)"
-	return ((void*)(intptr_t)ret);				// o "(int)(intptr_t)"
+		return ((void*)(intptr_t)(ret * -1));
+	return ((void*)(intptr_t)ret);	
 }
