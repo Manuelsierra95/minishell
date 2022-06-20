@@ -6,11 +6,36 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:54:06 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/14 11:25:50 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/20 20:56:18 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	exit_status(int status)
+{
+
+	if (WIFEXITED(status))
+	{
+		dprintf(2, "sale por fallo de args\n");
+		g_shell->exit_stat = WEXITSTATUS(status);
+	}
+	else if (WIFSIGNALED(status))
+	{	
+		dprintf(2, "sale por señal\n");
+		g_shell->exit_stat = WTERMSIG(status);
+	}
+	else if (WIFSTOPPED(status))
+	{
+		dprintf(2, "sale por parada\n");
+		g_shell->exit_stat = WSTOPSIG(status);
+	}
+	else
+	{
+		dprintf(2, "sale normalmente\n");
+		g_shell->exit_stat = 0;
+	}
+}
 
 int	exe_single_child(t_tree *tree, int fd)
 {
@@ -18,6 +43,7 @@ int	exe_single_child(t_tree *tree, int fd)
  	int		status;
 	t_value	*exec;
 	void	*get_arg;
+	int		ret;
 
 	g_shell->arg = tree->cmd;
 	g_shell->fd[1] = fd;
@@ -35,26 +61,15 @@ int	exe_single_child(t_tree *tree, int fd)
  			return (-1);
  		else if (pid == 0)
  		{	
- 			exe_cmd(tree->cmd, g_shell);
- 			exit(EXIT_FAILURE);
+ 			ret = exe_cmd(tree->cmd, g_shell);
+ 			exit(ret);
  		}
  		else
- 			waitpid(pid, &status, 0);
+		{	
+			waitpid(pid, &status, 0);
+			exit_status(status);
+			dprintf(2, "exit_status: %d\n", g_shell->exit_stat);
+		}
  	}
 	return (0);
 }
-
-// int	exec(t_tree *tree, t_shell *shell)
-// {
-// 	int	ret;
-
-// 	ret = 1;
-// 	if (shell->numOfPipes == 0)
-// 		ret = exe_single_child(tree->cmd, shell, 1);
-// 	else
-// 	{
-// 		ret = exe_pipes(tree, shell);
-// 		shell->numOfPipes = 0;
-// 	}
-// 	0return (ret);
-// }

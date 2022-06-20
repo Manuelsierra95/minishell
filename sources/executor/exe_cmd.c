@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 12:32:24 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/08 13:04:01 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/20 20:56:19 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	print_error(char *cmd, int n, t_shell *shell)
 		ft_putstr_fd(cmd, STDERR_FILENO);
 		ft_putendl_fd(": command not found", STDERR_FILENO);
 		if (shell->numOfPipes != 0)
-			exit(1);
+			exit(127);
 		return (127);
 	}
 	return (0);
