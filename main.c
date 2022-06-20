@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/15 20:51:40 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/20 10:15:17 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 	get_path();
 	while (g_shell->exit == 1)
 	{
-		inpt = readline("minishell> ");
+		inpt = readline(CYAN "minishell> " RESET);
 		add_history(inpt);
 		check_quote_error(inpt);
 		flag = 0;
@@ -87,7 +87,7 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 
 /* Cositas a cambiar 
 
-   Los errores no tienen que sacarte de la minishell, quita los exit que tengas.
-   ./minishell no se ejecuta dentro de la minishell porque salta un error tuyo, esa gestión ya la hago yo.
+   +	Los errores no tienen que sacarte de la minishell, quita los exit que tengas.
+   +	./minishell no se ejecuta dentro de la minishell porque salta un error tuyo, esa gestión ya la hago yo.
 
 */

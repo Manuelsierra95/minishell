@@ -73,7 +73,6 @@ t_token	*lexer(char **input)
 	tokens = malloc(sizeof(t_token));
 	while (input[++i])
 	{
-		// printf("input: %s\n", input[i]);
 		if ((tokens[i - 1].data && tokens[i - 1].type == 1))
 		{
 			if (!ft_strncmp(tokens[i - 1].data, "echo", ft_strlen(tokens[i - 1].data)))//TODO: Falla "echo" con comillas
