@@ -23,7 +23,7 @@ int input_state(char input)
 		state = D_QUOTE;
 	else if (input == S_QUOTE)
 		state = S_QUOTE;
-	else if (ft_isalpha_edit(input))
+	else if (ft_noalpha_edit(input))
 		state = CHAR;
 	else if (s_isspecial(input))
 		state = s_isspecial(input);
@@ -84,7 +84,7 @@ char *input_line(char *input, int state, int *i, int start)
 	if (state == CHAR)
 	{
 		start = x;
-		while (ft_isalpha_edit(input[x]))
+		while (ft_isalpha_edit(input[x]) && input[x])
 			x++;
 		split_input = ft_substr(input, start, x);
 		x--;
@@ -107,6 +107,7 @@ char **split_loop(char *input, char **split_input, int state)
 	{
 		// printf("state complete: %s\n", input);
 		// printf("state: %c\n", input[i]);
+		// printf("input[%d]: %c\n", i, input[i]);
 		if (input[i] == SPACE)
 			i++;
 		state = input_state(input[i]);
@@ -116,6 +117,7 @@ char **split_loop(char *input, char **split_input, int state)
 			if (aux)
 				split_input[g_shell->index++] = aux;
 		}
+		printf("split: %s\n", split_input[g_shell->index - 1]);
 	}
 	split_input[g_shell->index] = NULL;
 	return (split_input);
@@ -128,14 +130,16 @@ int	get_matrix_size(char *input, int state)
 	int		i;
 	char	*aux;
 
-	i = 0;
+	i = -1;
 	start = 0;
 	size = 0;
 	while (input[++i])
 	{
+		// printf("input[%d]: %c\n", i, input[i]);
 		if (input[i] == SPACE)
 			i++;
 		state = input_state(input[i]);
+		// printf("state: %d\n", state);
 		aux = input_line(input, state, &i, start);
 		if (aux)
 			size++;
@@ -151,7 +155,7 @@ char **split_input(char *input) //TODO: free a la matriz
 
 	if (ft_strlen(input) == 0)
 		return (NULL);
-	size = get_matrix_size(input, 0); //Falla a partir de aqui con \n
+	size = get_matrix_size(input, 0);
 	split_input = malloc(sizeof(char *) * (size + 1));
 	split_input = split_loop(input, split_input, 0);
 	return (split_input);

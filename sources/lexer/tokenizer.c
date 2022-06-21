@@ -8,6 +8,7 @@ t_token	token_word(char *input, char *last_data)
 	flag = check_access(input);
 	if ((last_data && input[0] == '-') || get(g_shell->map, input))
 		flag = 1;
+	// printf("input que entra: %s\tflag: %d\n", input, flag);
 	if (flag == 1)
 	{
 		new.type = T_CMD;
@@ -73,6 +74,7 @@ t_token	*lexer(char **input)
 	tokens = malloc(sizeof(t_token));
 	while (input[++i])
 	{
+		// printf("input[%d]: %s\n", i, input[i]);
 		if ((tokens[i - 1].data && tokens[i - 1].type == 1))
 		{
 			if (!ft_strncmp(tokens[i - 1].data, "echo", ft_strlen(tokens[i - 1].data)))//TODO: Falla "echo" con comillas

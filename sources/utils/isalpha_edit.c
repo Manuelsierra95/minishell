@@ -6,11 +6,21 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 13:42:40 by msierra-          #+#    #+#             */
-/*   Updated: 2022/06/14 10:44:47 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/21 17:22:34 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_noalpha_edit(int c)
+{
+	int	a;
+
+	a = 1;
+	if (c == '*' || c == D_QUOTE || c == S_QUOTE || c == ':' || c == ';' || c == '\\')
+		a = 0;
+	return (a);
+}
 
 int	ft_isalpha_edit(int c)
 {

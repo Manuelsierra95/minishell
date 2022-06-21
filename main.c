@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/20 17:58:50 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/21 17:34:31 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,13 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 }
 
 /* Cositas a cambiar 
- 
-   +	./minishell no se ejecuta dentro de la minishell porque salta un error tuyo, esa gestión ya la hago yo.
+
+	-	Free struct manu
+	-	Arreglar echo ."hola" o a"hola" (tiene que salir sin el espacio)
+	-	Cambiar el tokenizado y que sea todo CMD y no WORD
+	-	Arreglar si pones una letra explota!!!
+	-	Meter señales
+	-	Meter estado de salida
+	-	Redirecciones y Heredoc
 
 */

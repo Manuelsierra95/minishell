@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/20 19:47:53 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/21 17:23:18 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s);
 char	**ft_split(const char *s, char c);
 int		ft_isalpha_edit(int c);
+int		ft_noalpha_edit(int c);
 void	*shell_cmds(char **cmd);
 void	shell_loop();
 void	print_env(char **env);
