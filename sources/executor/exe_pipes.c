@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 15:54:42 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/14 11:25:56 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:38:16 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	first_child(t_tree *tree)
 {
 	int	fd[2];
 	int	pid;
-	int	status;
 
 	pipe(fd);
 	pid = fork();
@@ -50,7 +49,6 @@ void	first_child(t_tree *tree)
 		g_shell->oldfd[0] = fd[0];
 		g_shell->oldfd[1] = fd[1];
 		close(fd[1]);
-		waitpid(pid, &status, 0);
 	}
 }
 
@@ -58,7 +56,6 @@ void	middle_child(t_tree *tree)
 {
 	int	fd[2];
 	int	pid;
-	int	status;
 
 	pipe(fd);
 	pid = fork();
@@ -77,7 +74,6 @@ void	middle_child(t_tree *tree)
 		g_shell->oldfd[0] = fd[0];
 		g_shell->oldfd[1] = fd[1];
 		close(fd[1]);
-		waitpid(pid, &status, 0);
 	}
 }
 
@@ -85,7 +81,9 @@ void	last_child(t_tree *tree)
 {
 	int	pid;
 	int	status;
+	int	x;	
 
+	x = 1;
 	pid = fork();
 	if (pid == 0)
 	{
@@ -97,6 +95,8 @@ void	last_child(t_tree *tree)
 	{
 		close(g_shell->oldfd[0]);
 		waitpid(pid, &status, 0);
+		while (x != -1)
+			x = wait(&status);
 	}
 }
 

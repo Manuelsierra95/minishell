@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:54:06 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/20 20:56:18 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/21 14:47:51 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	exe_single_child(t_tree *tree, int fd)
 	{
 		exec = get(g_shell->map, tree->cmd[0]);
 		get_arg = exec->get_arg();
-		exec->function(get_arg);
+		g_shell->exit_stat = (int ) exec->function(get_arg);
 		free(get_arg);
 	}
  	else
@@ -68,8 +68,8 @@ int	exe_single_child(t_tree *tree, int fd)
 		{	
 			waitpid(pid, &status, 0);
 			exit_status(status);
-			dprintf(2, "exit_status: %d\n", g_shell->exit_stat);
 		}
  	}
+	dprintf(2, "exit_status: %d\n", g_shell->exit_stat);
 	return (0);
 }
