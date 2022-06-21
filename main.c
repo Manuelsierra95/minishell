@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/20 17:58:50 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:56:34 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 		g_shell->index = 0;
 		if (ft_strchr(inpt, '$'))
 			flag = 1;
+		//exit(0); Arreglar el split para que no pete por letras o caracteres raros
 		line = split_input(inpt);
 		if (line)
 		{

@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:01:12 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/15 18:35:16 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:27:11 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	*ft_echo(void *b_struct)
 		i++;
 	}
 	if (flag == 0)
-		write(echo->fd, "\n", 1);
+		write(1, "\n", 1);
 	if (g_shell->numOfPipes != 0)
 		exit(0);
 	return (0);
