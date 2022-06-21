@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 15:54:42 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/21 16:38:16 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/21 19:19:26 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	choose_exec(t_tree *tree, int fd)//Quizas no hay falta pasarle la shell
 {
-	t_value		*exec;
-	void		*get_arg;
+	t_value	*exec;
+	void	*get_arg;
 
 	g_shell->arg = tree->cmd;
 	g_shell->fd[1] = fd;
@@ -81,9 +81,9 @@ void	last_child(t_tree *tree)
 {
 	int	pid;
 	int	status;
-	int	x;	
+	int	loop;
 
-	x = 1;
+	loop = 1;
 	pid = fork();
 	if (pid == 0)
 	{
@@ -95,8 +95,9 @@ void	last_child(t_tree *tree)
 	{
 		close(g_shell->oldfd[0]);
 		waitpid(pid, &status, 0);
-		while (x != -1)
-			x = wait(&status);
+		exit_status(status);
+		while (loop != -1)
+			loop = wait(&status);
 	}
 }
 
@@ -110,5 +111,6 @@ int	exe_pipes(t_tree *tree)
 		last_child(tree);
 	else if (tree->pos_cmd == 0)
 		return (0);
+	dprintf(2, "exit_status: %d\n", g_shell->exit_stat);
 	return (0);
 }
