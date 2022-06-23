@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:52:00 by msierra-          #+#    #+#             */
-/*   Updated: 2022/06/11 11:57:55 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/23 20:07:50 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	set_type_redir(int type)
 	if (type == T_GREATER)
 		r_type = REDIR_OUT;
 	else if (type == T_GREATERGREATER)
-		r_type = REDIR_APPEND_OUT;
+		r_type = REDIR_APPEND;
 	else if (type == T_LESSER)
 		r_type = REDIR_IN;
 	else if (type == T_LESSERLESSER)
@@ -74,10 +74,10 @@ t_redir	*get_redir_list(int tok, int index)
 		}
 		else if (tokens[tok].type == T_LESSER ||tokens[tok].type == T_LESSERLESSER)
 		{
-			if (tokens[tok - 1].type == T_TEXT)
-				redir_list = create_redir_node(tokens[tok].type, tokens[tok - 1].data);
+			if (tokens[tok + 1].type == T_TEXT)
+				redir_list = create_redir_node(tokens[tok].type, tokens[tok + 1].data);
 			else
-				mng_errors(NO_FILE_DIR, tokens[tok - 1].data);
+				mng_errors(NO_FILE_DIR, tokens[tok + 1].data);
 		}
 		tok++;
 	}

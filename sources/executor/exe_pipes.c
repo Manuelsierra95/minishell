@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 15:54:42 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/21 19:19:26 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/23 18:56:01 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	choose_exec(t_tree *tree, int fd)//Quizas no hay falta pasarle la shell
 	void	*get_arg;
 
 	g_shell->arg = tree->cmd;
-	g_shell->fd[1] = fd;
+	g_shell->fd[1] = fd; //borrar fd de la struct
 	if (get(g_shell->map, tree->cmd[0]))
 	{
 		exec = get(g_shell->map, tree->cmd[0]);

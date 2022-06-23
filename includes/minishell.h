@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/21 19:01:17 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/23 18:55:49 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,14 @@ int		exe_pipes(t_tree *tree);
 int		exec(t_tree *tree, t_shell *shell);
 int		is_builtin(char *cmd);
 int		exec_builtin(char **cmd, t_shell *shell, int fd);
+void	choose_exec(t_tree *tree, int fd);
 void	add_cmds(char *cmd);
 void	exit_status(int status);
+
+/*	REDIR	*/
+
+int		*check_redir(t_redir *redir);
+void	redir_loop(t_tree *tree);
 
 /* EXPANDER */
 

@@ -6,7 +6,7 @@
 #    By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 14:59:23 by msierra-          #+#    #+#              #
-#    Updated: 2022/06/08 13:20:46 by msierra-         ###   ########.fr        #
+#    Updated: 2022/06/23 18:13:32 by mbarylak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ PARSER 		= 	parser
 ERRORS		=	errors
 EXPANDER 	= 	expander 
 EXEC    	=	exe_cmd exe builtin exe_pipes
+REDIR		= 	redir
 
 SRCS	=	$(addsuffix .c, $(addprefix sources/errors/, $(ERRORS))) 				\
 			$(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) 					\
@@ -44,6 +45,7 @@ SRCS	=	$(addsuffix .c, $(addprefix sources/errors/, $(ERRORS))) 				\
 			$(addsuffix .c, $(addprefix sources/builtins/export/, $(EXPORT)))		\
 			$(addsuffix .c, $(addprefix sources/builtins/pwd/, $(PWD))) 			\
 			$(addsuffix .c, $(addprefix sources/builtins/unset/, $(UNSET))) 		\
+			$(addsuffix .c, $(addprefix sources/redir/, $(REDIR))) 		\
 			main.c
 
 FOLDERS = 	./includes/ ./libft/ ./sources/interface/ ./sources/interface/map_builder/ 	\

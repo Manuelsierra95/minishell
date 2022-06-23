@@ -7,7 +7,7 @@ void inorden(t_tree *tree)
 		if (tree->n_type != N_PIPE)
 		{
 			if (g_shell->numOfPipes == 0)
-				exe_single_child(tree, 1);
+				redir_loop(tree);
 			else
 				exe_pipes(tree);
 		}

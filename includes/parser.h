@@ -6,7 +6,7 @@
 enum redir_type
 {
 	REDIR_OUT = 1,
-	REDIR_APPEND_OUT,
+	REDIR_APPEND,
 	REDIR_IN,
 	REDIR_HEREDOC,
 };
