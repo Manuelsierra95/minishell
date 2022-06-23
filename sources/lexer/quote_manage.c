@@ -49,7 +49,7 @@ char	*take_off_quotes(char *input)
 	return (no_quotes_input);
 }
 
-void	check_quote_error(char *input)
+int	check_quote_error(char *input)
 {
 	int	state;
 	int	i;
@@ -61,14 +61,21 @@ void	check_quote_error(char *input)
 		if (state == D_QUOTE || state == S_QUOTE)
 		{
 			if ((state == D_QUOTE || state == S_QUOTE) && (int)ft_strlen(input) == i + 1)
+			{
 				mng_errors(QUOTE_ERROR, NULL);
+				return (0);
+			}
 			while (input[++i])
 			{
 				if (input[i] == state)
 					break ;
 				if (i == (int)ft_strlen(input) - 1)
+				{
 					mng_errors(QUOTE_ERROR, NULL);
+					return (0);
+				}
 			}
 		}
 	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/21 18:38:14 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/23 17:31:32 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 {
 	char	*inpt;
 	char	**line;
-	int		flag;
 
 	(void) argc;
 	(void) argv;
@@ -57,29 +56,28 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 	{
 		inpt = readline("minishell> ");
 		add_history(inpt);
-		check_quote_error(inpt);
-		flag = 0;
 		g_shell->numOfArgs = 0;
 		g_shell->numOfPipes = 0;
 		g_shell->index = 0;
-		if (ft_strchr(inpt, '$'))
-			flag = 1;
 		//exit(0); Arreglar el split para que no pete por letras o caracteres raros
-		line = split_input(inpt);
-		if (line)
+		if (check_quote_error(inpt))
 		{
-			g_shell->tokens = lexer(line);
-			if (!check_for_errors(g_shell->tokens))
+			line = split_input(inpt);
+			if (line)
 			{
-				if (flag == 1)
-					g_shell->tokens = expander(g_shell->tokens);
-				g_shell->tree = create_tree();
-				shell_loop();
+				g_shell->tokens = lexer(line);
+				if (!check_for_errors(g_shell->tokens))
+				{
+					if (ft_strchr(inpt, '$'))
+						g_shell->tokens = expander(g_shell->tokens);
+					g_shell->tree = create_tree();
+					shell_loop();
+				}
+			// free_matrix(line);
+			// free(g_shell->tokens);
+				// while (index < g_shell->numOfArgs)
+				// int index = 0;
 			}
-		// free_matrix(line);
-		// free(g_shell->tokens);
-			// while (index < g_shell->numOfArgs)
-			// int index = 0;
 		}
 	}
 	clean_map(g_shell->map);
@@ -89,7 +87,7 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 /* Cositas a cambiar 
 
 	-	Free struct manu
-	-	Arreglar echo ."hola" o a"hola" (tiene que salir sin el espacio)
+	+	Arreglar echo ."hola" o a"hola" (tiene que salir sin el espacio)
 	-	Cambiar el tokenizado y que sea todo CMD y no WORD
 	-	Arreglar si pones una letra explota!!!
 	-	Meter señales

@@ -45,5 +45,4 @@ int		check_quotes(char *input);
 int		count_quotes(char *input);
 int		input_state(char input);
 
-void	check_quote_error(char *input);
 #endif

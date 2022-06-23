@@ -73,10 +73,25 @@ char *input_line3(char *input, int state, int *i, int start)
 	return (split_input);
 }
 
+char	*join_quote_word(char *split_input, char *input, int *x)
+{
+	int		y;
+	int		start;
+	char	*aux;
+
+	y = *x + 1;
+	start = y;
+	while (ft_noalpha_edit(input[y]) && input[y])
+		y++;
+	aux = ft_strjoin(split_input, ft_substr(input, start, y));
+	*x = y;
+	return (aux);
+}
+
 char *input_line(char *input, int state, int *i, int start)
 {
-	char *split_input;
-	int	x;
+	char 	*split_input;
+	int		x;
 
 	x = *i;
 	if (s_isspecial(input[x]))
@@ -84,9 +99,19 @@ char *input_line(char *input, int state, int *i, int start)
 	if (state == CHAR)
 	{
 		start = x;
-		while (ft_isalpha_edit(input[x]) && input[x])
+		while (ft_noalpha_edit(input[x]) && input[x])
 			x++;
 		split_input = ft_substr(input, start, x);
+		while (1)
+		{
+			// printf("Anterior input[%d]: %c\n", x - 1, input[x - 1]);
+			// printf("input[%d]: %c\n", x, input[x]);
+			if (input[x] == D_QUOTE || input[x] == S_QUOTE)
+				split_input = join_quote_word(split_input, input, &x);
+			else
+				break ;
+		}
+		// printf("split_input: %s\n", split_input);
 		x--;
 	}
 	if (state != 0 && (state == D_QUOTE || state == S_QUOTE))
@@ -105,9 +130,6 @@ char **split_loop(char *input, char **split_input, int state)
 	start = 0;
 	while (input[++i])
 	{
-		// printf("state complete: %s\n", input);
-		// printf("state: %c\n", input[i]);
-		// printf("input[%d]: %c\n", i, input[i]);
 		if (input[i] == SPACE)
 			i++;
 		state = input_state(input[i]);
@@ -117,7 +139,6 @@ char **split_loop(char *input, char **split_input, int state)
 			if (aux)
 				split_input[g_shell->index++] = aux;
 		}
-		printf("split: %s\n", split_input[g_shell->index - 1]);
 	}
 	split_input[g_shell->index] = NULL;
 	return (split_input);

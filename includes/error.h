@@ -10,6 +10,7 @@ enum error_flag
 };
 
 void	mng_errors(int flag, char *data);
-int	check_for_errors(t_token *tokens);
+int		check_for_errors(t_token *tokens);
+int		check_quote_error(char *input);
 
 #endif

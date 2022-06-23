@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 13:42:40 by msierra-          #+#    #+#             */
-/*   Updated: 2022/06/21 18:38:20 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/23 16:01:44 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	ft_noalpha_edit(int c)
 	int	a;
 
 	a = 1;
-	if (c == '*' || c == D_QUOTE || c == S_QUOTE || c == ':' || c == ';' || c == '\\')
+	if (c == '*' || c == D_QUOTE || c == S_QUOTE || c == ':' 
+		|| c == ';' || c == '\\' || c == SPACE)
 		a = 0;
 	return (a);
 }
