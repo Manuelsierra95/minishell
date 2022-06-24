@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:00:27 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/21 17:23:18 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/24 15:09:24 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int		exec(t_tree *tree, t_shell *shell);
 int		is_builtin(char *cmd);
 int		exec_builtin(char **cmd, t_shell *shell, int fd);
 void	add_cmds(char *cmd);
+void	exit_status(int status);
 
 /* EXPANDER */
 

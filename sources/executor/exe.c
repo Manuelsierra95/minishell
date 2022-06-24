@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:54:06 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/21 14:47:51 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/24 15:13:01 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,14 @@ void	exit_status(int status)
 {
 
 	if (WIFEXITED(status))
-	{
-		dprintf(2, "sale por fallo de args\n");
 		g_shell->exit_stat = WEXITSTATUS(status);
-	}
 	else if (WIFSIGNALED(status))
-	{	
-		dprintf(2, "sale por señal\n");
 		g_shell->exit_stat = WTERMSIG(status);
-	}
 	else if (WIFSTOPPED(status))
-	{
-		dprintf(2, "sale por parada\n");
 		g_shell->exit_stat = WSTOPSIG(status);
-	}
 	else
-	{
-		dprintf(2, "sale normalmente\n");
 		g_shell->exit_stat = 0;
-	}
+	dprintf(2, "exit_status: %d\n", g_shell->exit_stat);
 }
 
 int	exe_single_child(t_tree *tree, int fd)
@@ -70,6 +59,5 @@ int	exe_single_child(t_tree *tree, int fd)
 			exit_status(status);
 		}
  	}
-	dprintf(2, "exit_status: %d\n", g_shell->exit_stat);
 	return (0);
 }

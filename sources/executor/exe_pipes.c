@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 15:54:42 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/21 16:38:16 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/24 15:13:03 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	last_child(t_tree *tree)
 	{
 		close(g_shell->oldfd[0]);
 		waitpid(pid, &status, 0);
+		exit_status(status);
 		while (x != -1)
 			x = wait(&status);
 	}
