@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 17:05:20 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/23 20:07:48 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/24 15:01:32 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	*check_redir(t_redir *redir)
 	fd = malloc(2 * sizeof (int));
 	fd[0] = 0;
 	fd[1] = 1;
+	dprintf(2, "me meto\n");
 	if (redir->r_type == REDIR_OUT)
 		fd[1] = open(redir->value, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	else if (redir->r_type == REDIR_IN)
@@ -40,7 +41,8 @@ void	redir_loop(t_tree *tree)
 	std_fd[0] = dup(STDIN_FILENO);
 	std_fd[1] = dup(STDOUT_FILENO);
 	if (a_redir)
-	{	
+	{
+		dprintf(2, "valor %s\n", a_redir->value);
 		while (a_redir->next)
 		{
 			check_redir(a_redir);
