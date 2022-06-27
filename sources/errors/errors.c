@@ -27,9 +27,6 @@ int	check_for_errors(t_token *tokens)// Pensar bien el tema de errores!!!
 		// 	flag = NO_FILE_DIR;
 		if (tokens[0].type == T_PIPE)
 			flag = PIPE_UNEXPECTED;
-		else if (tokens[0].type == T_GREATER || tokens[0].type == T_GREATERGREATER
-				|| tokens[0].type == T_LESSER || tokens[0].type == T_LESSERLESSER)
-			flag = GREAT_LESSER_UNEXPECTED;
 		index++;
 	}
 	if (flag != 0)
