@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:52:00 by msierra-          #+#    #+#             */
-/*   Updated: 2022/06/11 11:57:55 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/27 13:02:11 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	set_type_redir(int type)
 	return (r_type);
 }
 
-t_redir	*create_redir_node(int type, char *value)
+t_redir	*add_redir_node(int type, char *value)
 {
 	t_redir	*new;
 
@@ -56,28 +56,35 @@ t_redir	*create_redir_node(int type, char *value)
 	return (new);
 }
 
-t_redir	*get_redir_list(int tok, int index)
+void	create_redir_node(t_redir **redir_list, int type, char *value)
+{
+	// printf("type: %d\tvalue: %s\n", type, value);
+	if (*redir_list)
+	{
+		while ((*redir_list)->next)
+			*redir_list = (*redir_list)->next;
+		(*redir_list)->next = add_redir_node(type, value);
+	}
+	else
+		*redir_list = add_redir_node(type, value);
+}
+
+t_redir	**get_redir_list(int tok, int index)
 {
 	t_token	*tokens;
-	t_redir	*redir_list;
+	t_redir	**redir_list;
 
 	tokens = g_shell->tokens;
-	redir_list = NULL;
+	redir_list = malloc(sizeof(t_redir*));;
 	while (tok < index)
 	{
-		if (tokens[tok].type == T_GREATER || tokens[tok].type == T_GREATERGREATER)
+		if (tokens[tok].type == T_GREATER || tokens[tok].type == T_GREATERGREATER 
+			|| tokens[tok].type == T_LESSER ||tokens[tok].type == T_LESSERLESSER)
 		{
 			if (tokens[tok + 1].type == T_TEXT)
-				redir_list = create_redir_node(tokens[tok].type, tokens[tok + 1].data);
+				create_redir_node(redir_list, tokens[tok].type, tokens[tok + 1].data);
 			else
 				mng_errors(NO_FILE_DIR, tokens[tok + 1].data);
-		}
-		else if (tokens[tok].type == T_LESSER ||tokens[tok].type == T_LESSERLESSER)
-		{
-			if (tokens[tok - 1].type == T_TEXT)
-				redir_list = create_redir_node(tokens[tok].type, tokens[tok - 1].data);
-			else
-				mng_errors(NO_FILE_DIR, tokens[tok - 1].data);
 		}
 		tok++;
 	}
@@ -106,7 +113,7 @@ char	**t_cmd(int tok, int index)
 	return (cmd);
 }
 
-t_tree	*create_node(char **cmd, int n_type, int pos_cmd, t_redir *l_redir)
+t_tree	*create_node(char **cmd, int n_type, int pos_cmd, t_redir **l_redir)
 {
 	t_tree	*new;
 
@@ -122,7 +129,7 @@ t_tree	*create_node(char **cmd, int n_type, int pos_cmd, t_redir *l_redir)
 	return (new);
 }
 
-void	add_node_pipe(t_tree *tree, char **cmd, int pos_cmd, t_redir *l_redir)
+void	add_node_pipe(t_tree *tree, char **cmd, int pos_cmd, t_redir **l_redir)
 {
 	if (tree->right)
 		add_node_pipe(tree->right, cmd, pos_cmd, l_redir);
@@ -130,7 +137,7 @@ void	add_node_pipe(t_tree *tree, char **cmd, int pos_cmd, t_redir *l_redir)
 		tree->right = create_node(NULL, N_PIPE, pos_cmd, l_redir);
 }
 
-void	add_node_cmd(t_tree *tree, char **cmd, int pos_cmd, t_redir *l_redir)
+void	add_node_cmd(t_tree *tree, char **cmd, int pos_cmd, t_redir **l_redir)
 {
 	if (tree->left)
 		add_node_cmd(tree->left, cmd, pos_cmd, l_redir);

@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:54:06 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/24 15:13:01 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/06/27 11:09:24 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	exe_single_child(t_tree *tree, int fd)
 	{
 		exec = get(g_shell->map, tree->cmd[0]);
 		get_arg = exec->get_arg();
-		g_shell->exit_stat = (int ) exec->function(get_arg);
+		g_shell->exit_stat = (int)(intptr_t)exec->function(get_arg); //Tienes que castearlo asi
 		free(get_arg);
 	}
  	else

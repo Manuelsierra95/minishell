@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/23 17:31:32 by msierra-         ###   ########.fr       */
+/*   Updated: 2022/06/27 11:25:01 by msierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 		g_shell->numOfArgs = 0;
 		g_shell->numOfPipes = 0;
 		g_shell->index = 0;
-		//exit(0); Arreglar el split para que no pete por letras o caracteres raros
 		if (check_quote_error(inpt))
 		{
 			line = split_input(inpt);
@@ -70,6 +69,7 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 				{
 					if (ft_strchr(inpt, '$'))
 						g_shell->tokens = expander(g_shell->tokens);
+					write(1, "llega\n", 6);
 					g_shell->tree = create_tree();
 					shell_loop();
 				}

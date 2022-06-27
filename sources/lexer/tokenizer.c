@@ -51,6 +51,7 @@ t_token	new_token(char *input, char *last_data)
 {
 	t_token	new;
 
+	// printf("input: %s\n", input);
 	if (ft_isalpha_edit(input[0]) || input[0] == D_QUOTE || input[0] == S_QUOTE
 		|| input[0] == SPACE)
 		new = (token_word(input, last_data));

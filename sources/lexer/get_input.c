@@ -94,9 +94,10 @@ char *input_line(char *input, int state, int *i, int start)
 	int		x;
 
 	x = *i;
+	split_input = NULL;
 	if (s_isspecial(input[x]))
 		split_input = input_line2(input, &x);
-	if (state == CHAR)
+	else if (state == CHAR)
 	{
 		start = x;
 		while (ft_noalpha_edit(input[x]) && input[x])
@@ -111,10 +112,9 @@ char *input_line(char *input, int state, int *i, int start)
 			else
 				break ;
 		}
-		// printf("split_input: %s\n", split_input);
 		x--;
 	}
-	if (state != 0 && (state == D_QUOTE || state == S_QUOTE))
+	else if (state != 0 && (state == D_QUOTE || state == S_QUOTE))
 		split_input = input_line3(input, state, &x, start);
 	*i = x;
 	return (split_input);
