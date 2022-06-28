@@ -24,8 +24,7 @@ static void	print_error(int n, char *err, t_shell *shell)
 	else if (n == 1)
 	{
 		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
-		ft_putstr_fd(err, STDERR_FILENO);
-		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
+		perror(err);
 	}
 	if (shell->numOfPipes != 0)
 		exit(1);
@@ -61,23 +60,20 @@ static int	update_env(char *s, t_shell *shell)
 
 static int	cd_aux(char *s, t_shell *shell)
 {
-	int		ret;
 	char	*path;
 
 	path = ft_getenv(s, shell->env);
 	if (!path)
 	{
-		ret = 1;
 		print_error(0, s, shell);
-		return (ret);
+		return (1);
 	}
 	update_env("OLDPWD=", shell);
-	ret = chdir(path);
-	if (ret == -1)
+	if (chdir(path) == -1)
 		print_error(1, path, shell);
 	update_env("PWD=", shell);
 	ft_memdel(path);
-	return (ret);
+	return (0);
 }
 
 void	*ft_cd(void *b_struct)

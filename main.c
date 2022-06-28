@@ -69,7 +69,7 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 				{
 					if (ft_strchr(inpt, '$'))
 						g_shell->tokens = expander(g_shell->tokens);
-					write(1, "llega\n", 6);
+					//write(1, "llega\n", 6);
 					g_shell->tree = create_tree();
 					shell_loop();
 				}

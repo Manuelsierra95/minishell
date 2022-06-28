@@ -14,16 +14,14 @@
 
 void	exit_status(int status)
 {
-
 	if (WIFEXITED(status))
 		g_shell->exit_stat = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		g_shell->exit_stat = WTERMSIG(status);
+		g_shell->exit_stat = 128 + WTERMSIG(status);
 	else if (WIFSTOPPED(status))
-		g_shell->exit_stat = WSTOPSIG(status);
+		g_shell->exit_stat = 128 + WSTOPSIG(status);
 	else
 		g_shell->exit_stat = 0;
-	dprintf(2, "exit_status: %d\n", g_shell->exit_stat);
 }
 
 int	exe_single_child(t_tree *tree, int fd)
@@ -40,7 +38,7 @@ int	exe_single_child(t_tree *tree, int fd)
 	{
 		exec = get(g_shell->map, tree->cmd[0]);
 		get_arg = exec->get_arg();
-		g_shell->exit_stat = (int)(intptr_t)exec->function(get_arg); //Tienes que castearlo asi
+		g_shell->exit_stat = (int)(intptr_t)exec->function(get_arg); 
 		free(get_arg);
 	}
  	else
@@ -59,5 +57,6 @@ int	exe_single_child(t_tree *tree, int fd)
 			exit_status(status);
 		}
  	}
+	//dprintf(2, "exit_status: %d\n", g_shell->exit_stat);
 	return (0);
 }

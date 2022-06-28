@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	choose_exec(t_tree *tree, int fd)//Quizas no hay falta pasarle la shell
+void	choose_exec(t_tree *tree, int fd)
 {
 	t_value		*exec;
 	void		*get_arg;
@@ -98,6 +98,7 @@ void	last_child(t_tree *tree)
 		exit_status(status);
 		while (x != -1)
 			x = wait(&status);
+	//	dprintf(2, "exit_status: %d\n", g_shell->exit_stat);
 	}
 }
 

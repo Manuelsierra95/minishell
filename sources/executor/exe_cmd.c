@@ -19,8 +19,8 @@ static int	print_error(char *cmd, int n, t_shell *shell)
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		perror(cmd);
 		if (shell->numOfPipes != 0)
-			exit(1);
-		return (errno);
+			exit(126);
+		return (126);
 	}
 	else if (n == 1)
 	{
