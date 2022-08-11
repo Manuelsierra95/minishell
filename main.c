@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:58:13 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/21 16:56:34 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/08/11 20:16:42 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,6 @@ int	main(int argc, char **argv, char **env)//TODO: Cambiar campos de los getters
 
 /* Cositas a cambiar 
  
-   +	./minishell no se ejecuta dentro de la minishell porque salta un error tuyo, esa gestión ya la hago yo.
+   minishell da segfault cuando ejecutas "<a cat"
 
 */

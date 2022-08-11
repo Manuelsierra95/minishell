@@ -6,13 +6,13 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 15:54:42 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/23 18:56:01 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/08/11 20:02:51 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	choose_exec(t_tree *tree, int fd)//Quizas no hay falta pasarle la shell
+void	choose_exec(t_tree *tree, int fd)
 {
 	t_value	*exec;
 	void	*get_arg;
@@ -111,6 +111,5 @@ int	exe_pipes(t_tree *tree)
 		last_child(tree);
 	else if (tree->pos_cmd == 0)
 		return (0);
-	dprintf(2, "exit_status: %d\n", g_shell->exit_stat);
 	return (0);
 }

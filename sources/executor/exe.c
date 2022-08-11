@@ -6,7 +6,7 @@
 /*   By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:54:06 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/06/23 18:46:06 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/08/11 20:00:06 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,5 @@ int	exe_single_child(t_tree *tree, int fd)
 			exit_status(status);
 		}
 	}
-	dprintf(2, "exit_status: %d\n", g_shell->exit_stat);
 	return (0);
 }
