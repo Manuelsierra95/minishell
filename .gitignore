@@ -1,0 +1,26 @@
+# Ignore object files, libraries, and executables
+*.o
+*.a
+*.so
+*.exe
+
+# Ignore build directories
+/build/
+/bin/
+/obj/
+
+# Ignore editor and IDE files
+*.swp
+*.swo
+*.bak
+*.tmp
+*.log
+*.idea/
+*.vscode/
+
+# Ignore macOS specific files
+.DS_Store
+
+# Ignore compiled files
+*.out
+*.dSYM/
