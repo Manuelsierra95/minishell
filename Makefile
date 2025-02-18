@@ -6,14 +6,14 @@
 #    By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 14:59:23 by msierra-          #+#    #+#              #
-#    Updated: 2025/02/18 13:45:02 by msierra-         ###   ########.fr        #
+#    Updated: 2025/02/18 13:51:07 by msierra-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= 	minishell
 LIBFT_NAME  =	libft.a
 
-FOLDERS = 	./libft/
+FOLDERS = 	./libft/ ./include/
 
 INCLUDE_HEADERS = $(addprefix -I, $(FOLDERS))
 
