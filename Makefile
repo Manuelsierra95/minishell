@@ -6,22 +6,25 @@
 #    By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 14:59:23 by msierra-          #+#    #+#              #
-#    Updated: 2025/02/18 13:51:07 by msierra-         ###   ########.fr        #
+#    Updated: 2025/02/19 18:59:15 by msierra-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= 	minishell
 LIBFT_NAME  =	libft.a
 
-FOLDERS = 	./libft/ ./include/
-
-INCLUDE_HEADERS = $(addprefix -I, $(FOLDERS))
-
 GREEN = \033[1;32m
 BLUE = \033[1;36m
 RESET = \033[0m
 
-SRCS	= main.c
+FOLDERS = 	./libft/ ./include/ ./src/utils
+
+INCLUDE_HEADERS = $(addprefix -I, $(FOLDERS))
+
+UTILS = init_shell
+
+SRCS	= $(addsuffix .c, $(addprefix src/utils/, $(UTILS))) 				\
+				main.c
 
 OBJS	= ${SRCS:.c=.o}
 
