@@ -2,6 +2,9 @@
 # define MINISHELL_H
 
 # include "utils.h"
+# include "lexer.h"
+# include "parser.h"
+# include "executor.h"
 
 # include "libft.h"
 # include <stdio.h>

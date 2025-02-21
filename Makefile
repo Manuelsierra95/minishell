@@ -6,7 +6,7 @@
 #    By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 14:59:23 by msierra-          #+#    #+#              #
-#    Updated: 2025/02/19 18:59:15 by msierra-         ###   ########.fr        #
+#    Updated: 2025/02/21 20:54:01 by msierra-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,13 +17,19 @@ GREEN = \033[1;32m
 BLUE = \033[1;36m
 RESET = \033[0m
 
-FOLDERS = 	./libft/ ./include/ ./src/utils
+FOLDERS = 	./libft/ ./include/ ./src/utils ./src/lexer ./src/parser ./src/executor
 
 INCLUDE_HEADERS = $(addprefix -I, $(FOLDERS))
 
 UTILS = init_shell
+LEXER = index tokenizer
+PARSER = index parse_pipeline
+EXECUTOR = index
 
 SRCS	= $(addsuffix .c, $(addprefix src/utils/, $(UTILS))) 				\
+				$(addsuffix .c, $(addprefix src/lexer/, $(LEXER))) 				\
+				$(addsuffix .c, $(addprefix src/parser/, $(PARSER))) 				\
+				$(addsuffix .c, $(addprefix src/executor/, $(EXECUTOR))) 				\
 				main.c
 
 OBJS	= ${SRCS:.c=.o}

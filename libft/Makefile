@@ -6,7 +6,7 @@
 #    By: msierra- <msierra-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/13 16:37:19 by msierra-          #+#    #+#              #
-#    Updated: 2025/02/18 13:17:44 by msierra-         ###   ########.fr        #
+#    Updated: 2025/02/20 20:55:16 by msierra-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c 					\
 	 ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c 				\
 	 ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_itoa.c ft_putchar_fd.c 		\
 	 ft_strnstr.c ft_memmove.c ft_isascii.c ft_strjoin.c ft_memdel.c ft_strcmp.c	\
-	 ft_strchr_jump.c																\
+	 ft_strchr_jump.c ft_strtok.c													\
 
 OBJ = $(SRC:.c=.o)
 
